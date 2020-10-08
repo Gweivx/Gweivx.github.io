@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    
+    <title>
+        近日使用socket编程时的笔记 | 鸟类朋友的乐园
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script id="hexo-configurations">
+    let CONFIG = {"hostname":"example.com","root":"/","localsearch":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"themeInfo":{"name":"ILS","version":"2.0.2","author":"XPoet","repository":"https://github.com/XPoet/hexo-theme-ils"},"path":"search.json"};
+  </script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+<div class="page-container">
+
+    <header class="page-header">
+        <div class="header-progress"></div>
+    </header>
+
+    <main class="page-main">
+
+        <div class="page-main-content">
+
+            <div class="page-main-content-top">
+                <header class="header-wrapper">
+
+    <div class="header-content">
+
+        <a class="logo-title" href="/">
+            鸟类朋友的乐园
+        </a>
+
+        <ul class="menu-list">
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/"
+                    >
+                        首页
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/archives"
+                    >
+                        归档
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/links"
+                    >
+                        友链
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/about"
+                    >
+                        关于
+                    </a>
+                </li>
+            
+        </ul>
+
+        <div class="menu-bar">
+            <div class="menu-bar-middle"></div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+            </div>
+
+            <div class="page-main-content-middle">
+
+                <main class="main-content normal-code-theme">
+
+                    
+                        <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <h3><a class="title-hover-animation">近日使用socket编程时的笔记</a></h3>
+        </div>
+
+        <div class="meta-info">
+            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa fa-calendar-o"></i> 2020-10-08 09:41:22
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/socket/">socket</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+    
+        <span class="article-wordcount article-meta-item">
+        <i class="fa fa-book"></i> <span>672 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+        <i class="fa fa-clock-o"></i> <span>2 分钟</span>
+        </span>
+    
+</div>
+
+        </div>
+
+        <div class="article-content markdown-body">
+            <h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
+<li>在主机字节序与网络字节序中转换</li>
+</ul>
+<p>x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。</p>
+<p><code>htonl()</code>和<code>htons()</code>等函数将主机字节序转换为网络字节序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">servaddr.sin_port = htons(SERV_PORT);<span class="comment">//自定义端口号</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串类型的IP地址和二进制类型</li>
+</ul>
+<p>通常需要将命令行中输入的点分十进制ip地址转换为二进制类型的地址，或者将二进制类型的地址转换为点分十进制ip地址并输出显示。</p>
+<p>函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">char</span>* src, <span class="keyword">void</span>* dst)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_ntop</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">void</span>* src, <span class="keyword">char</span>* dst, <span class="keyword">socklen_t</span> cnt)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>将命令行输入的地址存入字符串，使用<code>inet_pton()</code>处理。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="bzero-和memset"><a href="#bzero-和memset" class="headerlink" title="bzero()和memset()"></a>bzero()和memset()</h3><p>有时需要执行清0操作。</p>
+<ul>
+<li><code>bzero()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bzero</span><span class="params">(<span class="keyword">void</span> *s, <span class="keyword">int</span> n)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将s所指内存的前n个字节清0</p>
+<p><code>bzero()</code>只有2个参数，它不是ANSI C函数，其起源于早期的Berkeley网络编程代码，但是几乎所有支持套接字API的厂商都提供该函数。</p>
+<ul>
+<li><code>memset()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *buffer, <span class="keyword">int</span> c, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将buffer所指内存的前count个字节设为c</p>
+<p><code>memset()</code>除清0外还能设其他值，但在第2和3个参数互换位置时，编译器不能发现。它是ANSI C函数，更常规、用途更广。</p>
+<p>如果只想清0，则用<code>bzero()</code>更方便。在设置Internet socket地址前，先将其所有字节清零。因为<code>struct sockaddr_in</code>中有8个填充字节，清0避免异常。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用INADDR-ANY作为ip地址"><a href="#使用INADDR-ANY作为ip地址" class="headerlink" title="使用INADDR_ANY作为ip地址"></a>使用INADDR_ANY作为ip地址</h3><p>在为udp服务器程序设置ip地址时，使用INADDR_ANY做ip。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br></pre></td></tr></table></figure>
+
+<p>winsock中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INADDR_ANY              (ULONG)0x00000000</span></span><br></pre></td></tr></table></figure>
+
+<p>INADDR_ANY即表示0.0.0.0，也就是“任意地址”、“所有地址”，在这里表示本机的所有IP。</p>
+<p>有些主机的网卡数量不止一块，如果某套接字只绑定某一特定的ip，那么它就只能监听此ip地址所对应的网卡端口。如果想同时监听多个物理端口，则需要写3个套接字，较为繁琐。</p>
+<p>而绑定0.0.0.0时，只需要管理1个套接字，此时无论数据从哪一网卡端口进入，都可以收到。因此使用INADDR_ANY作为ip，减少管理开销。</p>
+
+        </div>
+
+        <div class="article-nav">
+            
+            
+                <div class="article-next">
+                    <a class="next btn"
+                       rel="next"
+                       href="/2020/10/04/diary20201004/"
+                    >
+                        <span class="post-nav-title-item">与长辈们关于升学的交流</span><span class="post-nav-item">下一篇</span> <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+
+        <div class="comment-container">
+            <div class="comments-container">
+    
+</div>
+        </div>
+    </div>
+</div>
+
+
+                    
+
+                </main>
+
+            </div>
+
+            <div class="page-main-content-bottom">
+                <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy; 2020 <i class="fa fa-heart-o"></i> <a href="/">guoyuran</a>
+        </div>
+        
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" style="display: none">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" style="display: none">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a
+                    href="https://github.com/XPoet/hexo-theme-ils" target="_blank">ILS v2.0.2</a>
+        </div>
+    </div>
+</footer>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="sidebar-tools">
+        <div class="tools-container">
+    <ul class="tools-list">
+        
+            <li class="search popup-trigger">
+                <i class="fa fa-search"></i>
+            </li>
+            
+<script src="/js/local-search.js"></script>
+
+        
+        <li class="mode-toggle">
+            <i class="fa fa-moon-o"></i>
+        </li>
+        
+        <li class="page-aside-toggle">
+            <i class="fa fa-bars"></i>
+        </li>
+        
+            <li class="scroll-to-top">
+                <i class="fa fa-caret-up"></i>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- page aside -->
+    <aside class="page-aside">
+        
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li></ol>
+    </div>
+</div>
+        
+    </aside>
+
+</div>
+
+
+
+    <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-icon">
+            <i class="fa fa-search"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/main.js"></script>
+<script src="/js/header-shrink.js"></script>
+<script src="/js/toggle-mode.js"></script>
+
+
+
+    
+<script src="/js/scroll-to-top.js"></script>
+
+
+
+
+
+    
+        
+<script src="/js/code-copy.js"></script>
+
+    
+
+    
+        
+<script src="/lib/anime.min.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/post-toc.js"></script>
+
+    
+
+
+
+</body>
+</html>
