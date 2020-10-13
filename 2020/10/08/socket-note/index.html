@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     
     <title>
-        近日使用socket编程时的笔记 | 鸟类朋友的乐园
+        socket编程作业笔记 | 鸟类朋友的乐园
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -122,7 +122,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <h3><a class="title-hover-animation">近日使用socket编程时的笔记</a></h3>
+            <h3><a class="title-hover-animation">socket编程作业笔记</a></h3>
         </div>
 
         <div class="meta-info">
@@ -154,12 +154,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-        <i class="fa fa-book"></i> <span>672 字</span>
+        <i class="fa fa-book"></i> <span>891 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-        <i class="fa fa-clock-o"></i> <span>2 分钟</span>
+        <i class="fa fa-clock-o"></i> <span>3 分钟</span>
         </span>
     
 </div>
@@ -167,7 +167,8 @@
         </div>
 
         <div class="article-content markdown-body">
-            <h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
+            <p>Ubuntu16.04 下 C/C++，通过socket编程实现server与client间通信时遇到的问题。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
 <li>在主机字节序与网络字节序中转换</li>
 </ul>
 <p>x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。</p>
@@ -211,6 +212,15 @@
 <p>INADDR_ANY即表示0.0.0.0，也就是“任意地址”、“所有地址”，在这里表示本机的所有IP。</p>
 <p>有些主机的网卡数量不止一块，如果某套接字只绑定某一特定的ip，那么它就只能监听此ip地址所对应的网卡端口。如果想同时监听多个物理端口，则需要写3个套接字，较为繁琐。</p>
 <p>而绑定0.0.0.0时，只需要管理1个套接字，此时无论数据从哪一网卡端口进入，都可以收到。因此使用INADDR_ANY作为ip，减少管理开销。</p>
+<h3 id="初步使用线程"><a href="#初步使用线程" class="headerlink" title="初步使用线程"></a>初步使用线程</h3><p>无论是server还是client，收信和发信都要同步进行，因而需要使用至少2个线程。</p>
+<p>以client为例，创建一个收信线程和一个发信线程。截取部分代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::thread <span class="title">t1</span><span class="params">(<span class="built_in">std</span>::bind(&amp;ClientSession::readThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t1.detach();</span><br><span class="line"><span class="function"><span class="built_in">std</span>::thread <span class="title">t2</span><span class="params">(<span class="built_in">std</span>::bind(&amp;ClientSession::writeThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t2.join();</span><br></pre></td></tr></table></figure>
+
+<p><code>t2.join();</code>的目的是让当前主线程等待所有的子线程执行完，才执行主线程能后续语句</p>
+<p><code>t1.detach();</code>的目的是让子线程脱离主线程，二者独立运行。</p>
+<p>以上代码在创建线程时调用了类内的函数，因而比较繁琐。一般而言，创建线程只需</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">std</span>::thread <span class="title">t</span><span class="params">(func)</span></span>;<span class="comment">//func是该线程执行的函数名</span></span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -308,7 +318,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">初步使用线程</span></a></li></ol>
     </div>
 </div>
         
