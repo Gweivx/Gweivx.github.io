@@ -154,12 +154,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-        <i class="fa fa-book"></i> <span>891 字</span>
+        <i class="fa fa-book"></i> <span>1.6k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-        <i class="fa fa-clock-o"></i> <span>3 分钟</span>
+        <i class="fa fa-clock-o"></i> <span>7 分钟</span>
         </span>
     
 </div>
@@ -221,10 +221,58 @@
 <p>以上代码在创建线程时调用了类内的函数，因而比较繁琐。一般而言，创建线程只需</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">std</span>::thread <span class="title">t</span><span class="params">(func)</span></span>;<span class="comment">//func是该线程执行的函数名</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="学画流程图"><a href="#学画流程图" class="headerlink" title="学画流程图"></a>学画流程图</h3><p>撰写实验报告时需要画流程图,用markdown画</p>
+<ul>
+<li>client主进程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">init&#x3D;&gt;operation: 初始化</span><br><span class="line">login&#x3D;&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait&#x3D;&gt;condition: 读写子线程是否结束</span><br><span class="line">ed&#x3D;&gt;end: 结束</span><br><span class="line">ed2&#x3D;&gt;end</span><br><span class="line">ed3&#x3D;&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">init&#x3D;&gt;operation: 初始化</span><br><span class="line">login&#x3D;&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait&#x3D;&gt;condition: 读写子线程是否结束</span><br><span class="line">ed&#x3D;&gt;end: 结束</span><br><span class="line">ed2&#x3D;&gt;end</span><br><span class="line">ed3&#x3D;&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>收数据子线程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 收数据线程开始</span><br><span class="line">t&#x3D;&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed&#x3D;&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 收数据线程开始</span><br><span class="line">t&#x3D;&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed&#x3D;&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>读数据子线程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 读数据线程开始</span><br><span class="line">t&#x3D;&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed&#x3D;&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 读数据线程开始</span><br><span class="line">t&#x3D;&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed&#x3D;&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>server进程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">init&#x3D;&gt;operation: 初始化</span><br><span class="line">login&#x3D;&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit&#x3D;&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed&#x3D;&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">init&#x3D;&gt;operation: 初始化</span><br><span class="line">login&#x3D;&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit&#x3D;&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed&#x3D;&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<h3 id="学画时序图"><a href="#学画时序图" class="headerlink" title="学画时序图"></a>学画时序图</h3><p>撰写实验报告时需要画时序图,用markdown画</p>
+<ul>
+<li>实验所用收发数据时序图</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#39;m PC1.</span><br><span class="line">server-&gt;PC2: I&#39;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#39;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#39;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#39;m PC1.</span><br><span class="line">server-&gt;PC2: I&#39;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#39;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#39;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
         <div class="article-nav">
+            
+                <div class="article-prev">
+                    <a class="prev btn"
+                       rel="prev"
+                       href="/2020/10/19/aoe3-SwedenTest1/"
+                    >
+                        <i class="fa fa-chevron-left"></i> <span class="post-nav-title-item">帝国时代3瑞典农舍测试等</span><span class="post-nav-item">上一篇</span>
+                    </a>
+                </div>
             
             
                 <div class="article-next">
@@ -318,7 +366,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">初步使用线程</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">初步使用线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">学画流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E7%94%BB%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-number">6.</span> <span class="nav-text">学画时序图</span></a></li></ol>
     </div>
 </div>
         
