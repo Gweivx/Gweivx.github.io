@@ -154,12 +154,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-        <i class="fa fa-book"></i> <span>1.5k 字</span>
+        <i class="fa fa-book"></i> <span>2.1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-        <i class="fa fa-clock-o"></i> <span>5 分钟</span>
+        <i class="fa fa-clock-o"></i> <span>7 分钟</span>
         </span>
     
 </div>
@@ -200,6 +200,20 @@
 </ul>
 </li>
 </ul>
+<h3 id="1-29-Fri"><a href="#1-29-Fri" class="headerlink" title="1/29 Fri"></a>1/29 Fri</h3><ul>
+<li>概念<ul>
+<li>解决对容器概念的一些疑问</li>
+<li>容器技术能解决的问题</li>
+<li>对Serverless的初步了解、特点</li>
+<li>无服务器计算与传统的区别</li>
+</ul>
+</li>
+<li>OS<ul>
+<li>BIOS的功能</li>
+<li>了解OS的启动过程，POST和MBR</li>
+</ul>
+</li>
+</ul>
 <h1 id="详记"><a href="#详记" class="headerlink" title="详记"></a>详记</h1><h2 id="第0周-1"><a href="#第0周-1" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-28-Thu-1"><a href="#1-28-Thu-1" class="headerlink" title="1/28 Thu"></a>1/28 Thu</h3><h4 id="git"><a href="#git" class="headerlink" title="git"></a>git</h4><p>接着昨天学习完了git的一些常用命令。了解了分枝的使用方法和原理，主要可以用于：在新建的分枝上开发完善后再合并到主分枝。比如用master分枝存放稳定版本的代码，在dev分枝上做修改，具体修改时还可创建其他分枝。同时使用stash和branch可以在不影响其他代码的情况下修改bug。</p>
 <p>多人合作时，git可以跟踪自己和别人对代码的更改。两人同时对一个分枝作业时，若A先push，那么B需要pull，merge并处理冲突，然后才能push。</p>
 <p>使用tag可以对commit进行标记，用<code>.gitignore</code>可以忽略不需要管理的文件。</p>
@@ -215,12 +229,31 @@
 <h4 id="其他思考"><a href="#其他思考" class="headerlink" title="其他思考"></a>其他思考</h4><p>多人同时对一个对象进行作业，而互补干扰，git使用了分枝。就像是先产生了多个”平行世界“，最后收束于一个世界一样。也许“先展，后收”的思想方法可以用在其他地方。</p>
 <p>使用类似于”指针“的东西对各分枝管理，在前进或后退版本时不需要复制大量的变更信息。</p>
 <p>云计算带来的底层能力的提升，可以带动上层技术的发展。在开发应用时，也可以考虑其本身运行的环境（本地主机还是云服务器上？是容器中还是VM上？）</p>
+<h3 id="1-29-Fri-1"><a href="#1-29-Fri-1" class="headerlink" title="1/29 Fri"></a>1/29 Fri</h3><h4 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h4><p>BIOS的功能：</p>
+<ul>
+<li>系统启动配置</li>
+<li>提供设备的I/O服务</li>
+<li>系统加电自检Power On Self-Test</li>
+<li>引导系统启动</li>
+</ul>
+<p>上电后：</p>
+<ol>
+<li>进行POST，初始化各硬件</li>
+<li>从硬盘/光驱/……读入OS，OS接管计算机。</li>
+<li>首先读取的是承载OS的实体的<code>首扇区</code>，存有<code>Main Boot Record</code>。MBR中有OS启动相关的内容。MBR会进行查找活动分区等，将分区引导记录加载到内存</li>
+<li>PBR继续控制后面的引导过程</li>
+</ol>
+<h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>容器考虑了应用开发后部署环境的问题。将应用和它所需的库、依赖等打包成镜像。将镜像放到容器中就可以运行而不需考虑运行环境，十分便捷。这有利于应用的开发、测试、部署和维护。也能很容易地迁移服务。</p>
+<p>使用容器技术后，容器相互隔离，应用互不干扰，服务器上的资源能够得到更充分的利用。容器能快速启动和关闭，还能动态扩容缩容等。适合业务需求随时间变化量大的服务。</p>
+<p>Serverless中，用户甚至不许要打包镜像，只需要提交代码就能运行。应用开发方只用关注业务逻辑，可以忽略底层的基础设施以及其他辅助组件。比如不需要关心负载均衡、服务发现、安全监控、服务部署和维护等各方面的问题。</p>
+<p>明天学习了解Serverless的基本实现原理和一些陌生概念。</p>
+<h4 id="其他想法"><a href="#其他想法" class="headerlink" title="其他想法"></a>其他想法</h4><p>为了更方便地进行软件应用生命周期的各个部分，从VM到容器，云服务的效率在不断提高，软件应用的开发部署也更加方便简单。我感觉容器本身就是解耦和聚合的体现。而Serverless似乎是更进一步，把更多与业务逻辑无关但必要功能直接做在了云服务中，不需要用户关心。</p>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>待上传，大概一周补一次</p>
 <ul>
 <li>git</li>
 <li>概念</li>
 </ul>
-<h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p>把不懂的概念理一理，用自己的话说一遍</p>
+<h2 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h2><p>把不懂的概念理一理，用自己的话说一遍</p>
 <h4 id="容器概念"><a href="#容器概念" class="headerlink" title="容器概念"></a>容器概念</h4><p>将应用与其运行环境（如依赖等）打包，称为“镜像”。将镜像放到“容器”中就能运行，无需再考虑它所在的环境。</p>
 <p>优点：</p>
 <ul>
@@ -375,7 +408,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">简记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8"><span class="nav-number">2.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-27-Wed"><span class="nav-number">2.1.1.</span> <span class="nav-text">1&#x2F;27 Wed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu"><span class="nav-number">2.1.2.</span> <span class="nav-text">1&#x2F;28 Thu</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">详记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">1&#x2F;28 Thu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%80%9D%E8%80%83"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">其他思考</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">容器概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%9B%9E%E9%A1%BE%E6%95%B4%E7%90%86%E4%BA%91%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">重新回顾整理云计算概念</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">简记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8"><span class="nav-number">2.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-27-Wed"><span class="nav-number">2.1.1.</span> <span class="nav-text">1&#x2F;27 Wed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu"><span class="nav-number">2.1.2.</span> <span class="nav-text">1&#x2F;28 Thu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri"><span class="nav-number">2.1.3.</span> <span class="nav-text">1&#x2F;29 Fri</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">详记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">1&#x2F;28 Thu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%80%9D%E8%80%83"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">其他思考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">1&#x2F;29 Fri</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OS"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%83%B3%E6%B3%95"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">其他想法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">容器概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%9B%9E%E9%A1%BE%E6%95%B4%E7%90%86%E4%BA%91%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">重新回顾整理云计算概念</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
         
