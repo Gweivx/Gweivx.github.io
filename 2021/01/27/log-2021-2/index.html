@@ -154,12 +154,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-        <i class="fa fa-book"></i> <span>5.7k 字</span>
+        <i class="fa fa-book"></i> <span>7.2k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-        <i class="fa fa-clock-o"></i> <span>19 分钟</span>
+        <i class="fa fa-clock-o"></i> <span>25 分钟</span>
         </span>
     
 </div>
@@ -263,6 +263,16 @@
 </ul>
 </li>
 </ul>
+<h3 id="2-2-Tue"><a href="#2-2-Tue" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p>serverless相关</p>
+<ul>
+<li>函数计算的输入、输出</li>
+<li>事件驱动/触发<ul>
+<li>什么事事件驱动</li>
+<li>相关术语</li>
+<li>cloudevent规范</li>
+</ul>
+</li>
+</ul>
 <h1 id="详记"><a href="#详记" class="headerlink" title="详记"></a>详记</h1><h2 id="第0周-1"><a href="#第0周-1" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-28-Thu-1"><a href="#1-28-Thu-1" class="headerlink" title="1/28 Thu -"></a>1/28 Thu -</h3><p><strong>git</strong></p>
 <p>接着昨天学习完了git的一些常用命令。了解了分枝的使用方法和原理，主要可以用于：在新建的分枝上开发完善后再合并到主分枝。比如用master分枝存放稳定版本的代码，在dev分枝上做修改，具体修改时还可创建其他分枝。同时使用stash和branch可以在不影响其他代码的情况下修改bug。</p>
 <p>多人合作时，git可以跟踪自己和别人对代码的更改。两人同时对一个分枝作业时，若A先push，那么B需要pull，merge并处理冲突，然后才能push。</p>
@@ -337,6 +347,10 @@
 <p>Linux提供了大量文本文件处理命令，把stdin/stdout也管理成文件，并充分利用了重定向和管道。可以将不同命令的输入输出和文件关联起来。</p>
 <p><strong>其他想法</strong></p>
 <p>微服务是从应用开发的架构，Serverless是云服务提供的架构。二者可以相互融合。Serverless本身也使用到了容器，用容器来管理函数，本身来讲也可以看做是容器技术在服务提供方面的新发展。</p>
+<h3 id="2-2-Tue-1"><a href="#2-2-Tue-1" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p><strong>serverless相关</strong></p>
+<p>函数的输入要求包含事件数据、元数据和上下文。函数的输出可以由结构化和非结构化两种形式。</p>
+<p>事件驱动编程是一种编程范式。当有触发时，向消息/事件队列中添加一个事件，会有一个循环从队列中取出队列，并执行相应的函数。</p>
+<p>CNCF的CloudEvent规范对事件数据在格式上做了一定的要求。</p>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>待上传，大概一周补一次</p>
 <ul>
 <li>git</li>
@@ -541,6 +555,87 @@
 <blockquote>
 <p>Serverless比传统的IaaS或者PaaS更加具有分布式的特点。应用的部署和运维可以交给服务提供方实现，但是测试不行。而开发方自己在本地构建高分布式的测试环境又十分的困难。</p>
 </blockquote>
+<h3 id="Serverless与一些其他架构的关系"><a href="#Serverless与一些其他架构的关系" class="headerlink" title="Serverless与一些其他架构的关系"></a>Serverless与一些其他架构的关系</h3><p>发展初期,许多serverless是以kubernetes为基础的，k8s是做什么的？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a>, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
+<p>It groups containers that make up an application into logical units for easy management and discovery. </p>
+<p>k8s是一个容器编排引擎，自动化部署、可伸缩，管理容器化应用。我们可以用k8s创建一组容器，k8s会帮助我们对这些容器进行管理和发现等。</p>
+</blockquote>
+<p>函数计算,或FaaS是什么?它有什么特点</p>
+<blockquote>
+<p>在无状态容器中运行的<strong>事件驱动型</strong>计算执行模型,利用服务来管理服务器端逻辑和状态。</p>
+<p>以函数的形式构建、运行和管理应用包。</p>
+<p>编写业务逻辑后，部署到云服务商管理的容器中（只需提交代码，不需要自己打包？），由云服务器自动管理，按需执行。</p>
+<p>FaaS基础架构通过<strong>事件驱动模型</strong>进行，随时待命，但不需要有后台进程一直运行，很容易进行扩展。</p>
+<p>为了实现这些优势，带来一些限制（比如使用单次调用的时间）。需要做到函数的<strong>快速启动和运行</strong>。</p>
+</blockquote>
+<p>FaaS和Serverless的关系？</p>
+<blockquote>
+<p>可以使用FaaS实现Serverless的一部分，Serverless除了FaaS实现的自定义函数逻辑外，还能包括了通用的服务（各种组件）。</p>
+<p>使用FaaS时，开发者仍需要自己开发服务器端逻辑，只不过是运行在由云服务商管理的容器中。</p>
+<p>Serverless中，也是提交到代码到容器运行，但是可能就不需要编写服务器端逻辑了，可以由Serverless中实现的BaaS的那一部分来实现。（个人理解）</p>
+<p>FaaS商业化产品:</p>
+<ul>
+<li>AWS lambda</li>
+<li>Google Cloud Function</li>
+<li>Microsoft Azure Cloud Functions</li>
+<li>IBM Cloud Functions</li>
+<li>……</li>
+</ul>
+</blockquote>
+<p>微服务与Serverless的关系？</p>
+<blockquote>
+<p>我的理解，微服务是应用软件的体系架构，Serverless是提供云服务的架构。</p>
+<p>传统微服务和传统应用架构，只要可以容器化、合适于动态扩展和状态管理（无状态、寿命短、对冷启动不敏感、请求流量密度随时间变化不均匀，不可预知），就可以使用Serverless。</p>
+</blockquote>
+<p>BaaS在Serverless中有哪些用途？</p>
+<blockquote>
+<p>BaaS提供了和业务逻辑无关的服务。比如认证、监控、访问数据库等。也就是后端的逻辑。</p>
+<p>应用开发者可以通过整合第三方 BaaS 产品的完整组件来进一步简化应用开发。 </p>
+</blockquote>
+<p>配置、维护、扩展服务器等基础架构工作。云提供商负责管理云基础架构和应用扩展。</p>
+<p>将代码打包到容器。</p>
+<p>部署后，有事件驱动时才运行代码（容器），可以根据需要自动扩容缩容。</p>
+<p>函数计算的输入包括事件数据和元数据，上下文</p>
+<blockquote>
+<p>不同事件可能有不通的元数据。事件可以包括单个记录（请求/响应模型），也可以是多个记录或微批处理（流模式）。</p>
+<p>事件/记录特定元数据的示例</p>
+<ul>
+<li>HTTP：path、method、header、查询参数</li>
+<li>消息队列：topic、header</li>
+<li>记录流（record stream）：表、键、操作、修改事件、旧字段、新字段</li>
+</ul>
+<hr>
+<p>调用函数时，可能希望访问平台资源或常规属性。</p>
+<p>上下文（context）可以是一组输入属性、环境变量或全局变量。比如：函数名称、版本、ARN、内存限制、请求ID、环境变量、日志、令牌、……</p>
+</blockquote>
+<p>函数会有如何的输出</p>
+<blockquote>
+<p>函数输出可以是结构化的（如http响应对象)或非结构化的（如某些输出字符串）</p>
+<p>通过返回值或其他方式的函数退出知道该函数调用是否成功</p>
+<ul>
+<li>将返回值给调用方（例如，HTTP请求/响应）</li>
+<li>将结果传递到工作流中的下一阶段执行</li>
+<li>输出写入日志</li>
+</ul>
+</blockquote>
+<h3 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h3><p>事件驱动是什么？</p>
+<blockquote>
+<p>事件驱动编程事一种编程范式。程序的执行流由外部事件决定。有一个事件循环，外部事件发生时，使用回调机制来触发相应的处理。</p>
+<p>有一个事件队列，当外部触发一个事件时，向队列中增加一个事件。有一个循环不断从队列取出事件，根据事件调用相应函数。事件一般都保存了自己的处理函数指针，每个事件都有独立的处理函数。</p>
+<p>个人理解，事件队列中的事件应该可以交互，所以事件驱动程序的耦合性较高。</p>
+</blockquote>
+<p>事件数据规范CloudEvent</p>
+<blockquote>
+<p>CloudEvent是以通用格式描述事件数据的规范，提供跨服务、平台和系统的互操作性。提升可移植性和开发效率。</p>
+<p>事件的格式有一定的规则要求。必须要支持JSON格式。也有大小的限制</p>
+<p>有一些必要的属性：id: String、source: URI-reference、specversion: String、type: String</p>
+<p>还有一些是可选的，比如：datacontenttype： String、dataschema：URI、subject：String、time：Timestamp</p>
+<p>使用Json序列化CloudEvent的示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;specversion&quot;</span> : <span class="string">&quot;1.0-rc1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span> : <span class="string">&quot;com.github.pull.create&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;source&quot;</span> : <span class="string">&quot;https://github.com/cloudevents/spec/pull&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;subject&quot;</span> : <span class="string">&quot;123&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span> : <span class="string">&quot;A234-1234-1234&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;time&quot;</span> : <span class="string">&quot;2018-04-05T17:31:00Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleextension1&quot;</span> : <span class="string">&quot;value&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleothervalue&quot;</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">&quot;datacontenttype&quot;</span> : <span class="string">&quot;text/xml&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span> : <span class="string">&quot;&lt;much wow=\&quot;xml\&quot;/&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
 <p>程序代码部署在平台上，通过事件驱动的方法触发对函数的调用。</p>
 <p>什么是事件驱动？事件触发</p>
 <blockquote>
@@ -548,8 +643,6 @@
 </blockquote>
 <p>待解决的概念:</p>
 <ul>
-<li>BaaS</li>
-<li>FaaS</li>
 <li>函数计算</li>
 <li>消息中间件</li>
 </ul>
@@ -650,7 +743,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">简记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8"><span class="nav-number">2.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-27-Wed"><span class="nav-number">2.1.1.</span> <span class="nav-text">1&#x2F;27 Wed -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu"><span class="nav-number">2.1.2.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri"><span class="nav-number">2.1.3.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-30-Sat-%E2%80%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">1&#x2F;30 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun"><span class="nav-number">2.1.5.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8"><span class="nav-number">2.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">2-1 Mon –</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">详记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-39-Sat-%E2%80%93"><span class="nav-number">3.1.3.</span> <span class="nav-text">1&#x2F;39 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun-1"><span class="nav-number">3.1.4.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8-1"><span class="nav-number">3.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">2-1 Mon –</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%9B%9E%E9%A1%BE%E6%95%B4%E7%90%86%E4%BA%91%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.1.</span> <span class="nav-text">重新回顾整理云计算概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.2.</span> <span class="nav-text">容器概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serverless%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.3.</span> <span class="nav-text">Serverless相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">优点中的几个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">缺点中的几个</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">简记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8"><span class="nav-number">2.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-27-Wed"><span class="nav-number">2.1.1.</span> <span class="nav-text">1&#x2F;27 Wed -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu"><span class="nav-number">2.1.2.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri"><span class="nav-number">2.1.3.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-30-Sat-%E2%80%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">1&#x2F;30 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun"><span class="nav-number">2.1.5.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8"><span class="nav-number">2.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">2-1 Mon –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Tue"><span class="nav-number">2.2.2.</span> <span class="nav-text">2&#x2F;2 Tue -</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">详记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-39-Sat-%E2%80%93"><span class="nav-number">3.1.3.</span> <span class="nav-text">1&#x2F;39 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun-1"><span class="nav-number">3.1.4.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8-1"><span class="nav-number">3.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">2-1 Mon –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Tue-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">2&#x2F;2 Tue -</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%9B%9E%E9%A1%BE%E6%95%B4%E7%90%86%E4%BA%91%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.1.</span> <span class="nav-text">重新回顾整理云计算概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.2.</span> <span class="nav-text">容器概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serverless%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.3.</span> <span class="nav-text">Serverless相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">优点中的几个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">缺点中的几个</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serverless%E4%B8%8E%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E6%9E%B6%E6%9E%84%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.1.4.</span> <span class="nav-text">Serverless与一些其他架构的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">4.1.5.</span> <span class="nav-text">事件驱动</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         
