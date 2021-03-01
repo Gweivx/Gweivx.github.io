@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    
+    <title>
+        日志-2021-3 | 鸟类朋友的乐园
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script id="hexo-configurations">
+    let CONFIG = {"hostname":"example.com","root":"/","localsearch":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"themeInfo":{"name":"ILS","version":"2.0.2","author":"XPoet","repository":"https://github.com/XPoet/hexo-theme-ils"},"path":"search.json"};
+  </script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+<div class="page-container">
+
+    <header class="page-header">
+        <div class="header-progress"></div>
+    </header>
+
+    <main class="page-main">
+
+        <div class="page-main-content">
+
+            <div class="page-main-content-top">
+                <header class="header-wrapper">
+
+    <div class="header-content">
+
+        <a class="logo-title" href="/">
+            鸟类朋友的乐园
+        </a>
+
+        <ul class="menu-list">
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/"
+                    >
+                        首页
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/archives"
+                    >
+                        归档
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/links"
+                    >
+                        友链
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class=""
+                       href="/about"
+                    >
+                        关于
+                    </a>
+                </li>
+            
+        </ul>
+
+        <div class="menu-bar">
+            <div class="menu-bar-middle"></div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+            </div>
+
+            <div class="page-main-content-middle">
+
+                <main class="main-content normal-code-theme">
+
+                    
+                        <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <h3><a class="title-hover-animation">日志-2021-3</a></h3>
+        </div>
+
+        <div class="meta-info">
+            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa fa-calendar-o"></i> 2021-02-24 18:36:51
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%97%A5%E8%AE%B0/">日记</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">学习记录</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+    
+        <span class="article-wordcount article-meta-item">
+        <i class="fa fa-book"></i> <span>1.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+        <i class="fa fa-clock-o"></i> <span>4 分钟</span>
+        </span>
+    
+</div>
+
+        </div>
+
+        <div class="article-content markdown-body">
+            <h2 id="2月第3周"><a href="#2月第3周" class="headerlink" title="2月第3周"></a>2月第3周</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>学习了C语言中整型的表示与运算。</p>
+<p>有无符号和有符号两种，其中有符号类型使用二进制补码存储。相同的n位二进制数用无符号和补码解释可能有完全不同的结果，取值范围也不同。要特别注意参数传递时类型匹配的问题，以及隐式类型转换。</p>
+<p>无符号运算和补码运算可以使用相同的算术规则，算术运算超出范围时也会产生有规律的溢出。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程的状态大致可分为ready、running、block/wait。进程的信息存储在PCB中，此数据结构中包含描述程序此次运行时的各种信息。</p>
+<p>进程控制包含了进程的创建、撤销、阻塞、唤醒。这些控制都有各自的步骤。原语则是由若干指令构成的具有特定功能的函数，为最小单位不可在分割。以上4个操作对应进程控制的4个原语。父进程可以创建子进程，构成进程树，也可以在一定情况下终止子进程。</p>
+<p>进程的切换/上下文切换。context是程序运行的环境，如CPU内各个寄存器的值。</p>
+<p>进程调度可以分为长调度/作业调度和短调度/CPU调度。长调度需要组合I/O型进程和CPU型进程。另外还有中程调度，缓解内存紧张的问题，它将内存中处于阻塞状态的进程换到外存上挂起。进程调度队列有作业队列、就绪队列、设备队列等。</p>
+<p>进程间通信可以通过共享存储区或消息传递的方式实现。消息传递时可以直接传递或间接传递。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>进程的控制开销大，为了提高并发度和减小系统开销，引入线程。用更小的开销提高进程内的并发程度。作为CPU的调度单位。线程进一步提高系统并发的程度。</p>
+<p>线程只拥有必不可少的资源，如线程状态和上下文。同个进程的各个线程共享资源。</p>
+<p>一个进程中的多个线程可以并发执行。线程在创建、撤销的开销更小，线程调度切换上下文的开销更小。同进程的各个线程之间共享数据段，不需要IPC。系统资源利用率更高，资源可以共享、开销更小、适合多处理器结构。</p>
+<p>内核级线程在内核空间创建、调度和管理，确实是cpu调度的基本单位。用户级线程由线程库管理，无需内核支持，此时进程仍是CPU调度的单位。</p>
+<p>多线程模型中的多对多模型不限制应用的线程数、多个线程可以并发，不会因为一个线程阻塞而阻塞整个所有线程。此外两极模型除了允许多对多，也允许一对一。</p>
+<h3 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h3><p>CPU空闲时，OS选择内存就绪队列中某就绪进程，给它分配CPU。提高CPU利用率。</p>
+<p>进程状态切换时（有4种情况）可能会发生CPU调度。CPU调度的方案可分为非抢占式和抢占式。非抢占方式不允许其他进程抢占已分配的处理机，系统开销小但不适合实时、分时系统。抢占式根据调度原则，停止某个正在执行的进程，将处理机分配给另一个进程，抢占原则主要有：时间片原则、优先权原则、短作业优先原则。</p>
+<blockquote>
+<p>FCFS按照作业到达就绪队列的先后次序选择作业，是非抢占方式、有利于长作业和CPU型进程，有护航效应。</p>
+<p>SJF根据估计的每个进程下次运行的CPU脉冲长度，调度最短的进程。有最短的平均等待时间，可抢占也可非抢占。它吞吐量高、但实现（估计时间）困难，并且存在饥饿现象。</p>
+<p>优先级算法根据进程的优先级进行调度。SJF就是它的一个特例。有静态优先权和动态优先权。动态优先权随着进程推进而改变，以便获得更好调度性能，改变的因素有：进程等待时间、已使用处理机的时间、资源使用情况。</p>
+<p>RR主要用于分时系统，多个用户/进程共享同一台主机。OS为它们分配时间片，时间片用完后插入就绪队列尾。RR相比于SJF平均周转时间较长，响应时间短。时间片长度较大时类似FCFS，较短时上下文切换开销变大。</p>
+<p>多级队列，一个进程处于一个固定的队列，每个队列有自己的调度规则，队列间也需要调度。多级队列间的调度可以有固定优先级调度或时间片轮转调度等。</p>
+<p>多级反馈队列调度，多个就绪队列优先级不同，优先级越高时间片越小。进程在队列间移动，进程执行完一个时间片后被抢占，进入低一级的就绪队列。进程从阻塞变为就绪时要提高优先级，I/O型进程会留在较高优先级的队列。每个队列有自己的调度算法，要有决定进程改变队列、进程升降级的规则。</p>
+</blockquote>
+
+        </div>
+
+        <div class="article-nav">
+            
+            
+                <div class="article-next">
+                    <a class="next btn"
+                       rel="next"
+                       href="/2021/01/27/log-2021-2/"
+                    >
+                        <span class="post-nav-title-item">日志-2021-2</span><span class="post-nav-item">下一篇</span> <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            
+        </div>
+
+        <div class="comment-container">
+            <div class="comments-container">
+    
+</div>
+        </div>
+    </div>
+</div>
+
+
+                    
+
+                </main>
+
+            </div>
+
+            <div class="page-main-content-bottom">
+                <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy; 2021 <i class="fa fa-heart-o"></i> <a href="/">guoyuran</a>
+        </div>
+        
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" style="display: none">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" style="display: none">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a
+                    href="https://github.com/XPoet/hexo-theme-ils" target="_blank">ILS v2.0.2</a>
+        </div>
+    </div>
+</footer>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="sidebar-tools">
+        <div class="tools-container">
+    <ul class="tools-list">
+        
+            <li class="search popup-trigger">
+                <i class="fa fa-search"></i>
+            </li>
+            
+<script src="/js/local-search.js"></script>
+
+        
+        <li class="mode-toggle">
+            <i class="fa fa-moon-o"></i>
+        </li>
+        
+        <li class="page-aside-toggle">
+            <i class="fa fa-bars"></i>
+        </li>
+        
+            <li class="scroll-to-top">
+                <i class="fa fa-caret-up"></i>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- page aside -->
+    <aside class="page-aside">
+        
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E6%9C%88%E7%AC%AC3%E5%91%A8"><span class="nav-number">1.</span> <span class="nav-text">2月第3周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E8%B0%83%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">CPU调度</span></a></li></ol></li></ol>
+    </div>
+</div>
+        
+    </aside>
+
+</div>
+
+
+
+    <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-icon">
+            <i class="fa fa-search"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/main.js"></script>
+<script src="/js/header-shrink.js"></script>
+<script src="/js/toggle-mode.js"></script>
+
+
+
+    
+<script src="/js/scroll-to-top.js"></script>
+
+
+
+
+
+    
+        
+<script src="/js/code-copy.js"></script>
+
+    
+
+    
+        
+<script src="/lib/anime.min.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/post-toc.js"></script>
+
+    
+
+
+
+</body>
+</html>
