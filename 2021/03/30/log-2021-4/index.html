@@ -154,12 +154,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-        <i class="fa fa-book"></i> <span>2.3k 字</span>
+        <i class="fa fa-book"></i> <span>3.2k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-        <i class="fa fa-clock-o"></i> <span>8 分钟</span>
+        <i class="fa fa-clock-o"></i> <span>11 分钟</span>
         </span>
     
 </div>
@@ -266,8 +266,29 @@
 <p>筛选文件中的重复行（相邻且相同的行）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> uniq -u temp <span class="comment">#保留没重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -d temp <span class="comment">#保留有重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -c temp <span class="comment">#计数重复的行出现了几次</span></span></span><br></pre></td></tr></table></figure>
 
+<h2 id="4月第2周"><a href="#4月第2周" class="headerlink" title="4月第2周"></a>4月第2周</h2><h3 id="文件内容对比"><a href="#文件内容对比" class="headerlink" title="文件内容对比"></a>文件内容对比</h3><p>逐字节比较两文件cmp</p>
+<p>md5dum/sha1sum比较hash值是否相同，用于验证完整性</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> md5sum ht3.c &gt; myf.sum</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi myf.sum <span class="comment"># 修改</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> md5sum -c myf.sum</span></span><br><span class="line">ht3.c: FAILED</span><br><span class="line">md5sum: WARNING: 1 computed checksum did NOT match</span><br></pre></td></tr></table></figure>
 
+<p>求出两文件差别diff</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> diff file1 file2 <span class="comment"># </span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> diff -u file1 file2 <span class="comment"># unified格式</span></span></span><br></pre></td></tr></table></figure>
 
+<h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><h4 id="总"><a href="#总" class="headerlink" title="总"></a>总</h4><p>关系模型三要素：基本结构（关系/表）、基本操作（关系运算）、完整性约束。一个关系就是一个table，关系模型是处理表的。关系运算包括：关系代数、关系演算（元组演算和域演算）。关系代数是基于集合的运算，元组演算是基于逻辑的运算，域演算是基于示例的运算。</p>
+<h4 id="什么是关系"><a href="#什么是关系" class="headerlink" title="什么是关系"></a>什么是关系</h4><p>域：列的取值范围，时候一组值的取值范围，有相同的数据类型。集合中元素个数为域的基数cardinality。</p>
+<p>笛卡尔积：所有可能组合成的元组的集合。元组(d1, d2, …, dn)是从每一个域任取一个值形成的一种组合，笛卡尔积是所有这种可能组合的集合。笛卡尔积中的每个元素(d1, d2, …, dn)被称为一个n-tuple。</p>
+<p>关系：笛卡尔积中具有某种意义的元组的集合，是笛卡尔积的子集。关系的不同列可能来自同一个域，为了区分每列，取一个名字，属性名。属性值来自某一个域。关系中属性的数目为“度”或“目”，关系中元组的数目为关系的“基数”。关系中属性名一般为属性的类型和长度，如char(8)。</p>
+<p>关系模式和关系。关系模式是关系的结构，关系是关系模式在某一时刻的数据。关系模式稳定，关系是时变的。</p>
+<h4 id="关系的特性"><a href="#关系的特性" class="headerlink" title="关系的特性"></a>关系的特性</h4><p>列示同质的，每一列来自同一域，是同一类型的。</p>
+<p>不同的列可能来自同一域。行位置可以互换，列位置可以互换。区分不同的列、行不靠位置，靠名字、值。</p>
+<p>关系的任意两个元组不能完全相同，而table不一定遵守该规则。</p>
+<p>关系的第一范式：属性不可再分。不能存在复合属性、对应多个值的属性。</p>
+<h4 id="候选码与外码"><a href="#候选码与外码" class="headerlink" title="候选码与外码"></a>候选码与外码</h4><p>候选码Candidate Key：关系中的一个属性组，可以唯一标识一个元组。关系中可能有多个候选码，要选一个作为主键/主码，DBMS以主键为主要线索管理关系中的各个元组，主码比候选码更严格。</p>
+<p>主属性：包含在任何一个候选码中的属性。全码All-Key，所有属性构成这个关系的勾选码。</p>
+<p>外码Foreign Key：关系R中一个属性组，不是R的候选码，但它与另一个关系S的候选码相对应，则称该属性组为R的外码。两个关系通常靠外码连接起来。</p>
+<h4 id="完整性"><a href="#完整性" class="headerlink" title="完整性"></a>完整性</h4><p>实体完整性，关系的主码的属性值不能为空。主码是能唯一区分元组的属性组。空值会影响运算，要特殊处理。可以设默认值。</p>
+<p>参照完整性，对外码而言，(1)为空值；(2)非空，但必须是另一表中的做主码的某个值。这保证了两个关系之间连接的正确性，关系数据的一致性。</p>
+<p>自定义完整性，用户自定义的约束性。如值的取值范围。</p>
+<p>DBMS中，前二者由结构保证，自定义完整性在定以后，DBMS会检查相关操作的正确性。</p>
 
         </div>
 
@@ -365,7 +386,7 @@
         
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E6%9C%88%E7%AC%AC1%E5%91%A8"><span class="nav-number">1.</span> <span class="nav-text">4月第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">数据库系统学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.初步认识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84%E5%92%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 标准结构和数据模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.2.</span> <span class="nav-text">Linux命令学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 读取文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E5%BC%8F%E6%A6%82%E5%BF%B5%E5%92%8C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 正则式概念和相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A1%8C%E7%AD%9B%E9%80%89%E5%99%A8grep%EF%BC%8C%E6%B5%81%E7%BC%96%E8%BE%91sed%EF%BC%8C%E8%A1%8C%E7%AD%9B%E9%80%89awk"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 行筛选器grep，流编辑sed，行筛选awk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%EF%BC%88%E9%99%84%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 读取文件内容（附）</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E6%9C%88%E7%AC%AC1%E5%91%A8"><span class="nav-number">1.</span> <span class="nav-text">4月第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">数据库系统学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.初步认识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84%E5%92%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 标准结构和数据模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.2.</span> <span class="nav-text">Linux命令学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 读取文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E5%BC%8F%E6%A6%82%E5%BF%B5%E5%92%8C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 正则式概念和相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A1%8C%E7%AD%9B%E9%80%89%E5%99%A8grep%EF%BC%8C%E6%B5%81%E7%BC%96%E8%BE%91sed%EF%BC%8C%E8%A1%8C%E7%AD%9B%E9%80%89awk"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 行筛选器grep，流编辑sed，行筛选awk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%EF%BC%88%E9%99%84%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 读取文件内容（附）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E6%9C%88%E7%AC%AC2%E5%91%A8"><span class="nav-number">2.</span> <span class="nav-text">4月第2周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.</span> <span class="nav-text">文件内容对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">总</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.2.</span> <span class="nav-text">什么是关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.3.</span> <span class="nav-text">关系的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%99%E9%80%89%E7%A0%81%E4%B8%8E%E5%A4%96%E7%A0%81"><span class="nav-number">2.2.4.</span> <span class="nav-text">候选码与外码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">2.2.5.</span> <span class="nav-text">完整性</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         
