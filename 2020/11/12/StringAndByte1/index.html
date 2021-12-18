@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Java中String使用char[]数组以16位定长对每个字符进行Unicode编码，想要用byte[]类型处理字符串时，需要在String类型与byte[]类型间相互转换。 其实没什么值得写的，调2个方法就可以了。 String转byte[]不指定编码方式使用String类型的getBytes()方法，以当前运行环境下的默认编码方式将每个char元素转换为byte[] 12System.out">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中字符串与byte[]的相互转换">
+<meta property="og:url" content="http://example.com/2020/11/12/StringAndByte1/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Java中String使用char[]数组以16位定长对每个字符进行Unicode编码，想要用byte[]类型处理字符串时，需要在String类型与byte[]类型间相互转换。 其实没什么值得写的，调2个方法就可以了。 String转byte[]不指定编码方式使用String类型的getBytes()方法，以当前运行环境下的默认编码方式将每个char元素转换为byte[] 12System.out">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-12T14:48:49.000Z">
+<meta property="article:modified_time" content="2020-11-13T00:59:08.315Z">
+<meta property="article:tag" content="总结">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="编码">
+<meta property="article:tag" content="byte">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/11/12/StringAndByte1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java中字符串与byte[]的相互转换 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/12/StringAndByte1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java中字符串与byte[]的相互转换
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-12 22:48:49" itemprop="dateCreated datePublished" datetime="2020-11-12T22:48:49+08:00">2020-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-13 08:59:08" itemprop="dateModified" datetime="2020-11-13T08:59:08+08:00">2020-11-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Java中String使用char[]数组以16位定长对每个字符进行Unicode编码，想要用byte[]类型处理字符串时，需要在String类型与byte[]类型间相互转换。</p>
+<p>其实没什么值得写的，调2个方法就可以了。</p>
+<h2 id="String转byte"><a href="#String转byte" class="headerlink" title="String转byte[]"></a>String转byte[]</h2><h3 id="不指定编码方式"><a href="#不指定编码方式" class="headerlink" title="不指定编码方式"></a>不指定编码方式</h3><p>使用String类型的<code>getBytes()</code>方法，以当前运行环境下的默认编码方式将每个char元素转换为byte[]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes()));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes()));</span><br></pre></td></tr></table></figure>
+
+<p>得到结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[49, 50, 97, 98, -26, -120, -111, -28, -69, -84]</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以猜出本主机默认编码方式为UTF-8，将汉字编为了3个byte，而数字和英文字母都是1个byte</li>
+<li>在另一环境中，编码结果可能不同</li>
+<li>不推荐使用该方式</li>
+</ul>
+<h3 id="指定编码字符集1"><a href="#指定编码字符集1" class="headerlink" title="指定编码字符集1"></a>指定编码字符集1</h3><p><code>getBytes(String charsetName)</code>，以字符串的方式指定编码字符集，可以指定为”UTF-8”和”UTF-16”等。Java中一般采用大端字节序，所以我们使用”UTF-16BE”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] myByteArr;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	myByteArr = <span class="string">&quot;12ab我们&quot;</span>.getBytes(<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">	System.out.println(Arrays.toString(myByteArr));</span><br><span class="line">	System.out.println(<span class="keyword">new</span> String(myByteArr));</span><br><span class="line">&#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[0, 49, 0, 50, 0, 97, 0, 98, 98, 17, 78, -20]</span><br><span class="line">1 2 a bbN�</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>UTF-16采用2字节或4字节对字符编码，可以看到这里无论是数字、英文字母、汉字，都是用了2字节。</li>
+<li>在String的构造器中没能用byte[]生成想要的字符串，这是因为构造器转换时可能使用的是UTF-8编码（解码）方式</li>
+<li>需要做异常检查</li>
+</ul>
+<h3 id="指定编码字符集2"><a href="#指定编码字符集2" class="headerlink" title="指定编码字符集2"></a>指定编码字符集2</h3><p><code>getBytes(Charset charset)</code>，提供Charset类参数，分别用UTF-16高端字节序和UTF-8测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE)));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE)));</span><br><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_8)));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_8)));</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[0, 49, 0, 50, 0, 97, 0, 98, 98, 17, 78, -20]</span><br><span class="line"> 1 2 a bbN�</span><br><span class="line">[49, 50, 97, 98, -26, -120, -111, -28, -69, -84]</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果与前面的以字符串的方式指定编码字符集的方法相同。区别是，前者函数参数为字符串，这里是Charset类</li>
+<li>此方法不会抛异常</li>
+<li>需要用到1.7开始提供的StandardCharsets类</li>
+</ul>
+<h2 id="byte-转String"><a href="#byte-转String" class="headerlink" title="byte[]转String"></a>byte[]转String</h2><h3 id="String类型构造器"><a href="#String类型构造器" class="headerlink" title="String类型构造器"></a>String类型构造器</h3><p>以byte[]数组为变量构造字符串，其实前面的例子中已经用到过了。</p>
+<p>与String转byte[]的对应，byte[]转String也可以有3种。</p>
+<ul>
+<li><code>String(byte[] byteArr)</code></li>
+<li><code>String(byte[] byteArr， String charsetName)</code></li>
+<li><code>String(byte[] byteArr， Charset charset)</code></li>
+</ul>
+<p>（1）当不指定字符集时，使用构造器默认的字符集。<code>String(byte[] byteArr)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr1 = <span class="string">&quot;12ab我们&quot;</span>.getBytes();</span><br><span class="line">String str1 = <span class="keyword">new</span> String(byteArr1);</span><br><span class="line">System.out.println(str1);</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）用字符串指定字符集（需要做异常处理）<code>String(byte[] byteArr， String charsetName)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr2 = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    byteArr2 = <span class="string">&quot;12ab我们&quot;</span>.getBytes(<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">    String str2 = <span class="keyword">new</span> String(byteArr2,<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">    System.out.println(str2);</span><br><span class="line">&#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）用Charset类参数指定，并与不指定时做比较<code>String(byte[] byteArr， Charset charset)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr3 = <span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE);</span><br><span class="line">String str3 = <span class="keyword">new</span> String(byteArr3);</span><br><span class="line">System.out.println(str3);</span><br><span class="line">str3 = <span class="keyword">new</span> String(byteArr3, StandardCharsets.UTF_16BE);</span><br><span class="line">System.out.println(str3);</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 1 2 a bbN�</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<p>显然使用UTF-16编码的字节数组，需要在String构造处指定字符集才能正确得被转换为String类型</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"># 总结</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/%E7%BC%96%E7%A0%81/" rel="tag"># 编码</a>
+              <a href="/tags/byte/" rel="tag"># byte</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/08/socket-note/" rel="prev" title="socket编程作业笔记">
+      <i class="fa fa-chevron-left"></i> socket编程作业笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/27/log-2021-2/" rel="next" title="日志-2021-2">
+      日志-2021-2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String%E8%BD%ACbyte"><span class="nav-number">1.</span> <span class="nav-text">String转byte[]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">不指定编码方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81%E5%AD%97%E7%AC%A6%E9%9B%861"><span class="nav-number">1.2.</span> <span class="nav-text">指定编码字符集1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81%E5%AD%97%E7%AC%A6%E9%9B%862"><span class="nav-number">1.3.</span> <span class="nav-text">指定编码字符集2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#byte-%E8%BD%ACString"><span class="nav-number">2.</span> <span class="nav-text">byte[]转String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%B1%BB%E5%9E%8B%E6%9E%84%E9%80%A0%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">String类型构造器</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

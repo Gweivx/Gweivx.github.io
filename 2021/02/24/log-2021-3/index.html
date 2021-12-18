@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="2月第4周整型学习了C语言中整型的表示与运算。 有无符号和有符号两种，其中有符号类型使用二进制补码存储。相同的n位二进制数用无符号和补码解释可能有完全不同的结果，取值范围也不同。要特别注意参数传递时类型匹配的问题，以及隐式类型转换。 无符号运算和补码运算可以使用相同的算术规则，算术运算超出范围时也会产生有规律的溢出。 进程进程的状态大致可分为ready、running、block&#x2F;wait。进程的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志-2021-3">
+<meta property="og:url" content="http://example.com/2021/02/24/log-2021-3/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="2月第4周整型学习了C语言中整型的表示与运算。 有无符号和有符号两种，其中有符号类型使用二进制补码存储。相同的n位二进制数用无符号和补码解释可能有完全不同的结果，取值范围也不同。要特别注意参数传递时类型匹配的问题，以及隐式类型转换。 无符号运算和补码运算可以使用相同的算术规则，算术运算超出范围时也会产生有规律的溢出。 进程进程的状态大致可分为ready、running、block&#x2F;wait。进程的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-24T10:36:51.000Z">
+<meta property="article:modified_time" content="2021-03-29T03:14:41.128Z">
+<meta property="article:tag" content="日记">
+<meta property="article:tag" content="学习记录">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/02/24/log-2021-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>日志-2021-3 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/24/log-2021-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          日志-2021-3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-24 18:36:51" itemprop="dateCreated datePublished" datetime="2021-02-24T18:36:51+08:00">2021-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 11:14:41" itemprop="dateModified" datetime="2021-03-29T11:14:41+08:00">2021-03-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="2月第4周"><a href="#2月第4周" class="headerlink" title="2月第4周"></a>2月第4周</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>学习了C语言中整型的表示与运算。</p>
+<p>有无符号和有符号两种，其中有符号类型使用二进制补码存储。相同的n位二进制数用无符号和补码解释可能有完全不同的结果，取值范围也不同。要特别注意参数传递时类型匹配的问题，以及隐式类型转换。</p>
+<p>无符号运算和补码运算可以使用相同的算术规则，算术运算超出范围时也会产生有规律的溢出。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程的状态大致可分为ready、running、block/wait。进程的信息存储在PCB中，此数据结构中包含描述程序此次运行时的各种信息。</p>
+<p>进程控制包含了进程的创建、撤销、阻塞、唤醒。这些控制都有各自的步骤。原语则是由若干指令构成的具有特定功能的函数，为最小单位不可在分割。以上4个操作对应进程控制的4个原语。父进程可以创建子进程，构成进程树，也可以在一定情况下终止子进程。</p>
+<p>进程的切换/上下文切换。context是程序运行的环境，如CPU内各个寄存器的值。</p>
+<p>进程调度可以分为长调度/作业调度和短调度/CPU调度。长调度需要组合I/O型进程和CPU型进程。另外还有中程调度，缓解内存紧张的问题，它将内存中处于阻塞状态的进程换到外存上挂起。进程调度队列有作业队列、就绪队列、设备队列等。</p>
+<p>进程间通信可以通过共享存储区或消息传递的方式实现。消息传递时可以直接传递或间接传递。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>进程的控制开销大，为了提高并发度和减小系统开销，引入线程。用更小的开销提高进程内的并发程度。作为CPU的调度单位。线程进一步提高系统并发的程度。</p>
+<p>线程只拥有必不可少的资源，如线程状态和上下文。同个进程的各个线程共享资源。</p>
+<p>一个进程中的多个线程可以并发执行。线程在创建、撤销的开销更小，线程调度切换上下文的开销更小。同进程的各个线程之间共享数据段，不需要IPC。系统资源利用率更高，资源可以共享、开销更小、适合多处理器结构。</p>
+<p>内核级线程在内核空间创建、调度和管理，确实是cpu调度的基本单位。用户级线程由线程库管理，无需内核支持，此时进程仍是CPU调度的单位。</p>
+<p>多线程模型中的多对多模型不限制应用的线程数、多个线程可以并发，不会因为一个线程阻塞而阻塞整个所有线程。此外两极模型除了允许多对多，也允许一对一。</p>
+<h3 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h3><p>CPU空闲时，OS选择内存就绪队列中某就绪进程，给它分配CPU。提高CPU利用率。</p>
+<p>进程状态切换时（有4种情况）可能会发生CPU调度。CPU调度的方案可分为非抢占式和抢占式。非抢占方式不允许其他进程抢占已分配的处理机，系统开销小但不适合实时、分时系统。抢占式根据调度原则，停止某个正在执行的进程，将处理机分配给另一个进程，抢占原则主要有：时间片原则、优先权原则、短作业优先原则。</p>
+<blockquote>
+<p>FCFS按照作业到达就绪队列的先后次序选择作业，是非抢占方式、有利于长作业和CPU型进程，有护航效应。</p>
+<p>SJF根据估计的每个进程下次运行的CPU脉冲长度，调度最短的进程。有最短的平均等待时间，可抢占也可非抢占。它吞吐量高、但实现（估计时间）困难，并且存在饥饿现象。</p>
+<p>优先级算法根据进程的优先级进行调度。SJF就是它的一个特例。有静态优先权和动态优先权。动态优先权随着进程推进而改变，以便获得更好调度性能，改变的因素有：进程等待时间、已使用处理机的时间、资源使用情况。</p>
+<p>RR主要用于分时系统，多个用户/进程共享同一台主机。OS为它们分配时间片，时间片用完后插入就绪队列尾。RR相比于SJF平均周转时间较长，响应时间短。时间片长度较大时类似FCFS，较短时上下文切换开销变大。</p>
+<p>多级队列，一个进程处于一个固定的队列，每个队列有自己的调度规则，队列间也需要调度。多级队列间的调度可以有固定优先级调度或时间片轮转调度等。</p>
+<p>多级反馈队列调度，多个就绪队列优先级不同，优先级越高时间片越小。进程在队列间移动，进程执行完一个时间片后被抢占，进入低一级的就绪队列。进程从阻塞变为就绪时要提高优先级，I/O型进程会留在较高优先级的队列。每个队列有自己的调度算法，要有决定进程改变队列、进程升降级的规则。</p>
+</blockquote>
+<h2 id="3月第1周"><a href="#3月第1周" class="headerlink" title="3月第1周"></a>3月第1周</h2><h3 id="个人的想法"><a href="#个人的想法" class="headerlink" title="个人的想法"></a>个人的想法</h3><p>本周走马观花式学习操作系统原理，跟进了一点毕设。</p>
+<p>有许多算法值得注意，比如为了实现CPU调度、磁盘调度、页面置换，它们各自都有许多特点的算法：最易实现的、理论最优的、折中的，并不断改进。在评价算法性能时，使用假定的一组/多组序列来进行评估。</p>
+<p>内存管理和文件管理都用到了许多数据结构来存储管理信息，它们也往往需要同时考虑逻辑上的需要和硬件的物理特性。</p>
+<p>内存管理中的分页、分段，文件管理中将磁盘划分为块，使离散地管理成为可能。但如何消除块内和块间的碎片，如何高效地组织这些块也是需要考虑的。</p>
+<p>文件物理结构中使用的索引，十分灵活，充分利用空间的同时能随机存取，值得借鉴。</p>
+<p>多级目录和多级索引，使用分层的方法提高了查找效率，方便了数据的组织和管理。</p>
+<p>合理设置缓冲可以解决速度的不匹配的问题，提高并行度和系统工作效率。</p>
+<h3 id="同步和互斥"><a href="#同步和互斥" class="headerlink" title="同步和互斥"></a>同步和互斥</h3><p>多个并发进程/线程可能访问同一共享数据，为保证数据一致性，需要有同步机制保证多个进程对共享数据的互斥访问。进程交互的关系有：互斥，多个进程不能同时使用同一个资源；同步，进程之间协作；死锁，多个进程互不相让，都得不到充足的资源。</p>
+<p>使用临界区解决进程间互斥问题。临界区是进程中访问临界资源的一段代码，不同进程的临界区的执行在时间上是互斥的，进程必须请求允许进入临界区。它需要满足互斥、有空让进、有限等待这三个条件。</p>
+<p>使用信号量与P、V操作有效解决进程同步。信号量S代表可用资源实体的数量，P(S)表示申请资源、V(s)表示释放资源。实现互斥：为临界区设置初值为1的互斥信号，每个进程的临界区代码都放于P(S)、V(S)原语中；实现同步；设置同步信号初始值为0，前驱进程中执行完前驱代码后进行V操作，后驱进程中先P再执行后驱代码。</p>
+<p>用P-V操作解决问题时要关注：同步、互斥的约束条件；互斥的临界资源的抽象/同步关系同步信号量；初始条件；正确的P-V操作。合理设置避免死锁。P-V操作必须成对，可以不在同一进程中。同步P操作应该放在互斥P操作前。</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>多个进程由于竞争资源而相互等待，并永远不能再向前推进。等待的进程们都持有资源，并等待其他的进程所持有的资源。产生死锁的原因：竞争资源引起死锁、进程推进顺序不当。</p>
+<p>4个条件同时满足时会出现死锁：互斥、进程占有并等待、资源不可抢占、循环等待。对死锁可以采取5个策略：忽略、预防、避免、检测、接触。</p>
+<blockquote>
+<ul>
+<li>忽略：鸵鸟策略</li>
+<li>预防：通过限制进程资源请求的方式，打破死锁的4个条件</li>
+<li>避免：判断分配资源后是否安全而决定是否分配资源，确保系统不进入不安全状态。可以使用资源分配图，将需求边转换为分配边，看是否有环；银行家算法（用安全检测算法判断是否能找到一个安全序列）判断。</li>
+<li>检测：维护等待图，定期检查是否有环；类似银行家算法的检测算法。</li>
+<li>恢复：人工处理、终止进程、资源抢占。可以按一定顺序一次终止一个进程直到死锁被打破；可以逐步抢占一些进程的资源，直到打破死锁，但一个进程可能总是被选中产生饥饿。</li>
+</ul>
+</blockquote>
+<h3 id="地址重定位"><a href="#地址重定位" class="headerlink" title="地址重定位"></a>地址重定位</h3><p>程序放入内存才可正确运行。可在三个阶段将指令和数据绑定到内存。地址重定位将程序的逻辑地址转换成物理地址。有静态和动态地址重定位，后者需要硬件支持。</p>
+<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><p>连续内存分配，为一个程序分配连续的内存空间。单一连续分配和多分区分配。多分区分配有固定分区分配和动态分区分配。</p>
+<p>固定分区分配维护一张分区表记录分区大小和使用情况，将内存划分为固定数目和大小的分区。这样易于实现开销小，但是会产生内碎片并且限制并发进程数量。</p>
+<p>动态分区分配，分区划分是动态而不预先确定的。使用分区分配算法来寻找并分配内存，有首次适应算法、最佳适应算法等。通过碎片的拼接/紧凑来减少外碎片。只有动态重定位时才能紧凑，并要注意I/O的问题。</p>
+<h3 id="分页、分段"><a href="#分页、分段" class="headerlink" title="分页、分段"></a>分页、分段</h3><p>离散地管理内存，将程序分为不同的页，将内存的物理地址分为不同的块/页帧，将页放到页帧中。使一个程序能够在内存中离散地存储，不必连续存放，没有外碎片。</p>
+<p>分页将程序地址划分成大小相等的页，将内存划分成大小相等的块。有效地址包含页号和偏移，从页表寄存器获得页表始址和页表长度，找到页表的位置。页表中有页号到物理地址中块号的映射，得知块号后再加上偏移，就得到了物理地址。有亮相寄存器TLB做缓存，存储最近用过的页表映射。</p>
+<p>分段允许划分大小不等的段和块。有效地址包含段号和偏移，从段表寄存器中获得段表始址和长度，找到段表的位置。段表中存储了从段号和段长到物理地址基址的映射。用有效地址的段号通过段表获得物理基址，加上偏移得到物理地址。完成了程序在内存中的离散存放。</p>
+<h3 id="虚拟内存相关"><a href="#虚拟内存相关" class="headerlink" title="虚拟内存相关"></a>虚拟内存相关</h3><p>根据局部性原理，一段时间内程序的执行仅局限于某个部分。使用虚拟内存，进程部分装入内存就可以执行。</p>
+<p>请求调页，进程需要的页不在内存，请求OS把该页从外存装入内存。主要的过程包含：处理缺页中断，从磁盘读入所需的页（高I/O开销），重新开始被中断的进程/指令。</p>
+<p>页面置换，内存空间可能放满，需要在内从空间中找一个空闲帧把它换出去，再换进请求的页。页面置换算法有OPT、FIFO、LRU和LRU的近似，使用特殊的内存访问序列来评价他们的性能。</p>
+<p>给进程分配的页数不能小于其所需的最小页数，否则进程不能正常运行。给进程分配页/帧的策略有：平均分配、按比例分配、按优先级分配。该分配可以是一次性固定的分配，也可以是可变分配。进行页面置换时，可以局部替换或全局替换。</p>
+<p>频繁地缺页和调页换页导致颠簸。为了防止颠簸，应该给进程提供做够多的帧，降低缺页率。OS要跟踪并为进程分配大于其工作集的物理块数，如果内存还有空闲块，则可启动另外的进程。如果所有进程的工作集之和超过可用物理块总数，OS选择暂停一个进程，换出该进程，释放的物理块可分配给其他进程，防止颠簸/抖动。</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件是记录在外存上的具有名字的相关信息的集合。文件的访问有顺序存取和直接存取。</p>
+<p>文件的存储方式与文件逻辑结构和物理存储设备有关。文件在外存的存放组织形式称为文件的物理结构，文件的物理结构取决于外存的分配方式。文件的存储设备划分为大小相等的物理块，是基本单位。</p>
+<p>物理结构有连续结构、链接结构、索引结构。FAT文件分配表记录文件所在的各个块，实现随机存取。类似，为每一个文件建立一个索引表，存放该文件的块号。索引表较大时，用链接模式和多级索引解决。</p>
+<p>磁盘每个分区中所有文件的信息存放在目录中。文件控制块FCB是用于描述和控制文件的数据结构。文件目录是FCB的有序集合。组织目录的逻辑结构有：单级目录、两级目录、树形目录、无环图结构目录、普通图结构目录等。目录的结构需要考虑：查找效率、命名、共享等问题。</p>
+<p>对空闲空间的管理有位图法、空闲块表、空闲块链表、组成链接法等。</p>
+<p>文件系统是操作系统中以文件方式管理计算机软件资源的软件和被管理的文件和数据结构（如目录和索引表等）的集合。文件系统分层实现各功能。需要磁盘上和内存中各数据结构的支持。</p>
+<h3 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h3><p>提高I/O速度，硬件：选择高性能的磁盘、设置高速缓冲区；软件：磁盘调度算法。磁盘访问时间由寻道时间+旋转延迟时间+传输时间组成。硬件性能决定了访问时间的大部分，除了寻道时移动的道数。适当的集中数据，并且降低寻道时在不同磁道间移动的距离。</p>
+<p>磁盘I/O请求的服务调度算法，目标是更小的寻道时间（寻道距离）。在给定一个请求序列的情况下讨论不同算法的性能。磁盘调度算法有：FCFS、SSTF、SCAN、C-SCAN、LOOK、C-LOOK等。</p>
+<h3 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h3><p>I/O设备与设备控制器通信，设备控制器与CPU通信。一般以中断驱动或者DM的A方式驱动I/O，进一步提高CPU和设备的并行程度，提高资源利用率。</p>
+<p>OS通过缓冲解决速度不匹配的问题，并且提高CPU和I/O设备间的并行度。有单缓冲、双缓冲、循环缓冲、缓冲池。</p>
+<p>设备独立软件解决设备命名、设配分配、设备独立性的问题。设备分配中需要系统设备表、设备控制表、控制器控制表等数据结构。引入逻辑设备和物理设备解决设备独立性的问题，使用逻辑设备表LUT。</p>
+<p>设备驱动程序是I/O进程与设备控制器之间的通信程序，使OS以统一的标准和方式对待I/O设备。</p>
+<p>通过spooling技术，用一道程序模拟脱机的外围控制机，外围操作与CPU对数据的处理同时进行。提高了I/O速度，实现设备共享，实现了逻辑设备功能（一台物理设备看成是多台逻辑设备）</p>
+<h2 id="3月第2周"><a href="#3月第2周" class="headerlink" title="3月第2周"></a>3月第2周</h2><h2 id="3月第3周"><a href="#3月第3周" class="headerlink" title="3月第3周"></a>3月第3周</h2><p>实习课。本以为回学校后学习氛围浓厚些更容易学习，结果自控力不足，和大家一起都不听课了。没认真听实习课，有些后悔。</p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>IEEE的浮点数表示规则。4种舍入方式，默认向偶数舍入。会向无穷溢出。浮点数运算不满足结合性。注意<code>float</code>、<code>double</code>和<code>int</code>间的类型转换时的精度损失。</p>
+<h3 id="机器级程序基础"><a href="#机器级程序基础" class="headerlink" title="机器级程序基础"></a>机器级程序基础</h3><p>以下为<strong>AT&amp;T</strong>格式汇编</p>
+<p>寄存器带有<code>%r</code>，为64位；寄存器带有<code>%e</code>，为32位寄存器。例如：%rax(64bits)，%eax(32bits), %ax(16bits), %ah, %al。</p>
+<p>8086中，long word为4字节，quad word为8字节。movq中的q指quad</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq (%rdi), %rax</span><br></pre></td></tr></table></figure>
+
+<p>注意源和目的的顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shrq Src, Dest    Dest = Dest &gt;&gt; Src   logical</span><br></pre></td></tr></table></figure>
+
+<p>一种寻址方式：D(Rb, RI, S)，选中Men[Reg[Rb]+S*Reg[Ri]+D]中的内容。其中D是偏移常量，S即Scale。使用它可以实现乘k操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leaq (%rdi, %rdi, 2), %rax</span><br><span class="line"># 将3倍%rdi（作为地址）放进%rax</span><br></pre></td></tr></table></figure>
+
+<h2 id="3月第4周"><a href="#3月第4周" class="headerlink" title="3月第4周"></a>3月第4周</h2><h3 id="记住比较函数"><a href="#记住比较函数" class="headerlink" title="记住比较函数"></a>记住比较函数</h3><p>STL中，如<code>set</code>和<code>priority_queue</code>等需要按一定规则排序，用到了比较函数。常用的默认比较函数是<code>less</code>和greater，却难以记忆。</p>
+<p>记忆方法：使用一个数组来辅助记忆，假设有一个数组，从索引为0（在左）开始，向索引增大的方向看（从左向右看）。<code>less</code>使左侧值&lt;右侧值，<code>greater</code>使左侧值&gt;右侧值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// STRUCT TEMPLATE less</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span> =</span> <span class="keyword">void</span>&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">less</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> _Ty&amp; _Left, <span class="keyword">const</span> _Ty&amp; _Right)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _Left &lt; _Right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>set</code>中，默认<code>less</code>，左＜右，升序排列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CLASS TEMPLATE set</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Kty</span>, <span class="keyword">class</span> _<span class="title">Pr</span> =</span> less&lt;_Kty&gt;, <span class="class"><span class="keyword">class</span> _<span class="title">Alloc</span> =</span> allocator&lt;_Kty&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>priority_queue</code>中，默认<code>less</code>，左&lt;右。左侧为队尾，右侧为队首。将其看做堆的话，右侧为堆顶较大，因此默认的less构成大顶堆。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CLASS TEMPLATE priority_queue</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>, <span class="keyword">class</span> _<span class="title">Container</span> =</span> vector&lt;_Ty&gt;, <span class="class"><span class="keyword">class</span> _<span class="title">Pr</span> =</span> less&lt;<span class="keyword">typename</span> _Container::value_type&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v&#123; <span class="number">2</span>, <span class="number">1</span>, <span class="number">33</span>, <span class="number">3</span> &#125;;</span><br><span class="line">priority_queue &lt;<span class="keyword">int</span>&gt; q&#123; v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>() &#125;;</span><br><span class="line"><span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; q.<span class="built_in">top</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//33 3 2 1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>algorithm</code>库中的<code>sort</code>函数也是类似，他有一个重载默认用less（与前面的less不是同一个），也是左&lt;右，升序排列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RanIt</span>, <span class="keyword">class</span> _<span class="title">Pr</span>&gt;</span></span><br><span class="line"><span class="function">_CONSTEXPR20 <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">const</span> _RanIt _First, <span class="keyword">const</span> _RanIt _Last, _Pr _Pred)</span> </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v&#123; <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span> &#125;;</span><br><span class="line">std::<span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//0 1 2 2 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="建立连接示例tcp-socket"><a href="#建立连接示例tcp-socket" class="headerlink" title="建立连接示例tcp socket"></a>建立连接示例tcp socket</h3><p>go的示例</p>
+<p><strong>client方</strong>，使用 <code>DialTCP</code>建立连接，使用返回的<code>TCPConn</code>的<code>Read</code>和<code>Write</code>函数进行读写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//pacakage net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DialTCP</span><span class="params">(network <span class="keyword">string</span>, laddr, raddr *TCPAddr)</span> <span class="params">(*TCPConn, error)</span> //建立连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//TCPConn是conn的“派生类”</span></span><br><span class="line"><span class="comment">//package net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *conn)</span> <span class="title">Read</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span> //<span class="title">read</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *conn)</span> <span class="title">Write</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span> //<span class="title">write</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn, err := net.DialTCP(<span class="string">&quot;tcp&quot;</span>, <span class="literal">nil</span>, tcpAddr)</span><br><span class="line">checkError(err)</span><br><span class="line">_, err = conn.Write([]<span class="keyword">byte</span>(<span class="string">&quot;xxx&quot;</span>))</span><br><span class="line">checkError(err)</span><br></pre></td></tr></table></figure>
+
+<p><strong>server方</strong>，使用<code>ListenTCP</code>监听端口，用<code>Accept()</code>建立连接</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ListenTCP</span><span class="params">(network <span class="keyword">string</span>, laddr *TCPAddr)</span> <span class="params">(*TCPListener, error)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *TCPListener)</span> <span class="title">Accept</span><span class="params">()</span> <span class="params">(Conn, error)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">listener, err := net.ListenTCP(<span class="string">&quot;tcp&quot;</span>, tcpAddr)</span><br><span class="line">checkError(err)</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">	conn, err := listener.Accept()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">go</span> doSomething(conn)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><p>使用“轮询”的浏览器要不断地对服务器发送请求。二者使用websocket则可以在握手后一直保持连接，一对c/s只建立一个tcp连接，服务端也可以推送数据到客户端。</p>
+<p>url的协议字段使用<code>ws:</code>//或<code>wss://</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">&quot;ws://localhost:9989&quot;</span>;</span><br><span class="line">sock = <span class="keyword">new</span> WebSocket(url);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/27/log-2021-2/" rel="prev" title="日志-2021-2">
+      <i class="fa fa-chevron-left"></i> 日志-2021-2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/30/log-2021-4/" rel="next" title="日志-2021-4">
+      日志-2021-4 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E6%9C%88%E7%AC%AC4%E5%91%A8"><span class="nav-number">1.</span> <span class="nav-text">2月第4周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E8%B0%83%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">CPU调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E6%9C%88%E7%AC%AC1%E5%91%A8"><span class="nav-number">2.</span> <span class="nav-text">3月第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">个人的想法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5"><span class="nav-number">2.2.</span> <span class="nav-text">同步和互斥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">2.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.4.</span> <span class="nav-text">地址重定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">2.5.</span> <span class="nav-text">内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E3%80%81%E5%88%86%E6%AE%B5"><span class="nav-number">2.6.</span> <span class="nav-text">分页、分段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9B%B8%E5%85%B3"><span class="nav-number">2.7.</span> <span class="nav-text">虚拟内存相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">2.8.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98"><span class="nav-number">2.9.</span> <span class="nav-text">磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O"><span class="nav-number">2.10.</span> <span class="nav-text">I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E6%9C%88%E7%AC%AC2%E5%91%A8"><span class="nav-number">3.</span> <span class="nav-text">3月第2周</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E6%9C%88%E7%AC%AC3%E5%91%A8"><span class="nav-number">4.</span> <span class="nav-text">3月第3周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80"><span class="nav-number">4.2.</span> <span class="nav-text">机器级程序基础</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E6%9C%88%E7%AC%AC4%E5%91%A8"><span class="nav-number">5.</span> <span class="nav-text">3月第4周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B0%E4%BD%8F%E6%AF%94%E8%BE%83%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">记住比较函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%A4%BA%E4%BE%8Btcp-socket"><span class="nav-number">5.2.</span> <span class="nav-text">建立连接示例tcp socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#websocket"><span class="nav-number">5.3.</span> <span class="nav-text">websocket</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

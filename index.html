@@ -144,6 +144,1476 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/log-2021-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/30/log-2021-4/" class="post-title-link" itemprop="url">日志-2021-4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-30 15:14:25" itemprop="dateCreated datePublished" datetime="2021-03-30T15:14:25+08:00">2021-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-10 16:27:41" itemprop="dateModified" datetime="2021-04-10T16:27:41+08:00">2021-04-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="4月第1周"><a href="#4月第1周" class="headerlink" title="4月第1周"></a>4月第1周</h2><h3 id="数据库系统学习"><a href="#数据库系统学习" class="headerlink" title="数据库系统学习"></a>数据库系统学习</h3><h4 id="1-初步认识"><a href="#1-初步认识" class="headerlink" title="1.初步认识"></a>1.初步认识</h4><p>数据库是电子信息化的集合，是一些相互之间有<strong>关联关系</strong>的表/数据的集合。“表”是按行按列形式组织及展现的数据。关于表的术语：表名、表标题（格式）、表内容（值）、行/元组/记录、列/字段/属性/数据项。有关系型数据库、非关系型数据库。结构化数据库、非结构化数据库。</p>
+<p>数据库系统包括：数据库DB、数据库管理系统DBMS、数据库应用DBAP、数据库应用DBAP、数据库管理员、计算机基本系统。</p>
+<p>数据库管理系统DBMS，是管理数据库的软件。</p>
+<ol>
+<li>从用户的角度看，需要进行数据库<strong>定义</strong>（表的格式）、数据库<strong>操作</strong>（CRUD)、数据库<strong>控制</strong>、数据库<strong>维护</strong>。实现这些，需要数据库语言，如数据定义语言DDL、数据操作语言DML、数据控制语言DCL，通过数据库语言使用DBMS操作数据库。SQL语言还可嵌入到高级语言中，用于开发数据库应用程序DBAP。</li>
+<li>从系统的角度，DBMS是解析数据库语言并执行的系统。例如，在DBMS中，用户输入的DML经查询编译器，通过数据查询执行引擎，来操作数据库。DBMS为管理DB而运行着一系列程序用于：语言编译、<strong>查询优化</strong>与实现、<strong>数据存取与索引</strong>、通信、<strong>事务处理</strong>、各种控制。</li>
+</ol>
+<h4 id="2-标准结构和数据模型"><a href="#2-标准结构和数据模型" class="headerlink" title="2. 标准结构和数据模型"></a>2. 标准结构和数据模型</h4><p>视图View或数据Data，是某一种表现形式下表现出来的数据库中的数据；模式Schema是对数据库中数据所进行的一种<strong>结构性描述</strong>，是所观察到数据的结构信息。</p>
+<p>数据库系统管理数据抽象为三个层次，也就是三个模式：External Level、Conceptual Level、Inernal Level。两层映像是E-C映像（支持数据概念视图向外部视图的转换，便于用户观察和使用）和C-I映像（支持数据概念视图向内部视图的转换，便于计算机存储和处理）。</p>
+<p>两个独立性。逻辑数据独立性，当概念模式变化时，可以不改变外部模式（只需修改E-C MAPPING)，从而无需改变应用程序；物理数据独立性，当内部模式变化时，可不改变概念模式（只需改变C-I mapping)，从而不改变外部模式。</p>
+<p>数据模型，(a) 规定模式统一描述方式的模型，包括：<strong>数据结构</strong>、<strong>操作</strong>和<strong>约束</strong>；(b)  数据模型是对模式本身结构的抽象，模式是对数据本身结构形式的抽象。三大经典数据模型：关系模型、层次模型、网状模型，分别以表、树、图的形式组织数据。</p>
+<p>比如关系模型，所有的模式都可以抽象为表的形式，每一个具体的模式都是拥有不同列名的具体的表。该模型对这种表形式（<strong>数据结构</strong>）具有统一的<strong>操作</strong>和<strong>约束</strong>。以表组织数据为关系模型，不同的表的格式可以不同，即可以有多种模式。</p>
+<p>层次模型中，有实体型（某条记录的结构形式）和系型（连接两个实体型）。网状模型也有实体型和系型。记录和记录间靠指针联系，指针需要用户建立。</p>
+<h3 id="Linux命令学习"><a href="#Linux命令学习" class="headerlink" title="Linux命令学习"></a>Linux命令学习</h3><h4 id="1-读取文件内容"><a href="#1-读取文件内容" class="headerlink" title="1. 读取文件内容"></a>1. 读取文件内容</h4><p><strong>stdin/stdout</strong></p>
+<p>重定向与管道可以改变stdin和stdout的输入来源和输出对象。</p>
+<p>文本文件处理命令，注意：</p>
+<ul>
+<li>不指定文件名时，从stdin（键盘）获得数据</li>
+<li>指定处理对象名时，从文件中获取</li>
+<li>多数命令可指定多个文件（与shell通配符有关）</li>
+<li>处理结果在stdout（屏幕）显示</li>
+</ul>
+<p><strong>读取文件内容命令：</strong></p>
+<ul>
+<li><code>more/less</code>逐屏显示文件。“回车”显示下一行，“空格”显示下一屏，<code>/pattern</code>按正则式查找。less可以向上看。</li>
+<li><code>cat/od</code>。cat文本格式打印文件;od逐字节打印 （字符，8进制，10进制，16进制）</li>
+<li><code>head和tail</code>显示文件的前半部/后半部，默认10行，更多<code>-n</code>，<code>tail -f</code>，实时打印文件尾部被追加内容</li>
+<li><code>tee</code>同时存入文件和显示</li>
+<li><code>wc</code>字计数，列出文件一共有多少行，多少单词，多少字符。<code>-l</code>只列出行数</li>
+<li><code>sort</code>排序，有很多选项。比如**-n**，按数字大小而非字节序排序</li>
+<li><code>tr</code>形如<code>tr string1 string2</code>翻译字符，把stdin拷贝到stdout中，用string1替换 string2。</li>
+<li><code>uniq</code>筛选文件中的重复行（相邻且相同的行）</li>
+</ul>
+<h4 id="2-正则式概念和相关命令"><a href="#2-正则式概念和相关命令" class="headerlink" title="2. 正则式概念和相关命令"></a>2. 正则式概念和相关命令</h4><p>正则表达式是满足规则的表达式，其功能是描述一个字符串模式，进而有字符串匹配操作和替换操作。文件名通配符用于文件处理，而正则表达式用于文本处理。不同软件对正则表达式定义不同。</p>
+<p>有6个特殊字符（元字符）<code>. * [ \ ^ $</code>，除此之外的其他字符与自身匹配。<code>\</code>为转义字符，原点<code>·</code>匹配任意单字符。长的正则表达式由单字符正则表达式构成。可以定义集合，如[abcd]（这也是单字符正则表达式），元字符在集合中也代表自己。定义一个区间<code>[a-d]</code>，或<code>[ad-]</code>。^用在开头表示补集，如<code>[^a-z]</code>匹配任一非小写字母。</p>
+<p>单字符串正则表达式组合在一起。<code>*</code>，匹配此单字符正则表达式任意多次。锚点，<code>^</code>和<code>$</code>在特殊位置时才有意义，比如<code>^printf</code>匹配行首为printf的字符串。</p>
+<p>扩展的正则表达式更为灵活和复杂，一般使用的也是扩展的正则表达式。有ERE：扩展的正则表达式和PCRE: Perl-compatible regular expression。比如<code>(xy)*</code>，匹配任意组xy；可以有逻辑符号，如<code>(hi|hello)</code>匹配hi或hello；<code>+</code>匹配出现一次或多次等。</p>
+<p>查看grep的一些规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> man pcrepattern</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-行筛选器grep，流编辑sed，行筛选awk"><a href="#3-行筛选器grep，流编辑sed，行筛选awk" class="headerlink" title="3. 行筛选器grep，流编辑sed，行筛选awk"></a>3. 行筛选器grep，流编辑sed，行筛选awk</h4><p>在文件中查找字符串，有众多选项。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep 模式 文件名列表</span><br></pre></td></tr></table></figure>
+
+<p><code>-n</code>显示行号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -n <span class="string">&#x27;^int&#x27;</span> bits.c</span></span><br><span class="line">145:int bitXor(int x, int y) &#123;</span><br><span class="line">154:int tmin(void) &#123;</span><br><span class="line">165:int isTmax(int x) &#123;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>流编辑<code>sed</code>，可以通过正则表达式替换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed &#x27;命令&#x27; 文件列表</span><br><span class="line">sed -e &#x27;命令1&#x27; -e &#x27;命令2&#x27; -e &#x27;命令3&#x27; 文件列表</span><br><span class="line">sed -f 命令文件 文件名列表</span><br></pre></td></tr></table></figure>
+
+<p><code>awk</code>逐行扫描一个文件进行文本处理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;程序&#x27; 文件名列表</span><br><span class="line">awk -f 程序文件名 文件名列表</span><br><span class="line"><span class="meta">#</span><span class="bash"> 程序 = 条件 + 动作</span></span><br></pre></td></tr></table></figure>
+
+<p>条件有关系运算符、逻辑运算符、正则式模式匹配等。动作有算术逻辑运算、流程控制（if、for等）和print等。每一行为一个“记录”，每行被该行的空格分为多个域，<code>$1</code>、<code>$2</code>、<code>$3</code>等，<code>$0</code>表示整行，<code>NR</code>是该行行号。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ps -ef | awk <span class="string">&#x27;/pts/ &#123;printf(&quot;%s &quot;, $8);&#125;&#x27;</span></span></span><br><span class="line">bash bash ps awk</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -s | awk <span class="string">&#x27;$1 ~ &quot;[0-9]&quot; &amp;&amp; $1 &gt; 8 &#123;print $2&#125;&#x27;</span></span></span><br><span class="line">bits.c</span><br><span class="line">btest</span><br><span class="line">btest.c</span><br><span class="line">dlc</span><br><span class="line">driver.pl</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-读取文件内容（附）"><a href="#4-读取文件内容（附）" class="headerlink" title="4. 读取文件内容（附）"></a>4. 读取文件内容（附）</h4><p><strong>1.1 stdin/stdout</strong></p>
+<p>重定向与管道可以改变stdin和stdout的输入来源和输出对象。</p>
+<p>文本文件处理命令，注意：</p>
+<ul>
+<li>不指定文件名时，从stdin（键盘）获得数据</li>
+<li>指定处理对象名时，从文件中获取</li>
+<li>多数命令可指定多个文件（与shell通配符有关）</li>
+<li>处理结果在stdout（屏幕）显示</li>
+</ul>
+<p><strong>1.2 more/less</strong></p>
+<p>逐屏显示文件。“回车”显示下一行，“空格”显示下一屏，<code>/pattern</code>按正则式查找。less可以向上看。</p>
+<p><strong>1.3 cat/od</strong></p>
+<p>cat文本格式打印文件</p>
+<p>不使用编辑器创建文件，从stdin输入，crtl-d结束。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat &gt; pengye.sh</span></span><br><span class="line">ls -l</span><br><span class="line">ps -ef</span><br><span class="line"><span class="meta">$</span><span class="bash"> cat pengye.sh</span></span><br><span class="line">ls -l</span><br><span class="line">ps -ef</span><br></pre></td></tr></table></figure>
+
+<p>od逐字节打印 （字符，8进制，10进制，16进制）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcd | od -t x1</span></span><br><span class="line">0000000 61 62 63 64 0a</span><br><span class="line">0000005</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.4 head和tail</strong></p>
+<p>显示文件的前半部/后半部，默认10行，更多<code>-n</code></p>
+<p><code>tail -f</code>，实时打印文件尾部被追加内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -s | sort | head -n 5</span></span><br><span class="line"> 12 bits.c</span><br><span class="line"> 12 driver.pl</span><br><span class="line"> 16 btest.c</span><br><span class="line"> 20 btest</span><br><span class="line">  4 bits.h</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.5 tee</strong></p>
+<p>同时存入文件和显示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcd | tee temp.log</span></span><br><span class="line">abcd</span><br><span class="line"><span class="meta">$</span><span class="bash"> cat temp.log</span></span><br><span class="line">abcd</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.6 wc</strong></p>
+<p>字计数，列出文件一共有多少行，多少单词，多少字符。<code>-l</code>只列出行数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wc -l *.c</span></span><br><span class="line">  317 bits.c</span><br><span class="line">  583 btest.c</span><br><span class="line">   57 decl.c</span><br><span class="line">  151 fshow.c</span><br><span class="line">   75 ishow.c</span><br><span class="line">  118 tests.c</span><br><span class="line"> 1301 总用量</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.7 sort</strong></p>
+<p>排序，有很多选项。比如**-n**，按数字大小而非字节序排序</p>
+<p><strong>1.8 tr</strong></p>
+<p>形如<code>tr string1 string2</code>翻译字符，把stdin拷贝到stdout中，用string1替换 string2。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcdefg | tr <span class="string">&#x27;[b-d]&#x27;</span> <span class="string">&#x27;[B-D]&#x27;</span></span></span><br><span class="line">aBCDefg</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.9 uniq</strong></p>
+<p>筛选文件中的重复行（相邻且相同的行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> uniq -u temp <span class="comment">#保留没重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -d temp <span class="comment">#保留有重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -c temp <span class="comment">#计数重复的行出现了几次</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4月第2周"><a href="#4月第2周" class="headerlink" title="4月第2周"></a>4月第2周</h2><h3 id="文件内容对比"><a href="#文件内容对比" class="headerlink" title="文件内容对比"></a>文件内容对比</h3><p>逐字节比较两文件cmp</p>
+<p>md5dum/sha1sum比较hash值是否相同，用于验证完整性</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> md5sum ht3.c &gt; myf.sum</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi myf.sum <span class="comment"># 修改</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> md5sum -c myf.sum</span></span><br><span class="line">ht3.c: FAILED</span><br><span class="line">md5sum: WARNING: 1 computed checksum did NOT match</span><br></pre></td></tr></table></figure>
+
+<p>求出两文件差别diff</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> diff file1 file2 <span class="comment">#</span></span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> diff -u file1 file2 <span class="comment"># unified格式</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><h4 id="总"><a href="#总" class="headerlink" title="总"></a>总</h4><p>关系模型三要素：基本结构（关系/表）、基本操作（关系运算）、完整性约束。一个关系就是一个table，关系模型是处理表的。关系运算包括：关系代数、关系演算（元组演算和域演算）。关系代数是基于集合的运算，元组演算是基于逻辑的运算，域演算是基于示例的运算。</p>
+<h4 id="什么是关系"><a href="#什么是关系" class="headerlink" title="什么是关系"></a>什么是关系</h4><p>域：列的取值范围，时候一组值的取值范围，有相同的数据类型。集合中元素个数为域的基数cardinality。</p>
+<p>笛卡尔积：所有可能组合成的元组的集合。元组(d1, d2, …, dn)是从每一个域任取一个值形成的一种组合，笛卡尔积是所有这种可能组合的集合。笛卡尔积中的每个元素(d1, d2, …, dn)被称为一个n-tuple。</p>
+<p>关系：笛卡尔积中具有某种意义的元组的集合，是笛卡尔积的子集。关系的不同列可能来自同一个域，为了区分每列，取一个名字，属性名。属性值来自某一个域。关系中属性的数目为“度”或“目”，关系中元组的数目为关系的“基数”。关系中属性名一般为属性的类型和长度，如char(8)。</p>
+<p>关系模式和关系。关系模式是关系的结构，关系是关系模式在某一时刻的数据。关系模式稳定，关系是时变的。</p>
+<h4 id="关系的特性"><a href="#关系的特性" class="headerlink" title="关系的特性"></a>关系的特性</h4><p>列示同质的，每一列来自同一域，是同一类型的。</p>
+<p>不同的列可能来自同一域。行位置可以互换，列位置可以互换。区分不同的列、行不靠位置，靠名字、值。</p>
+<p>关系的任意两个元组不能完全相同，而table不一定遵守该规则。</p>
+<p>关系的第一范式：属性不可再分。不能存在复合属性、对应多个值的属性。</p>
+<h4 id="候选码与外码"><a href="#候选码与外码" class="headerlink" title="候选码与外码"></a>候选码与外码</h4><p>候选码Candidate Key：关系中的一个属性组，可以唯一标识一个元组。关系中可能有多个候选码，要选一个作为主键/主码，DBMS以主键为主要线索管理关系中的各个元组，主码比候选码更严格。</p>
+<p>主属性：包含在任何一个候选码中的属性。全码All-Key，所有属性构成这个关系的勾选码。</p>
+<p>外码Foreign Key：关系R中一个属性组，不是R的候选码，但它与另一个关系S的候选码相对应，则称该属性组为R的外码。两个关系通常靠外码连接起来。</p>
+<h4 id="完整性"><a href="#完整性" class="headerlink" title="完整性"></a>完整性</h4><p>实体完整性，关系的主码的属性值不能为空。主码是能唯一区分元组的属性组。空值会影响运算，要特殊处理。可以设默认值。</p>
+<p>参照完整性，对外码而言，(1)为空值；(2)非空，但必须是另一表中的做主码的某个值。这保证了两个关系之间连接的正确性，关系数据的一致性。</p>
+<p>自定义完整性，用户自定义的约束性。如值的取值范围。</p>
+<p>DBMS中，前二者由结构保证，自定义完整性在定以后，DBMS会检查相关操作的正确性。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/24/log-2021-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/24/log-2021-3/" class="post-title-link" itemprop="url">日志-2021-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-24 18:36:51" itemprop="dateCreated datePublished" datetime="2021-02-24T18:36:51+08:00">2021-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 11:14:41" itemprop="dateModified" datetime="2021-03-29T11:14:41+08:00">2021-03-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="2月第4周"><a href="#2月第4周" class="headerlink" title="2月第4周"></a>2月第4周</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>学习了C语言中整型的表示与运算。</p>
+<p>有无符号和有符号两种，其中有符号类型使用二进制补码存储。相同的n位二进制数用无符号和补码解释可能有完全不同的结果，取值范围也不同。要特别注意参数传递时类型匹配的问题，以及隐式类型转换。</p>
+<p>无符号运算和补码运算可以使用相同的算术规则，算术运算超出范围时也会产生有规律的溢出。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程的状态大致可分为ready、running、block/wait。进程的信息存储在PCB中，此数据结构中包含描述程序此次运行时的各种信息。</p>
+<p>进程控制包含了进程的创建、撤销、阻塞、唤醒。这些控制都有各自的步骤。原语则是由若干指令构成的具有特定功能的函数，为最小单位不可在分割。以上4个操作对应进程控制的4个原语。父进程可以创建子进程，构成进程树，也可以在一定情况下终止子进程。</p>
+<p>进程的切换/上下文切换。context是程序运行的环境，如CPU内各个寄存器的值。</p>
+<p>进程调度可以分为长调度/作业调度和短调度/CPU调度。长调度需要组合I/O型进程和CPU型进程。另外还有中程调度，缓解内存紧张的问题，它将内存中处于阻塞状态的进程换到外存上挂起。进程调度队列有作业队列、就绪队列、设备队列等。</p>
+<p>进程间通信可以通过共享存储区或消息传递的方式实现。消息传递时可以直接传递或间接传递。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>进程的控制开销大，为了提高并发度和减小系统开销，引入线程。用更小的开销提高进程内的并发程度。作为CPU的调度单位。线程进一步提高系统并发的程度。</p>
+<p>线程只拥有必不可少的资源，如线程状态和上下文。同个进程的各个线程共享资源。</p>
+<p>一个进程中的多个线程可以并发执行。线程在创建、撤销的开销更小，线程调度切换上下文的开销更小。同进程的各个线程之间共享数据段，不需要IPC。系统资源利用率更高，资源可以共享、开销更小、适合多处理器结构。</p>
+<p>内核级线程在内核空间创建、调度和管理，确实是cpu调度的基本单位。用户级线程由线程库管理，无需内核支持，此时进程仍是CPU调度的单位。</p>
+<p>多线程模型中的多对多模型不限制应用的线程数、多个线程可以并发，不会因为一个线程阻塞而阻塞整个所有线程。此外两极模型除了允许多对多，也允许一对一。</p>
+<h3 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h3><p>CPU空闲时，OS选择内存就绪队列中某就绪进程，给它分配CPU。提高CPU利用率。</p>
+<p>进程状态切换时（有4种情况）可能会发生CPU调度。CPU调度的方案可分为非抢占式和抢占式。非抢占方式不允许其他进程抢占已分配的处理机，系统开销小但不适合实时、分时系统。抢占式根据调度原则，停止某个正在执行的进程，将处理机分配给另一个进程，抢占原则主要有：时间片原则、优先权原则、短作业优先原则。</p>
+<blockquote>
+<p>FCFS按照作业到达就绪队列的先后次序选择作业，是非抢占方式、有利于长作业和CPU型进程，有护航效应。</p>
+<p>SJF根据估计的每个进程下次运行的CPU脉冲长度，调度最短的进程。有最短的平均等待时间，可抢占也可非抢占。它吞吐量高、但实现（估计时间）困难，并且存在饥饿现象。</p>
+<p>优先级算法根据进程的优先级进行调度。SJF就是它的一个特例。有静态优先权和动态优先权。动态优先权随着进程推进而改变，以便获得更好调度性能，改变的因素有：进程等待时间、已使用处理机的时间、资源使用情况。</p>
+<p>RR主要用于分时系统，多个用户/进程共享同一台主机。OS为它们分配时间片，时间片用完后插入就绪队列尾。RR相比于SJF平均周转时间较长，响应时间短。时间片长度较大时类似FCFS，较短时上下文切换开销变大。</p>
+<p>多级队列，一个进程处于一个固定的队列，每个队列有自己的调度规则，队列间也需要调度。多级队列间的调度可以有固定优先级调度或时间片轮转调度等。</p>
+<p>多级反馈队列调度，多个就绪队列优先级不同，优先级越高时间片越小。进程在队列间移动，进程执行完一个时间片后被抢占，进入低一级的就绪队列。进程从阻塞变为就绪时要提高优先级，I/O型进程会留在较高优先级的队列。每个队列有自己的调度算法，要有决定进程改变队列、进程升降级的规则。</p>
+</blockquote>
+<h2 id="3月第1周"><a href="#3月第1周" class="headerlink" title="3月第1周"></a>3月第1周</h2><h3 id="个人的想法"><a href="#个人的想法" class="headerlink" title="个人的想法"></a>个人的想法</h3><p>本周走马观花式学习操作系统原理，跟进了一点毕设。</p>
+<p>有许多算法值得注意，比如为了实现CPU调度、磁盘调度、页面置换，它们各自都有许多特点的算法：最易实现的、理论最优的、折中的，并不断改进。在评价算法性能时，使用假定的一组/多组序列来进行评估。</p>
+<p>内存管理和文件管理都用到了许多数据结构来存储管理信息，它们也往往需要同时考虑逻辑上的需要和硬件的物理特性。</p>
+<p>内存管理中的分页、分段，文件管理中将磁盘划分为块，使离散地管理成为可能。但如何消除块内和块间的碎片，如何高效地组织这些块也是需要考虑的。</p>
+<p>文件物理结构中使用的索引，十分灵活，充分利用空间的同时能随机存取，值得借鉴。</p>
+<p>多级目录和多级索引，使用分层的方法提高了查找效率，方便了数据的组织和管理。</p>
+<p>合理设置缓冲可以解决速度的不匹配的问题，提高并行度和系统工作效率。</p>
+<h3 id="同步和互斥"><a href="#同步和互斥" class="headerlink" title="同步和互斥"></a>同步和互斥</h3><p>多个并发进程/线程可能访问同一共享数据，为保证数据一致性，需要有同步机制保证多个进程对共享数据的互斥访问。进程交互的关系有：互斥，多个进程不能同时使用同一个资源；同步，进程之间协作；死锁，多个进程互不相让，都得不到充足的资源。</p>
+<p>使用临界区解决进程间互斥问题。临界区是进程中访问临界资源的一段代码，不同进程的临界区的执行在时间上是互斥的，进程必须请求允许进入临界区。它需要满足互斥、有空让进、有限等待这三个条件。</p>
+<p>使用信号量与P、V操作有效解决进程同步。信号量S代表可用资源实体的数量，P(S)表示申请资源、V(s)表示释放资源。实现互斥：为临界区设置初值为1的互斥信号，每个进程的临界区代码都放于P(S)、V(S)原语中；实现同步；设置同步信号初始值为0，前驱进程中执行完前驱代码后进行V操作，后驱进程中先P再执行后驱代码。</p>
+<p>用P-V操作解决问题时要关注：同步、互斥的约束条件；互斥的临界资源的抽象/同步关系同步信号量；初始条件；正确的P-V操作。合理设置避免死锁。P-V操作必须成对，可以不在同一进程中。同步P操作应该放在互斥P操作前。</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>多个进程由于竞争资源而相互等待，并永远不能再向前推进。等待的进程们都持有资源，并等待其他的进程所持有的资源。产生死锁的原因：竞争资源引起死锁、进程推进顺序不当。</p>
+<p>4个条件同时满足时会出现死锁：互斥、进程占有并等待、资源不可抢占、循环等待。对死锁可以采取5个策略：忽略、预防、避免、检测、接触。</p>
+<blockquote>
+<ul>
+<li>忽略：鸵鸟策略</li>
+<li>预防：通过限制进程资源请求的方式，打破死锁的4个条件</li>
+<li>避免：判断分配资源后是否安全而决定是否分配资源，确保系统不进入不安全状态。可以使用资源分配图，将需求边转换为分配边，看是否有环；银行家算法（用安全检测算法判断是否能找到一个安全序列）判断。</li>
+<li>检测：维护等待图，定期检查是否有环；类似银行家算法的检测算法。</li>
+<li>恢复：人工处理、终止进程、资源抢占。可以按一定顺序一次终止一个进程直到死锁被打破；可以逐步抢占一些进程的资源，直到打破死锁，但一个进程可能总是被选中产生饥饿。</li>
+</ul>
+</blockquote>
+<h3 id="地址重定位"><a href="#地址重定位" class="headerlink" title="地址重定位"></a>地址重定位</h3><p>程序放入内存才可正确运行。可在三个阶段将指令和数据绑定到内存。地址重定位将程序的逻辑地址转换成物理地址。有静态和动态地址重定位，后者需要硬件支持。</p>
+<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><p>连续内存分配，为一个程序分配连续的内存空间。单一连续分配和多分区分配。多分区分配有固定分区分配和动态分区分配。</p>
+<p>固定分区分配维护一张分区表记录分区大小和使用情况，将内存划分为固定数目和大小的分区。这样易于实现开销小，但是会产生内碎片并且限制并发进程数量。</p>
+<p>动态分区分配，分区划分是动态而不预先确定的。使用分区分配算法来寻找并分配内存，有首次适应算法、最佳适应算法等。通过碎片的拼接/紧凑来减少外碎片。只有动态重定位时才能紧凑，并要注意I/O的问题。</p>
+<h3 id="分页、分段"><a href="#分页、分段" class="headerlink" title="分页、分段"></a>分页、分段</h3><p>离散地管理内存，将程序分为不同的页，将内存的物理地址分为不同的块/页帧，将页放到页帧中。使一个程序能够在内存中离散地存储，不必连续存放，没有外碎片。</p>
+<p>分页将程序地址划分成大小相等的页，将内存划分成大小相等的块。有效地址包含页号和偏移，从页表寄存器获得页表始址和页表长度，找到页表的位置。页表中有页号到物理地址中块号的映射，得知块号后再加上偏移，就得到了物理地址。有亮相寄存器TLB做缓存，存储最近用过的页表映射。</p>
+<p>分段允许划分大小不等的段和块。有效地址包含段号和偏移，从段表寄存器中获得段表始址和长度，找到段表的位置。段表中存储了从段号和段长到物理地址基址的映射。用有效地址的段号通过段表获得物理基址，加上偏移得到物理地址。完成了程序在内存中的离散存放。</p>
+<h3 id="虚拟内存相关"><a href="#虚拟内存相关" class="headerlink" title="虚拟内存相关"></a>虚拟内存相关</h3><p>根据局部性原理，一段时间内程序的执行仅局限于某个部分。使用虚拟内存，进程部分装入内存就可以执行。</p>
+<p>请求调页，进程需要的页不在内存，请求OS把该页从外存装入内存。主要的过程包含：处理缺页中断，从磁盘读入所需的页（高I/O开销），重新开始被中断的进程/指令。</p>
+<p>页面置换，内存空间可能放满，需要在内从空间中找一个空闲帧把它换出去，再换进请求的页。页面置换算法有OPT、FIFO、LRU和LRU的近似，使用特殊的内存访问序列来评价他们的性能。</p>
+<p>给进程分配的页数不能小于其所需的最小页数，否则进程不能正常运行。给进程分配页/帧的策略有：平均分配、按比例分配、按优先级分配。该分配可以是一次性固定的分配，也可以是可变分配。进行页面置换时，可以局部替换或全局替换。</p>
+<p>频繁地缺页和调页换页导致颠簸。为了防止颠簸，应该给进程提供做够多的帧，降低缺页率。OS要跟踪并为进程分配大于其工作集的物理块数，如果内存还有空闲块，则可启动另外的进程。如果所有进程的工作集之和超过可用物理块总数，OS选择暂停一个进程，换出该进程，释放的物理块可分配给其他进程，防止颠簸/抖动。</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件是记录在外存上的具有名字的相关信息的集合。文件的访问有顺序存取和直接存取。</p>
+<p>文件的存储方式与文件逻辑结构和物理存储设备有关。文件在外存的存放组织形式称为文件的物理结构，文件的物理结构取决于外存的分配方式。文件的存储设备划分为大小相等的物理块，是基本单位。</p>
+<p>物理结构有连续结构、链接结构、索引结构。FAT文件分配表记录文件所在的各个块，实现随机存取。类似，为每一个文件建立一个索引表，存放该文件的块号。索引表较大时，用链接模式和多级索引解决。</p>
+<p>磁盘每个分区中所有文件的信息存放在目录中。文件控制块FCB是用于描述和控制文件的数据结构。文件目录是FCB的有序集合。组织目录的逻辑结构有：单级目录、两级目录、树形目录、无环图结构目录、普通图结构目录等。目录的结构需要考虑：查找效率、命名、共享等问题。</p>
+<p>对空闲空间的管理有位图法、空闲块表、空闲块链表、组成链接法等。</p>
+<p>文件系统是操作系统中以文件方式管理计算机软件资源的软件和被管理的文件和数据结构（如目录和索引表等）的集合。文件系统分层实现各功能。需要磁盘上和内存中各数据结构的支持。</p>
+<h3 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h3><p>提高I/O速度，硬件：选择高性能的磁盘、设置高速缓冲区；软件：磁盘调度算法。磁盘访问时间由寻道时间+旋转延迟时间+传输时间组成。硬件性能决定了访问时间的大部分，除了寻道时移动的道数。适当的集中数据，并且降低寻道时在不同磁道间移动的距离。</p>
+<p>磁盘I/O请求的服务调度算法，目标是更小的寻道时间（寻道距离）。在给定一个请求序列的情况下讨论不同算法的性能。磁盘调度算法有：FCFS、SSTF、SCAN、C-SCAN、LOOK、C-LOOK等。</p>
+<h3 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h3><p>I/O设备与设备控制器通信，设备控制器与CPU通信。一般以中断驱动或者DM的A方式驱动I/O，进一步提高CPU和设备的并行程度，提高资源利用率。</p>
+<p>OS通过缓冲解决速度不匹配的问题，并且提高CPU和I/O设备间的并行度。有单缓冲、双缓冲、循环缓冲、缓冲池。</p>
+<p>设备独立软件解决设备命名、设配分配、设备独立性的问题。设备分配中需要系统设备表、设备控制表、控制器控制表等数据结构。引入逻辑设备和物理设备解决设备独立性的问题，使用逻辑设备表LUT。</p>
+<p>设备驱动程序是I/O进程与设备控制器之间的通信程序，使OS以统一的标准和方式对待I/O设备。</p>
+<p>通过spooling技术，用一道程序模拟脱机的外围控制机，外围操作与CPU对数据的处理同时进行。提高了I/O速度，实现设备共享，实现了逻辑设备功能（一台物理设备看成是多台逻辑设备）</p>
+<h2 id="3月第2周"><a href="#3月第2周" class="headerlink" title="3月第2周"></a>3月第2周</h2><h2 id="3月第3周"><a href="#3月第3周" class="headerlink" title="3月第3周"></a>3月第3周</h2><p>实习课。本以为回学校后学习氛围浓厚些更容易学习，结果自控力不足，和大家一起都不听课了。没认真听实习课，有些后悔。</p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>IEEE的浮点数表示规则。4种舍入方式，默认向偶数舍入。会向无穷溢出。浮点数运算不满足结合性。注意<code>float</code>、<code>double</code>和<code>int</code>间的类型转换时的精度损失。</p>
+<h3 id="机器级程序基础"><a href="#机器级程序基础" class="headerlink" title="机器级程序基础"></a>机器级程序基础</h3><p>以下为<strong>AT&amp;T</strong>格式汇编</p>
+<p>寄存器带有<code>%r</code>，为64位；寄存器带有<code>%e</code>，为32位寄存器。例如：%rax(64bits)，%eax(32bits), %ax(16bits), %ah, %al。</p>
+<p>8086中，long word为4字节，quad word为8字节。movq中的q指quad</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq (%rdi), %rax</span><br></pre></td></tr></table></figure>
+
+<p>注意源和目的的顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shrq Src, Dest    Dest = Dest &gt;&gt; Src   logical</span><br></pre></td></tr></table></figure>
+
+<p>一种寻址方式：D(Rb, RI, S)，选中Men[Reg[Rb]+S*Reg[Ri]+D]中的内容。其中D是偏移常量，S即Scale。使用它可以实现乘k操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leaq (%rdi, %rdi, 2), %rax</span><br><span class="line"># 将3倍%rdi（作为地址）放进%rax</span><br></pre></td></tr></table></figure>
+
+<h2 id="3月第4周"><a href="#3月第4周" class="headerlink" title="3月第4周"></a>3月第4周</h2><h3 id="记住比较函数"><a href="#记住比较函数" class="headerlink" title="记住比较函数"></a>记住比较函数</h3><p>STL中，如<code>set</code>和<code>priority_queue</code>等需要按一定规则排序，用到了比较函数。常用的默认比较函数是<code>less</code>和greater，却难以记忆。</p>
+<p>记忆方法：使用一个数组来辅助记忆，假设有一个数组，从索引为0（在左）开始，向索引增大的方向看（从左向右看）。<code>less</code>使左侧值&lt;右侧值，<code>greater</code>使左侧值&gt;右侧值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// STRUCT TEMPLATE less</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span> =</span> <span class="keyword">void</span>&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">less</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> _Ty&amp; _Left, <span class="keyword">const</span> _Ty&amp; _Right)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _Left &lt; _Right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>set</code>中，默认<code>less</code>，左＜右，升序排列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CLASS TEMPLATE set</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Kty</span>, <span class="keyword">class</span> _<span class="title">Pr</span> =</span> less&lt;_Kty&gt;, <span class="class"><span class="keyword">class</span> _<span class="title">Alloc</span> =</span> allocator&lt;_Kty&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>priority_queue</code>中，默认<code>less</code>，左&lt;右。左侧为队尾，右侧为队首。将其看做堆的话，右侧为堆顶较大，因此默认的less构成大顶堆。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CLASS TEMPLATE priority_queue</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>, <span class="keyword">class</span> _<span class="title">Container</span> =</span> vector&lt;_Ty&gt;, <span class="class"><span class="keyword">class</span> _<span class="title">Pr</span> =</span> less&lt;<span class="keyword">typename</span> _Container::value_type&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v&#123; <span class="number">2</span>, <span class="number">1</span>, <span class="number">33</span>, <span class="number">3</span> &#125;;</span><br><span class="line">priority_queue &lt;<span class="keyword">int</span>&gt; q&#123; v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>() &#125;;</span><br><span class="line"><span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; q.<span class="built_in">top</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//33 3 2 1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>algorithm</code>库中的<code>sort</code>函数也是类似，他有一个重载默认用less（与前面的less不是同一个），也是左&lt;右，升序排列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RanIt</span>, <span class="keyword">class</span> _<span class="title">Pr</span>&gt;</span></span><br><span class="line"><span class="function">_CONSTEXPR20 <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">const</span> _RanIt _First, <span class="keyword">const</span> _RanIt _Last, _Pr _Pred)</span> </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v&#123; <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span> &#125;;</span><br><span class="line">std::<span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//0 1 2 2 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="建立连接示例tcp-socket"><a href="#建立连接示例tcp-socket" class="headerlink" title="建立连接示例tcp socket"></a>建立连接示例tcp socket</h3><p>go的示例</p>
+<p><strong>client方</strong>，使用 <code>DialTCP</code>建立连接，使用返回的<code>TCPConn</code>的<code>Read</code>和<code>Write</code>函数进行读写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//pacakage net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DialTCP</span><span class="params">(network <span class="keyword">string</span>, laddr, raddr *TCPAddr)</span> <span class="params">(*TCPConn, error)</span> //建立连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//TCPConn是conn的“派生类”</span></span><br><span class="line"><span class="comment">//package net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *conn)</span> <span class="title">Read</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span> //<span class="title">read</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *conn)</span> <span class="title">Write</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span> //<span class="title">write</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn, err := net.DialTCP(<span class="string">&quot;tcp&quot;</span>, <span class="literal">nil</span>, tcpAddr)</span><br><span class="line">checkError(err)</span><br><span class="line">_, err = conn.Write([]<span class="keyword">byte</span>(<span class="string">&quot;xxx&quot;</span>))</span><br><span class="line">checkError(err)</span><br></pre></td></tr></table></figure>
+
+<p><strong>server方</strong>，使用<code>ListenTCP</code>监听端口，用<code>Accept()</code>建立连接</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ListenTCP</span><span class="params">(network <span class="keyword">string</span>, laddr *TCPAddr)</span> <span class="params">(*TCPListener, error)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *TCPListener)</span> <span class="title">Accept</span><span class="params">()</span> <span class="params">(Conn, error)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">listener, err := net.ListenTCP(<span class="string">&quot;tcp&quot;</span>, tcpAddr)</span><br><span class="line">checkError(err)</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">	conn, err := listener.Accept()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">go</span> doSomething(conn)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><p>使用“轮询”的浏览器要不断地对服务器发送请求。二者使用websocket则可以在握手后一直保持连接，一对c/s只建立一个tcp连接，服务端也可以推送数据到客户端。</p>
+<p>url的协议字段使用<code>ws:</code>//或<code>wss://</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">&quot;ws://localhost:9989&quot;</span>;</span><br><span class="line">sock = <span class="keyword">new</span> WebSocket(url);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/27/log-2021-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/27/log-2021-2/" class="post-title-link" itemprop="url">日志-2021-2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-27 20:39:45" itemprop="dateCreated datePublished" datetime="2021-01-27T20:39:45+08:00">2021-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 14:12:55" itemprop="dateModified" datetime="2021-02-07T14:12:55+08:00">2021-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>本日志主要由三部分组成：</p>
+<ul>
+<li>简记，简要记录每天工作</li>
+<li>详记，对简记的各项条目做进一步说明，并附上小结或思考</li>
+<li>附录，将学习时的部分笔记附在最后</li>
+</ul>
+<p>中短期计划，在三条线上并发：</p>
+<ul>
+<li>基础知识补习、基本工具的学习（知识/工程）</li>
+<li>锻炼写代码的能力</li>
+<li>就今后研究方向做初步摸索与入门（技术/学术）</li>
+</ul>
+<h1 id="简记"><a href="#简记" class="headerlink" title="简记"></a>简记</h1><h2 id="第0周"><a href="#第0周" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-27-Wed"><a href="#1-27-Wed" class="headerlink" title="1/27 Wed -"></a>1/27 Wed -</h3><ul>
+<li>git<ul>
+<li>工作区与缓存区的概念，add、commit等指令</li>
+<li>版本的更改</li>
+<li>远程仓库建立</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-28-Thu"><a href="#1-28-Thu" class="headerlink" title="1/28 Thu -"></a>1/28 Thu -</h3><ul>
+<li>git<ul>
+<li>分枝相关，创建合并删除等</li>
+<li>多人合作</li>
+<li>tag，ignore等其他辅助功能</li>
+</ul>
+</li>
+<li>概念<ul>
+<li>容器的概念</li>
+<li>重新回顾整理云计算概念</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-29-Fri"><a href="#1-29-Fri" class="headerlink" title="1/29 Fri -"></a>1/29 Fri -</h3><ul>
+<li>概念<ul>
+<li>解决对容器概念的一些疑问</li>
+<li>容器技术能解决的问题</li>
+<li>对Serverless的初步了解、特点</li>
+<li>无服务器计算与传统的区别</li>
+</ul>
+</li>
+<li>OS<ul>
+<li>BIOS的功能</li>
+<li>了解OS的启动过程，POST和MBR</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-30-Sat-–"><a href="#1-30-Sat-–" class="headerlink" title="1/30 Sat –"></a>1/30 Sat –</h3><ul>
+<li>Serverless相关<ul>
+<li>如何提升服务器资源利用率</li>
+<li>无服务器如何体现，规模效应如何体现</li>
+<li>水平扩容缩容</li>
+<li>无状态服务概念</li>
+</ul>
+</li>
+<li>Linux命令<ul>
+<li>查阅系统联机手册、日历计算器等</li>
+<li>root和普通用户</li>
+<li>查看系统用户和当前状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-31-Sun"><a href="#1-31-Sun" class="headerlink" title="1/31 Sun -"></a>1/31 Sun -</h3><ul>
+<li>Serverless<ul>
+<li>为什么要无状态服务，无状态如何体现</li>
+<li>延迟体现在哪些方面</li>
+<li>测试上的问题</li>
+<li>使用腾讯云的SCF体验了最简单的FaaS</li>
+</ul>
+</li>
+<li>OS<ul>
+<li>操作系统启动过程描述</li>
+<li>生成自定义OS</li>
+<li>操作系统用户界面、shell</li>
+</ul>
+</li>
+</ul>
+<h2 id="第1周"><a href="#第1周" class="headerlink" title="第1周"></a>第1周</h2><h3 id="2-1-Mon-–"><a href="#2-1-Mon-–" class="headerlink" title="2/1 Mon –"></a>2/1 Mon –</h3><ul>
+<li>Serverless和其他架构的关系<ul>
+<li>和容器、k8s的关系</li>
+<li>与FaaS的关系</li>
+<li>与微服务的关系</li>
+<li>BaaS的体现</li>
+</ul>
+</li>
+<li>OS课<ul>
+<li>系统调用及其实现步骤</li>
+<li>进程的概念，与程序的区别</li>
+</ul>
+</li>
+<li>Linux课<ul>
+<li>了解系统状态的一些命令</li>
+<li>Linux中的文本文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-Tue"><a href="#2-2-Tue" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p>serverless相关</p>
+<ul>
+<li>函数计算的输入、输出</li>
+<li>事件驱动/触发<ul>
+<li>什么事事件驱动</li>
+<li>相关术语</li>
+<li>cloudevent规范</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Wed"><a href="#2-3-Wed" class="headerlink" title="2/3 Wed -"></a>2/3 Wed -</h3><p>函数计算冷启动</p>
+<ul>
+<li>什么是冷启动</li>
+<li>FaaS中函数冷启动的过程</li>
+<li>各个步骤中可以优化的方法</li>
+</ul>
+<p>Docker文档</p>
+<ul>
+<li>overview</li>
+</ul>
+<h3 id="2-7-Sun-–"><a href="#2-7-Sun-–" class="headerlink" title="2/7 Sun –"></a>2/7 Sun –</h3><p>临近春节，家中事情多，改为周记</p>
+<h1 id="详记"><a href="#详记" class="headerlink" title="详记"></a>详记</h1><h2 id="第0周-1"><a href="#第0周-1" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-28-Thu-1"><a href="#1-28-Thu-1" class="headerlink" title="1/28 Thu -"></a>1/28 Thu -</h3><p><strong>git</strong></p>
+<p>接着昨天学习完了git的一些常用命令。了解了分枝的使用方法和原理，主要可以用于：在新建的分枝上开发完善后再合并到主分枝。比如用master分枝存放稳定版本的代码，在dev分枝上做修改，具体修改时还可创建其他分枝。同时使用stash和branch可以在不影响其他代码的情况下修改bug。</p>
+<p>多人合作时，git可以跟踪自己和别人对代码的更改。两人同时对一个分枝作业时，若A先push，那么B需要pull，merge并处理冲突，然后才能push。</p>
+<p>使用tag可以对commit进行标记，用<code>.gitignore</code>可以忽略不需要管理的文件。</p>
+<p><strong>概念</strong></p>
+<p>弄懂以前半懂不懂的概念</p>
+<p>对云计算的定义、优势、分类做了回顾和简结。我是把云计算理解为服务，而这种服务可以是不同“程度“的，用户可以按需获得服务。由于云计算提供商可以”大批量“、”统一“安置和管理这些实体云服务器，使云计算具备了某些特征，比如</p>
+<ul>
+<li>没有地理位置的限制，移动性高，可以在各地享用服务</li>
+<li>扩展性高，可以扩容增加计算和存储的能力，实现单机无法实现的功能。</li>
+<li>……</li>
+</ul>
+<p>由此，许多基于以上特征的，依赖云的新技术不断出现。</p>
+<p>理解了容器是用来干什么的，它和VM的关系。容器的出现使应用软件不需要考虑运行环境的问题，能够以较小的开销，快速地开启或关闭应用。</p>
+<p><strong>其他思考</strong></p>
+<p>多人同时对一个对象进行作业，而互补干扰，git使用了分枝。就像是先产生了多个”平行世界“，最后收束于一个世界一样。也许“先展，后收”的思想方法可以用在其他地方。</p>
+<p>使用类似于”指针“的东西对各分枝管理，在前进或后退版本时不需要复制大量的变更信息。</p>
+<p>云计算带来的底层能力的提升，可以带动上层技术的发展。在开发应用时，也可以考虑其本身运行的环境（本地主机还是云服务器上？是容器中还是VM上？）</p>
+<h3 id="1-29-Fri-1"><a href="#1-29-Fri-1" class="headerlink" title="1/29 Fri -"></a>1/29 Fri -</h3><p><strong>OS</strong></p>
+<p>BIOS的功能：</p>
+<ul>
+<li>系统启动配置</li>
+<li>提供设备的I/O服务</li>
+<li>系统加电自检Power On Self-Test</li>
+<li>引导系统启动</li>
+</ul>
+<p>上电后：</p>
+<ol>
+<li>进行POST，初始化各硬件</li>
+<li>从硬盘/光驱/……读入OS，OS接管计算机。</li>
+<li>首先读取的是承载OS的实体的<code>首扇区</code>，存有<code>Main Boot Record</code>。MBR中有OS启动相关的内容。MBR会进行查找活动分区等，将分区引导记录加载到内存</li>
+<li>PBR继续控制后面的引导过程</li>
+</ol>
+<p><strong>概念</strong></p>
+<p>容器考虑了应用开发后部署环境的问题。将应用和它所需的库、依赖等打包成镜像。将镜像放到容器中就可以运行而不需考虑运行环境，十分便捷。这有利于应用的开发、测试、部署和维护。也能很容易地迁移服务。</p>
+<p>使用容器技术后，容器相互隔离，应用互不干扰，服务器上的资源能够得到更充分的利用。容器能快速启动和关闭，还能动态扩容缩容等。适合业务需求随时间变化量大的服务。</p>
+<p>Serverless中，用户甚至不许要打包镜像，只需要提交代码就能运行。应用开发方只用关注业务逻辑，可以忽略底层的基础设施以及其他辅助组件。比如不需要关心负载均衡、服务发现、安全监控、服务部署和维护等各方面的问题？</p>
+<p>明天学习了解Serverless的基本实现原理和一些陌生概念。</p>
+<p><strong>其他想法</strong></p>
+<p>为了更方便地进行软件应用生命周期的各个部分，从VM到容器，云服务的效率在不断提高，软件应用的开发部署也更加方便简单。我感觉容器本身就是解耦和聚合的体现。而Serverless似乎是更进一步，把更多与业务逻辑无关但必要功能直接做在了云服务中，不需要用户关心。</p>
+<h3 id="1-39-Sat-–"><a href="#1-39-Sat-–" class="headerlink" title="1/39 Sat –"></a>1/39 Sat –</h3><p><strong>Serverless相关概念</strong></p>
+<p>Serverless中，只有请求到来时，服务实例才被开启，而非一直运行着。这样做提高了服务器的有效利用率。</p>
+<p>用户提交的代码被服务提供方统一部署、管理、调度，也不用关心服务器选型、维护等问题。大量的工作由提供方统一完成，产生了规模效应。能使以上工作的成本更低、完成效果更好。</p>
+<p>Serverless中的服务实例若想水平扩容，那么需要他是无状态的。无状态指某次请求的处理服务不能使用其他次请求的信息。</p>
+<p><strong>Linux命令</strong></p>
+<p>使用联机手册man可以方便地查阅各种说明书。比如命令、c语言函数库等。</p>
+<p>计算器bc可以设置精度，并且可以支持变量、函数、条件、循环。</p>
+<p>root用户权限很大，使用时需要警惕。用户口令以随机值+生成的hash值方式存储，即使是root也不能查到普通用户的口令。</p>
+<p><strong>其他思考</strong></p>
+<p>可能正是因为Serverless要求的这种伸缩性，不得不考虑实例容器的启动和关闭问题。而启动和关闭的开销很可能使Serverless的性能出现瓶颈，这也许是要研究<code>快速冷启动</code>的原因之一。似乎可以设置一些策略来控制某一服务的众多实例的开启和关闭，从而减少在开关上的开销。</p>
+<h3 id="1-31-Sun-1"><a href="#1-31-Sun-1" class="headerlink" title="1/31 Sun -"></a>1/31 Sun -</h3><p><strong>Serverless</strong></p>
+<p>为了灵活扩容缩容，某个容器可能的开启和关闭一定程度上是不确定的。因此一次请求不能够依赖其他次的请求。</p>
+<p>允许一个实例容器连续响应多次对同一个函数的触发调用，这个容器的冷启动只有一次，冷启动时全局量的初始化只有一次，是可以”共享的“。但是一个请求才发起时，不能确定触发的响应是冷启动的实例还是复用之前已经存在的实例，所以只能不能依赖之前的状态。是无状态的。</p>
+<p>延迟有低耦合的函数相互调用的延迟，以及容器冷启动的延迟（相比传统的容器架构可能会更频繁地冷启动）。</p>
+<p>由于高度分布，所以开发者难以模拟分布式环境进行本地测试。</p>
+<p><strong>OS</strong></p>
+<p>操作系统启动，主要是<strong>初始引导</strong>、<strong>核心初始化</strong>和系统初始化。</p>
+<p>生成操作系统有一定的前提和步骤。先要根据硬件和用户需要配置功能模块和构造参数，再build成OS的映像。是二进制的。</p>
+<p>操作系统提供给了用户控制计算机的机制——用户接口，包括<strong>操作界面</strong>和<strong>系统调用</strong>。操作界面则有图形界面、命令界面和批处理命令/界面。</p>
+<p>shell也是一种OS与用户的交互界面，通过控制台执行用户命令。shell本身不执行命令，仅仅是组织和管理命令。</p>
+<p><strong>其他思考</strong></p>
+<p>Serverless有优有劣，可能更适合于请求流量密度不固定的（伸缩性好）、无状态的服务。是否采用Serverless要结合实际业务情况来决定。</p>
+<h2 id="第1周-1"><a href="#第1周-1" class="headerlink" title="第1周"></a>第1周</h2><h3 id="2-1-Mon-–-1"><a href="#2-1-Mon-–-1" class="headerlink" title="2/1 Mon –"></a>2/1 Mon –</h3><p><strong>Serverless和其他架构的关系</strong></p>
+<p>先前的很多Serverless实现，都是基于k8s的FaaS产品。通过扩展k8s，管理一些列的函数容器应用，以实现FaaS功能。讲业务逻辑和后端逻辑写好后，提交给FaaS平台，FaaS会将代码打包成镜像，在有事件触发时生成容器并响应。</p>
+<p>serverless实现了FaaS和BaaS的功能。FaaS简化了容器部署、管理、扩容等一些列问题;BaaS整合第三方组件进一步辅助应用开发。</p>
+<p>满足一定条件的微服务可以使用Serverless提供的服务运行。</p>
+<p><strong>OS课</strong></p>
+<p>系统调用是用户界面（提供给用户控制计算机的机制）的一种。通过中断进入核心态，对硬件或者进程进行操作。</p>
+<p>进程是程序在某个数据集合上的一次运行活动，是静态的、暂存的。四大特点是：异步性、并发性、独立性、动态性。</p>
+<p><strong>Linux课</strong></p>
+<p>有一些命令可以查看当前系统的状态。比如ps查看进程状态、free查看内存使用情况、vmstat查看系统负载。还有CPU占用时间和内存中的buff/cache区等一些微妙的概念。</p>
+<p>Linux提供了大量文本文件处理命令，把stdin/stdout也管理成文件，并充分利用了重定向和管道。可以将不同命令的输入输出和文件关联起来。</p>
+<p><strong>其他想法</strong></p>
+<p>微服务是从应用开发的架构，Serverless是云服务提供的架构。二者可以相互融合。Serverless本身也使用到了容器，用容器来管理函数，本身来讲也可以看做是容器技术在服务提供方面的新发展。</p>
+<h3 id="2-2-Tue-1"><a href="#2-2-Tue-1" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p><strong>serverless相关</strong></p>
+<p>函数的输入要求包含事件数据、元数据和上下文。函数的输出可以由结构化和非结构化两种形式。</p>
+<p>事件驱动编程是一种编程范式。当有触发时，向消息/事件队列中添加一个事件，会有一个循环从队列中取出队列，并执行相应的函数。</p>
+<p>CNCF的CloudEvent规范对事件数据在格式上做了一定的要求。</p>
+<h3 id="2-3-Sun"><a href="#2-3-Sun" class="headerlink" title="2/3 Sun -"></a>2/3 Sun -</h3><p><strong>本周的进度</strong></p>
+<p>结束了实习，返回家中。家里事情多，时间安排难，改为每周总结。</p>
+<p>前段时间大概了解了Serverless的各个概念，将查找资料学习的概念内容附在后面。感觉这种概念的东西看一看过一遍就行了，全写下来有些浪费时间。但木已成舟，希望今后学其他东西的时候效率能高一些吧。</p>
+<p><strong>展望</strong></p>
+<p>周围接触的人都十分优秀，要不就和长辈们吃饭，谁谁孩子在国际知名大学留学读博，或新认识的朋友竟然又是华五的，就是小时候一起玩的那几个，也都北航中山。自己是十分渺小的。</p>
+<p>硕士生还是应该与本科生有一定的区别的，硕士生确实得搞研究，学会搞研究的那一套思维，但做工程的能力必不可少。这二者挺难平衡的，但我相信这个学科和行业，后者是前者的基础，而前者是只能在学校里学到的。默认的道路就是先学校里科研，工作之后再工程，这是能最大化读硕三年的方法；但不会工程只搞科研是行不通的（1.真的不行，2.没这环境）。</p>
+<p>想让二者齐头并进则需要牢固的基础和功底。读硕肯定是要搞科研的，不搞科研就没必要读学硕；但若要一心搞科研不做工程，那我觉得应该直博。二者并发必然要各种基础（特别是对我这种），但周围的环境并不理解我的这种需要。我还有7个月能大补基础，时间不多了。</p>
+<p><strong>弱小和无知不是生存的障碍，傲慢才是。</strong></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>待上传，大概一周补一次</p>
+<ul>
+<li>git</li>
+<li>概念</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>把不懂的概念理一理，用自己的话说一遍</p>
+<h3 id="重新回顾整理云计算概念"><a href="#重新回顾整理云计算概念" class="headerlink" title="重新回顾整理云计算概念"></a>重新回顾整理云计算概念</h3><p>用自己的话重新说一遍</p>
+<ul>
+<li>云计算是什么？<ul>
+<li>通过互联网提供的计算和存储服务。不需要开考虑其背后的实际物理设备的存在。</li>
+</ul>
+</li>
+<li>云计算模型？<ul>
+<li>IaaS 此服务提供的是一套几乎完整的计算机，客户可以自由使用计算机软硬件资源，就像从远程配置和操纵一台主机。（像是一台虚拟机？）</li>
+<li>PaaS 无需关心硬件和系统软件（由服务提供商管理），客户可以直接在此服务上部署和管理应用软件。</li>
+<li>SaaS 此服务直接提供应用软件，客户只需关心如何使用该应用</li>
+</ul>
+</li>
+<li>另一个角度分类<ul>
+<li>公有云<ul>
+<li>将在本地设施中可以运行程序迁移到云中去</li>
+<li>直接在云中建立程序，和云计算设施紧密结合</li>
+</ul>
+</li>
+<li>混合云<ul>
+<li>将云与本地设施连接在一起，共同服务</li>
+<li>私有云 我的理解是，在本地维护云计算设施，为内部用户提供云计算服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>云计算的优势/好处？（相比自己维护一个物理的服务器）<ul>
+<li>使用方便（维护成本低，节约空间，移动性高）</li>
+<li>更易获得高性能（速度快，可靠性高）</li>
+<li>灵活性更高<ul>
+<li>可按需购买不同配置的服务</li>
+<li>部署类型不同的各种应用</li>
+</ul>
+</li>
+<li>可扩展性高（按需扩大或缩减业务规模）</li>
+</ul>
+</li>
+</ul>
+<h3 id="容器概念"><a href="#容器概念" class="headerlink" title="容器概念"></a>容器概念</h3><p>将应用与其运行环境（如依赖等）打包，称为“镜像”。将镜像放到“容器”中就能运行，无需再考虑它所在的环境。</p>
+<p>特点：</p>
+<ul>
+<li>方便移植（不受运行环境的变化影响）</li>
+<li>独立性好（应用间不会相互干扰)</li>
+<li>lightweight（暂时没理解原因，是与虚拟机相比？）</li>
+<li>启动和释放速度更快（与VM相比，具体原因应该和他的实现方法有关）</li>
+<li>效率高</li>
+<li>一台服务器能运行更多应用实例</li>
+<li>运维时开销更少（如更新或升级）</li>
+<li>因为以上的原因，容器适合部署微服务？</li>
+<li>……待补充</li>
+</ul>
+<p>为什么需要使用容器替代VM？</p>
+<blockquote>
+<p>在容器普及之前，使用“虚拟机”划分机器资源。每个虚拟机都会使用虚拟出来的“虚拟硬件”和“虚拟OS”。并且存在一个虚拟层，从实际的机器硬件中为各个划分出来的虚拟机划分他们所需的硬件资源。</p>
+<p>使用容器，不需要虚拟层，也没有虚拟硬件和虚拟OS的开销。只需要使用一个叫容器的程序来驱动各个应用镜像？（消耗更少的CPU和内存）</p>
+<p>可能是因为实现方法特殊，其启动和释放速度比VM快</p>
+</blockquote>
+<p>那么，为什么要将大型设备的资源划分成更小的组成部分？</p>
+<blockquote>
+<p>……待解决</p>
+</blockquote>
+<p>有利于企业的开发、测试、部署、运维？</p>
+<blockquote>
+<p>容器应用在部署上的总开销小，开发和测试周期更短，开发和运营团队间可以更方便地移动应用给对方，合作更高效。敏捷开发？</p>
+<ul>
+<li>有利于企业的开发、测试、部署、运维</li>
+</ul>
+</blockquote>
+<p>如何在不同平台上屏蔽运行环境？</p>
+<blockquote>
+<p>移动性。容器提供标准化的格式，将应用和应用所需的所有组件打包。因此在不同的环境下，应用都可以依靠这些打了包的依赖组件，以相同的方式运行。</p>
+<ul>
+<li>服务迁移，将原有的在本地服务器上的应用装入容器，迁移部署到云端。或者在不同的云间迁移</li>
+</ul>
+</blockquote>
+<p>为什么容器的伸缩性更好？</p>
+<blockquote>
+<p>扩展。容器运行的开销比VM小（轻量），同样的设施上能运行更多的容器，容器的能更快开启和停止。一个容器服务请求多，可以短时间内开启更多的该服务实例，关闭需求少的实例。</p>
+<ul>
+<li>ML，例如在数据分析中，可以灵活增缩所需的资源。</li>
+</ul>
+</blockquote>
+<h3 id="Serverless相关概念"><a href="#Serverless相关概念" class="headerlink" title="Serverless相关概念"></a>Serverless相关概念</h3><p>什么是“无服务器”？</p>
+<blockquote>
+<p>云计算服务提供商，维护后端基础结构，为应用提供各种基础功能。如数据库、消息和省份验证</p>
+<p>应用开发可以更关心业务逻辑，不需要关心任何基础设施/底层实现。</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>无状态（运行在无状态的计算容器中）</li>
+<li>事件驱动（由事件触发/驱动）</li>
+<li>无状态（被第三方托管，业务层面的状态则存储在数据库或其他介质中）</li>
+<li>扩容缩容</li>
+<li>……</li>
+</ul>
+<p><strong>核心技术：</strong></p>
+<ul>
+<li>函数的规范定义</li>
+<li>函数部署流水线</li>
+<li>workflow设置</li>
+<li>0-m-n扩缩容</li>
+<li>快速冷启动</li>
+<li>……</li>
+</ul>
+<p>开发者要做什么？</p>
+<blockquote>
+<p>只需编写代码和选择触发器（比如RPC请求）</p>
+</blockquote>
+<p>什么由Serverless计算提供方完成？而不需要用户</p>
+<blockquote>
+<p>和业务逻辑无关的其他组成部分，以及运行维护。比如负载均衡、安全监控等原来开发者需要设置的内容，以及具体的服务部署、扩容缩容等</p>
+<p>开发者不需要指定服务运行的资源载体。只需要上传代码</p>
+</blockquote>
+<p>服务计费方式有改变：</p>
+<blockquote>
+<p>按服务使用量收费，比如调用次数、运行时长。而不是按照占用服务器的资源</p>
+</blockquote>
+<p>Serverless适合具有哪些特点的应用？CNCF</p>
+<blockquote>
+<ul>
+<li>异步的并发，组件可独立部署和扩展</li>
+<li>应对突发或服务使用量不可预测（主要是为了节约成本，因为 Serverless 应用在不运行时不收费）</li>
+<li>短暂、无状态的应用，对冷启动时间不敏感</li>
+<li>需要快速开发迭代的业务（因为无需提前申请资源，因此可以加快业务上线速度）</li>
+</ul>
+</blockquote>
+<p>Serverless的使用场景？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://gw.alipayobjects.com/os/basement_prod/24ec4498-71d4-4a60-b785-fa530456c65b.pdf">https://gw.alipayobjects.com/os/basement_prod/24ec4498-71d4-4a60-b785-fa530456c65b.pdf</a></p>
+<ul>
+<li>ETL</li>
+<li>ML</li>
+<li>图像处理</li>
+<li>IoT传感器数据分析</li>
+<li>流处理</li>
+</ul>
+</blockquote>
+<h4 id="优点中的几个"><a href="#优点中的几个" class="headerlink" title="优点中的几个"></a>优点中的几个</h4><p>服务器资源利用率高的原因？按服务使用量计费的好处？</p>
+<blockquote>
+<p>购买传统的服务器资源，购买后一直占用此服务器资源。但是这些购买的服务器并不是一直处于满负荷状态，有大量资源被闲置。</p>
+<p>Serverless服务按使用量销售。买家不需要提前购置定量的服务器资源，而按使用量付费。计费粒度更小</p>
+<p>这样的话，Serverless服务只在有需求到来时开启应用响应请求，在没有请求到来时可以关闭应用。这样就能Serverless服务器上总是高负荷地运行着应用，服务器资源利用率高。</p>
+</blockquote>
+<p>Serverless中的“无服务器”体现在？</p>
+<blockquote>
+<p>用户不需要自己维护服务器、关心服务器的运行状态和资源使用情况。更多关注业务逻辑的部分。</p>
+</blockquote>
+<p>规模效应，多个角度</p>
+<blockquote>
+<p>基础设施：的利用率提高，维护运营更加容易，可靠性提升。</p>
+<p>服务使用者：开发更方便、运维更简单、服务购买成本低，获得的服务质量高。产品更新升级方便。</p>
+<p>服务质量：弹性好，扩容缩容方便，服务可靠。</p>
+</blockquote>
+<p>缩短开发和部署时间：</p>
+<blockquote>
+<p>容器主要降低了部署时间，而Serverless不仅部署快，开发速度也快。</p>
+</blockquote>
+<p>扩容缩容的例子：</p>
+<blockquote>
+<p>AWS的<code>Lamba</code>中，Serverless通过<code>事件</code>触发<code>函数</code>。当有事件到来时，启动一个容器处理该事件。如果尚未处理完毕，则会再启动一个容器来处理。</p>
+<p>至于何时关闭，应该有相应的算法，按照请求到来的流量密度，保持一定的容器实例处于开启状态，以减少频繁开启和关闭容器带来的损失。</p>
+<p>这也许和<code>冷启动</code>有关</p>
+</blockquote>
+<h4 id="缺点中的几个"><a href="#缺点中的几个" class="headerlink" title="缺点中的几个"></a>缺点中的几个</h4><p><strong>必须是无状态服务</strong></p>
+<p>无状态服务是什么？</p>
+<blockquote>
+<p>对单次请求，</p>
+<ul>
+<li>服务响应不需要依赖其他的请求，不调用其他函数，不查看其他实例占用的内存中的信息？</li>
+<li>只依靠本次请求的信息、外部其他的信息（如数据库）</li>
+</ul>
+<p>服务器不为某次请求存储信息供其他请求查看。</p>
+<p>前一次请求不影响后一次请求</p>
+</blockquote>
+<p>为什么Serverless要求无状态服务？</p>
+<blockquote>
+<p>我的理解是：为了实现灵活的扩容和缩容，各个容器实例/函数间不能相互依赖，所以要求无状态服务。</p>
+<p>有状态服务也会增加耦合度。</p>
+</blockquote>
+<p>Serverless中的无状态和容器复用</p>
+<blockquote>
+<p>某次请求启动了一个容器，处理完毕后，该容器不一定立即关闭。</p>
+<p>此后，若有另一个对相同函数的请求到来，可能会直接使用之前创建的那个容器。这就使得两次请求共同使用了同一个容器。当然也就可能会共享存储在这个容器中的信息。（这种时候就不是彻底的<code>无状态</code>）</p>
+<p>启动一个函数的容器时（冷启动），初始化的包括：<code>函数本身</code>+<code>函数之外的全局部分</code>。每当有请求触发该函数时，实际上只进入执行函数部分，而<code>函数之外的全局部分</code>实际上只执行了一次，也就是不同次的请求所共有的。</p>
+<p>在不考虑复用时，每次触发函数，都会冷启动一个容器来响应它，这时候函数才是<code>彻底无状态</code>的。</p>
+<p>在存在复用的情况下，用户并不知道本次请求是否会复用之前的容器。所以每次请求不能够依赖其他次请求的信息（状态），因而需要把每次请求都看做是<code>无状态</code>的。</p>
+</blockquote>
+<p><strong>延迟</strong></p>
+<p>需要考虑的延迟</p>
+<blockquote>
+<ul>
+<li>需要考虑函数间相互调用的延迟。Serverless是低耦合的，会有大量的不同类型组件（也可以理解成不同的函数容器？）。而Serverless是高度分布式的，不同组件间的相互调用可能会有较大的延迟。</li>
+<li>容器冷启动有延迟。Serverless会按需生成或关闭函数的容器。响应服务时，需要考虑冷启动的问题，而Serverless中的冷启动不同于普通容器的冷启动，前者可能会更频繁地冷启动。</li>
+</ul>
+</blockquote>
+<p><strong>测试更麻烦</strong></p>
+<blockquote>
+<p>Serverless比传统的IaaS或者PaaS更加具有分布式的特点。应用的部署和运维可以交给服务提供方实现，但是测试不行。而开发方自己在本地构建高分布式的测试环境又十分的困难。</p>
+</blockquote>
+<h3 id="Serverless与一些其他架构的关系"><a href="#Serverless与一些其他架构的关系" class="headerlink" title="Serverless与一些其他架构的关系"></a>Serverless与一些其他架构的关系</h3><p>发展初期,许多serverless是以kubernetes为基础的，k8s是做什么的？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a>, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
+<p>It groups containers that make up an application into logical units for easy management and discovery. </p>
+<p>k8s是一个容器编排引擎，自动化部署、可伸缩，管理容器化应用。我们可以用k8s创建一组容器，k8s会帮助我们对这些容器进行管理和发现等。</p>
+</blockquote>
+<p>函数计算,或FaaS是什么?它有什么特点</p>
+<blockquote>
+<p>在无状态容器中运行的<strong>事件驱动型</strong>计算执行模型,利用服务来管理服务器端逻辑和状态。</p>
+<p>以函数的形式构建、运行和管理应用包。</p>
+<p>编写业务逻辑后，部署到云服务商管理的容器中（只需提交代码，不需要自己打包？），由云服务器自动管理，按需执行。</p>
+<p>FaaS基础架构通过<strong>事件驱动模型</strong>进行，随时待命，但不需要有后台进程一直运行，很容易进行扩展。</p>
+<p>为了实现这些优势，带来一些限制（比如使用单次调用的时间）。需要做到函数的<strong>快速启动和运行</strong>。</p>
+</blockquote>
+<p>FaaS和Serverless的关系？</p>
+<blockquote>
+<p>可以使用FaaS实现Serverless的一部分，Serverless除了FaaS实现的自定义函数逻辑外，还能包括了通用的服务（各种组件）。</p>
+<p>使用FaaS时，开发者仍需要自己开发服务器端逻辑，只不过是运行在由云服务商管理的容器中。</p>
+<p>Serverless中，也是提交到代码到容器运行，但是可能就不需要编写服务器端逻辑了，可以由Serverless中实现的BaaS的那一部分来实现。（个人理解）</p>
+<p>FaaS商业化产品:</p>
+<ul>
+<li>AWS lambda</li>
+<li>Google Cloud Function</li>
+<li>Microsoft Azure Cloud Functions</li>
+<li>IBM Cloud Functions</li>
+<li>……</li>
+</ul>
+</blockquote>
+<p>微服务与Serverless的关系？</p>
+<blockquote>
+<p>我的理解，微服务是应用软件的体系架构，Serverless是提供云服务的架构。</p>
+<p>传统微服务和传统应用架构，只要可以容器化、合适于动态扩展和状态管理（无状态、寿命短、对冷启动不敏感、请求流量密度随时间变化不均匀，不可预知），就可以使用Serverless。</p>
+</blockquote>
+<p>BaaS在Serverless中有哪些用途？</p>
+<blockquote>
+<p>BaaS提供了和业务逻辑无关的服务。比如认证、监控、访问数据库等。也就是后端的逻辑。</p>
+<p>应用开发者可以通过整合第三方 BaaS 产品的完整组件来进一步简化应用开发。 </p>
+</blockquote>
+<p>配置、维护、扩展服务器等基础架构工作。云提供商负责管理云基础架构和应用扩展。</p>
+<p>讲代码打包到容器。</p>
+<p>部署后，有事件驱动时才运行代码（容器），可以根据需要自动扩容缩容。</p>
+<h3 id="函数计算、事件驱动等"><a href="#函数计算、事件驱动等" class="headerlink" title="函数计算、事件驱动等"></a>函数计算、事件驱动等</h3><p>函数计算的输入包括事件数据和元数据，上下文</p>
+<blockquote>
+<p>不同事件可能有不通的元数据。事件可以包括单个记录（请求/响应模型），也可以是多个记录或微批处理（流模式）。</p>
+<p>事件/记录特定元数据的示例</p>
+<ul>
+<li>HTTP：path、method、header、查询参数</li>
+<li>消息队列：topic、header</li>
+<li>记录流（record stream）：表、键、操作、修改事件、旧字段、新字段</li>
+</ul>
+<hr>
+<p>调用函数时，可能希望访问平台资源或常规属性。</p>
+<p>上下文（context）可以是一组输入属性、环境变量或全局变量。比如：函数名称、版本、ARN、内存限制、请求ID、环境变量、日志、令牌、……</p>
+</blockquote>
+<p>函数会有如何的输出</p>
+<blockquote>
+<p>函数输出可以是结构化的（如http响应对象)或非结构化的（如某些输出字符串）</p>
+<p>通过返回值或其他方式的函数退出知道该函数调用是否成功</p>
+<ul>
+<li>将返回值给调用方（例如，HTTP请求/响应）</li>
+<li>将结果传递到工作流中的下一阶段执行</li>
+<li>输出写入日志</li>
+</ul>
+</blockquote>
+<p>事件驱动是什么？</p>
+<blockquote>
+<p>事件驱动编程事一种编程范式。程序的执行流由外部事件决定。有一个事件循环，外部事件发生时，使用回调机制来触发相应的处理。</p>
+<p>有一个事件队列，当外部触发一个事件时，向队列中增加一个事件。有一个循环不断从队列取出事件，根据事件调用相应函数。事件一般都保存了自己的处理函数指针，每个事件都有独立的处理函数。</p>
+<p>个人理解，事件队列中的事件应该可以交互，所以事件驱动程序的耦合性较高。</p>
+</blockquote>
+<p>事件数据规范CloudEvent</p>
+<blockquote>
+<p>CloudEvent是以通用格式描述事件数据的规范，提供跨服务、平台和系统的互操作性。提升可移植性和开发效率。</p>
+<p>事件的格式有一定的规则要求。必须要支持JSON格式。也有大小的限制</p>
+<p>有一些必要的属性：id: String、source: URI-reference、specversion: String、type: String</p>
+<p>还有一些是可选的，比如：datacontenttype： String、dataschema：URI、subject：String、time：Timestamp</p>
+<p>使用Json序列化CloudEvent的示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;specversion&quot;</span> : <span class="string">&quot;1.0-rc1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span> : <span class="string">&quot;com.github.pull.create&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;source&quot;</span> : <span class="string">&quot;https://github.com/cloudevents/spec/pull&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;subject&quot;</span> : <span class="string">&quot;123&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span> : <span class="string">&quot;A234-1234-1234&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;time&quot;</span> : <span class="string">&quot;2018-04-05T17:31:00Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleextension1&quot;</span> : <span class="string">&quot;value&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleothervalue&quot;</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">&quot;datacontenttype&quot;</span> : <span class="string">&quot;text/xml&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span> : <span class="string">&quot;&lt;much wow=\&quot;xml\&quot;/&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p>ArchSummit2019深圳-周维跃Serverlee平台冷启动优化（腾讯的FaaS产品SCF)</p>
+<p>函数冷启动</p>
+<blockquote>
+<p>第一次部署函数实例的过程。我的理解是，生成第一个实例时有一些初始化设置和连接可以供后续实例使用。第一次启动的时间较长，而后续的较短。</p>
+</blockquote>
+<p>过程</p>
+<blockquote>
+<ul>
+<li>创建VM/container</li>
+<li>下载函数（未缓存）+部署</li>
+<li>VPC Net Proxy部署弹性网卡</li>
+</ul>
+</blockquote>
+<p>方法</p>
+<blockquote>
+<ul>
+<li>轻量级虚拟机系统</li>
+<li>代码缓存</li>
+<li>VPC网络代理</li>
+<li>自动扩缩容</li>
+<li>用户可以做一些事</li>
+</ul>
+</blockquote>
+<p>轻量级虚拟化系统</p>
+<blockquote>
+<p>调度上轻量化，降低调度复杂度</p>
+<p>​    使用更少的虚拟机配置，宿主机的可用资源离线计算</p>
+<p>网络方面提前预下发</p>
+<p>虚拟化方面，轻量级虚拟机快速启动</p>
+<ul>
+<li>提前创建虚拟机模板，基于虚拟机模板文件启动轻量级虚拟机</li>
+</ul>
+</blockquote>
+<p>代码缓存</p>
+<blockquote>
+<p>将可能使用的代码缓存下来。</p>
+</blockquote>
+<p>网络访问的模型</p>
+<blockquote>
+<p>函数会同时访问</p>
+<ul>
+<li>用户VPC中的资源，比如CVM、CDB</li>
+<li>公网、自建数据中心、有些场景下需要公网ip</li>
+</ul>
+<p>弹性网卡绑定在Pod/node上访问VPC资源</p>
+<blockquote>
+<p>ENI在同一个pod/Node内多容器共享。同pod/node内再次创建函数实例不需要重新绑定ENI（冷启动延时高，ENI消耗完后函数并发提升受限</p>
+</blockquote>
+<p>通过vpc NET proxy转发。</p>
+<blockquote>
+<p>在函数创建时，将ENI绑定到Proxy的转发节点上。</p>
+<p>cold start为ms级，仅消耗一对ENI（主备节点支持高可用，秒级故障切换）</p>
+<p>转发节点的贷款自动扩缩容</p>
+</blockquote>
+</blockquote>
+<p>自动扩缩容</p>
+<blockquote>
+<p>预留buffer，准备实施扩容。分级缩容，有冷却时间。</p>
+<p>预测扩容，比如调用链上的函数。</p>
+<p>灰度切换到另一个版本</p>
+</blockquote>
+<p>用户的角度</p>
+<blockquote>
+<p>代码精简，减小体积。区局变量，资源服用。定时触发保活</p>
+</blockquote>
+<p>他的总结</p>
+<blockquote>
+<p>从函数架构层面优化，支持更大规模的集群管理和大并发实例部署</p>
+<p>优化轻量级虚拟机系统，降低虚拟机创建耗时</p>
+<p>优化VPC网络转发模块，降低弹性网卡部署的耗时和资源消耗</p>
+<p>四是自动扩缩容，避免冷启动</p>
+<p>用户裁剪代码、复用资源、保活策略</p>
+</blockquote>
+<ul>
+<li>pod，一组容器的集合</li>
+<li>CVM，cloud virtual machine。</li>
+<li>VPC，virtual private cloud</li>
+<li>KVM，时linux内核提供的虚拟化架构，将内核直接充当hyperviosr（VM monitor）使用</li>
+<li>QEMU时vm monitor，通过动态二进制转换来模拟CPU，并提供一系列的硬件模型。</li>
+<li>QEMU-KVM,KVM负责cpu虚拟化+内存虚拟化，实现了cpu和内存的虚拟化，但kvm并不能模拟其他设备，还必须有个运行在用户空间的工具才行。KVM的开发者选择了比较成熟的开源虚拟化软件QEMU来作为这个工具，QEMU模拟IO设备（网卡，磁盘等），对其进行了修改，最后形成了QEMU-KVM。</li>
+<li>灰度系统，是用来帮助 API 服务在上线时按照受众从小到大最终至全量的发布，实现功能的灰度上线，用来保证发布的服务的质量的系统。</li>
+</ul>
+<p>程序代码部署在平台上，通过事件驱动的方法触发对函数的调用。</p>
+<p>什么是事件驱动？事件触发</p>
+<blockquote>
+<p>待补充</p>
+</blockquote>
+<p>待解决的概念:</p>
+<ul>
+<li>BaaS</li>
+<li>FaaS</li>
+<li>函数计算</li>
+<li>消息中间件</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/12/StringAndByte1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/12/StringAndByte1/" class="post-title-link" itemprop="url">Java中字符串与byte[]的相互转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-12 22:48:49" itemprop="dateCreated datePublished" datetime="2020-11-12T22:48:49+08:00">2020-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-13 08:59:08" itemprop="dateModified" datetime="2020-11-13T08:59:08+08:00">2020-11-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Java中String使用char[]数组以16位定长对每个字符进行Unicode编码，想要用byte[]类型处理字符串时，需要在String类型与byte[]类型间相互转换。</p>
+<p>其实没什么值得写的，调2个方法就可以了。</p>
+<h2 id="String转byte"><a href="#String转byte" class="headerlink" title="String转byte[]"></a>String转byte[]</h2><h3 id="不指定编码方式"><a href="#不指定编码方式" class="headerlink" title="不指定编码方式"></a>不指定编码方式</h3><p>使用String类型的<code>getBytes()</code>方法，以当前运行环境下的默认编码方式将每个char元素转换为byte[]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes()));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes()));</span><br></pre></td></tr></table></figure>
+
+<p>得到结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[49, 50, 97, 98, -26, -120, -111, -28, -69, -84]</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以猜出本主机默认编码方式为UTF-8，将汉字编为了3个byte，而数字和英文字母都是1个byte</li>
+<li>在另一环境中，编码结果可能不同</li>
+<li>不推荐使用该方式</li>
+</ul>
+<h3 id="指定编码字符集1"><a href="#指定编码字符集1" class="headerlink" title="指定编码字符集1"></a>指定编码字符集1</h3><p><code>getBytes(String charsetName)</code>，以字符串的方式指定编码字符集，可以指定为”UTF-8”和”UTF-16”等。Java中一般采用大端字节序，所以我们使用”UTF-16BE”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] myByteArr;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	myByteArr = <span class="string">&quot;12ab我们&quot;</span>.getBytes(<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">	System.out.println(Arrays.toString(myByteArr));</span><br><span class="line">	System.out.println(<span class="keyword">new</span> String(myByteArr));</span><br><span class="line">&#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[0, 49, 0, 50, 0, 97, 0, 98, 98, 17, 78, -20]</span><br><span class="line">1 2 a bbN�</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>UTF-16采用2字节或4字节对字符编码，可以看到这里无论是数字、英文字母、汉字，都是用了2字节。</li>
+<li>在String的构造器中没能用byte[]生成想要的字符串，这是因为构造器转换时可能使用的是UTF-8编码（解码）方式</li>
+<li>需要做异常检查</li>
+</ul>
+<h3 id="指定编码字符集2"><a href="#指定编码字符集2" class="headerlink" title="指定编码字符集2"></a>指定编码字符集2</h3><p><code>getBytes(Charset charset)</code>，提供Charset类参数，分别用UTF-16高端字节序和UTF-8测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE)));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE)));</span><br><span class="line">System.out.println(Arrays.toString(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_8)));</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(<span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_8)));</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[0, 49, 0, 50, 0, 97, 0, 98, 98, 17, 78, -20]</span><br><span class="line"> 1 2 a bbN�</span><br><span class="line">[49, 50, 97, 98, -26, -120, -111, -28, -69, -84]</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果与前面的以字符串的方式指定编码字符集的方法相同。区别是，前者函数参数为字符串，这里是Charset类</li>
+<li>此方法不会抛异常</li>
+<li>需要用到1.7开始提供的StandardCharsets类</li>
+</ul>
+<h2 id="byte-转String"><a href="#byte-转String" class="headerlink" title="byte[]转String"></a>byte[]转String</h2><h3 id="String类型构造器"><a href="#String类型构造器" class="headerlink" title="String类型构造器"></a>String类型构造器</h3><p>以byte[]数组为变量构造字符串，其实前面的例子中已经用到过了。</p>
+<p>与String转byte[]的对应，byte[]转String也可以有3种。</p>
+<ul>
+<li><code>String(byte[] byteArr)</code></li>
+<li><code>String(byte[] byteArr， String charsetName)</code></li>
+<li><code>String(byte[] byteArr， Charset charset)</code></li>
+</ul>
+<p>（1）当不指定字符集时，使用构造器默认的字符集。<code>String(byte[] byteArr)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr1 = <span class="string">&quot;12ab我们&quot;</span>.getBytes();</span><br><span class="line">String str1 = <span class="keyword">new</span> String(byteArr1);</span><br><span class="line">System.out.println(str1);</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）用字符串指定字符集（需要做异常处理）<code>String(byte[] byteArr， String charsetName)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr2 = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    byteArr2 = <span class="string">&quot;12ab我们&quot;</span>.getBytes(<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">    String str2 = <span class="keyword">new</span> String(byteArr2,<span class="string">&quot;UTF-16BE&quot;</span>);</span><br><span class="line">    System.out.println(str2);</span><br><span class="line">&#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）用Charset类参数指定，并与不指定时做比较<code>String(byte[] byteArr， Charset charset)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] byteArr3 = <span class="string">&quot;12ab我们&quot;</span>.getBytes(StandardCharsets.UTF_16BE);</span><br><span class="line">String str3 = <span class="keyword">new</span> String(byteArr3);</span><br><span class="line">System.out.println(str3);</span><br><span class="line">str3 = <span class="keyword">new</span> String(byteArr3, StandardCharsets.UTF_16BE);</span><br><span class="line">System.out.println(str3);</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 1 2 a bbN�</span><br><span class="line">12ab我们</span><br></pre></td></tr></table></figure>
+
+<p>显然使用UTF-16编码的字节数组，需要在String构造处指定字符集才能正确得被转换为String类型</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/08/socket-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/08/socket-note/" class="post-title-link" itemprop="url">socket编程作业笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-08 09:41:22" itemprop="dateCreated datePublished" datetime="2020-10-08T09:41:22+08:00">2020-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-15 16:25:53" itemprop="dateModified" datetime="2020-10-15T16:25:53+08:00">2020-10-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Ubuntu16.04 下 C/C++，通过socket编程实现server与client间通信时遇到的问题。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
+<li>在主机字节序与网络字节序中转换</li>
+</ul>
+<p>x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。</p>
+<p><code>htonl()</code>和<code>htons()</code>等函数将主机字节序转换为网络字节序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">servaddr.sin_port = htons(SERV_PORT);<span class="comment">//自定义端口号</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串类型的IP地址和二进制类型</li>
+</ul>
+<p>通常需要将命令行中输入的点分十进制ip地址转换为二进制类型的地址，或者将二进制类型的地址转换为点分十进制ip地址并输出显示。</p>
+<p>函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">char</span>* src, <span class="keyword">void</span>* dst)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_ntop</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">void</span>* src, <span class="keyword">char</span>* dst, <span class="keyword">socklen_t</span> cnt)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>将命令行输入的地址存入字符串，使用<code>inet_pton()</code>处理。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="bzero-和memset"><a href="#bzero-和memset" class="headerlink" title="bzero()和memset()"></a>bzero()和memset()</h3><p>有时需要执行清0操作。</p>
+<ul>
+<li><code>bzero()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bzero</span><span class="params">(<span class="keyword">void</span> *s, <span class="keyword">int</span> n)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将s所指内存的前n个字节清0</p>
+<p><code>bzero()</code>只有2个参数，它不是ANSI C函数，其起源于早期的Berkeley网络编程代码，但是几乎所有支持套接字API的厂商都提供该函数。</p>
+<ul>
+<li><code>memset()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *buffer, <span class="keyword">int</span> c, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将buffer所指内存的前count个字节设为c</p>
+<p><code>memset()</code>除清0外还能设其他值，但在第2和3个参数互换位置时，编译器不能发现。它是ANSI C函数，更常规、用途更广。</p>
+<p>如果只想清0，则用<code>bzero()</code>更方便。在设置Internet socket地址前，先将其所有字节清零。因为<code>struct sockaddr_in</code>中有8个填充字节，清0避免异常。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用INADDR-ANY作为ip地址"><a href="#使用INADDR-ANY作为ip地址" class="headerlink" title="使用INADDR_ANY作为ip地址"></a>使用INADDR_ANY作为ip地址</h3><p>在为udp服务器程序设置ip地址时，使用INADDR_ANY做ip。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br></pre></td></tr></table></figure>
+
+<p>winsock中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INADDR_ANY              (ULONG)0x00000000</span></span><br></pre></td></tr></table></figure>
+
+<p>INADDR_ANY即表示0.0.0.0，也就是“任意地址”、“所有地址”，在这里表示本机的所有IP。</p>
+<p>有些主机的网卡数量不止一块，如果某套接字只绑定某一特定的ip，那么它就只能监听此ip地址所对应的网卡端口。如果想同时监听多个物理端口，则需要写3个套接字，较为繁琐。</p>
+<p>而绑定0.0.0.0时，只需要管理1个套接字，此时无论数据从哪一网卡端口进入，都可以收到。因此使用INADDR_ANY作为ip，减少管理开销。</p>
+<h3 id="初步使用线程"><a href="#初步使用线程" class="headerlink" title="初步使用线程"></a>初步使用线程</h3><p>无论是server还是client，收信和发信都要同步进行，因而需要使用至少2个线程。</p>
+<p>以client为例，创建一个收信线程和一个发信线程。截取部分代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="function">std::thread <span class="title">t1</span><span class="params">(std::bind(&amp;ClientSession::readThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t1.<span class="built_in">detach</span>();</span><br><span class="line"><span class="function">std::thread <span class="title">t2</span><span class="params">(std::bind(&amp;ClientSession::writeThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t2.<span class="built_in">join</span>();</span><br></pre></td></tr></table></figure>
+
+<p><code>t2.join();</code>的目的是让当前主线程等待所有的子线程执行完，才执行主线程能后续语句</p>
+<p><code>t1.detach();</code>的目的是让子线程脱离主线程，二者独立运行。</p>
+<p>以上代码在创建线程时调用了类内的函数，因而比较繁琐。一般而言，创建线程只需</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::thread <span class="title">t</span><span class="params">(func)</span></span>;<span class="comment">//func是该线程执行的函数名</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="学画流程图"><a href="#学画流程图" class="headerlink" title="学画流程图"></a>学画流程图</h3><p>撰写实验报告时需要画流程图,用markdown画</p>
+<ul>
+<li>client主进程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait=&gt;condition: 读写子线程是否结束</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">ed2=&gt;end</span><br><span class="line">ed3=&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait=&gt;condition: 读写子线程是否结束</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">ed2=&gt;end</span><br><span class="line">ed3=&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>收数据子线程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 收数据线程开始</span><br><span class="line">t=&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed=&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 收数据线程开始</span><br><span class="line">t=&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed=&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>读数据子线程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 读数据线程开始</span><br><span class="line">t=&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed=&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 读数据线程开始</span><br><span class="line">t=&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed=&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>server进程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit=&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit=&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<h3 id="学画时序图"><a href="#学画时序图" class="headerlink" title="学画时序图"></a>学画时序图</h3><p>撰写实验报告时需要画时序图,用markdown画</p>
+<ul>
+<li>实验所用收发数据时序图</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#x27;m PC1.</span><br><span class="line">server-&gt;PC2: I&#x27;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#x27;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#x27;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#x27;m PC1.</span><br><span class="line">server-&gt;PC2: I&#x27;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#x27;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#x27;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/30/shared-ptr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/30/shared-ptr/" class="post-title-link" itemprop="url">智能指针验证性实验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-30 16:52:16" itemprop="dateCreated datePublished" datetime="2020-09-30T16:52:16+08:00">2020-09-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-08 09:14:36" itemprop="dateModified" datetime="2020-10-08T09:14:36+08:00">2020-10-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>初步了解智能指针，以及浅显地验证其基本功能。</p>
+<h1 id="1-起因"><a href="#1-起因" class="headerlink" title="1 起因"></a>1 起因</h1><h2 id="1-1-动态内存管理"><a href="#1-1-动态内存管理" class="headerlink" title="1.1 动态内存管理"></a>1.1 动态内存管理</h2><p>运算符new和delete在自由存储区上进行动态内存管理。如果在程序中使用new从自由存储区中分配了内存，那么当不在需要它时，应当使用delete将其释放。</p>
+<p>动态内存管理不当时会出现问题，比如：忘记delete，造成内存泄漏；在有指针引用内存的情况下进行了delete，形成野指针产生非法引用。</p>
+<p>内存泄漏的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>&amp; x, <span class="keyword">int</span>&amp; y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* temp = <span class="keyword">new</span> <span class="keyword">int</span>&#123; x &#125;;</span><br><span class="line">	x = y;</span><br><span class="line">	y = *temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于没有使用delete，所以在调用完swap函数后，temp所引用的内存没有释放，但temp在作用域接收后被销毁，因而再也没有办法访问先前由new申请的这块内存，也无法将其释放，造成内存泄漏。</p>
+<h2 id="1-2-启发"><a href="#1-2-启发" class="headerlink" title="1.2 启发"></a>1.2 启发</h2><p>在之前的例子中，当swap函数终止，局部变量temp占据的内存从栈中被释放，若temp指向内存也被释放就更好了。如果temp不是一个常规指针，而是一个类的对象，在函数作用域结束后调用的析构函数中，就能实现将temp指向的内存释放。因此有了智能指针模板，它们都定义了类似指针的对象，智能指针过期时，析构函数调用delete释放内存。</p>
+<h1 id="2-智能指针"><a href="#2-智能指针" class="headerlink" title="2 智能指针"></a>2 智能指针</h1><p>智能指针可以帮助在不需要时动态内存的自动释放，用于避免上述问题的产生。智能指针用法和普通指针类似，但它能自动释放所指对象。C++11中支持3种智能指针：<code>unique_ptr</code>, <code>shared_ptr</code>和<code>weak_ptr</code>，需要<code>include&lt;memory&gt;</code>。</p>
+<p>简单的例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string str;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Test</span>(<span class="keyword">const</span> std::string str_ = <span class="string">&quot;defualt string&quot;</span>) :str&#123; str_ &#125; &#123; std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; str &lt;&lt; std::endl; &#125;</span><br><span class="line">	~<span class="built_in">Test</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; str &lt;&lt; std::endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;Test&gt; TestPtr&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;abc&quot;</span>) &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Test&gt; TestPtr&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;ABC&quot;</span>) &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Created! abc</span><br><span class="line">Deleted! abc</span><br><span class="line">Created! ABC</span><br><span class="line">Deleted! ABC</span><br></pre></td></tr></table></figure>
+
+<p>说明在作用域结束后，不仅析构了智能指针对象<code>intPtr</code>，还析构了<code>intPtr</code>对象所指向<code>Test</code>类对象。</p>
+<h2 id="2-1-auto-ptr"><a href="#2-1-auto-ptr" class="headerlink" title="2.1 auto_ptr"></a>2.1 auto_ptr</h2><p>最初版本的auto_ptr已被弃用，它在同类型的互相拷贝时会错误地将自己析构。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::auto_ptr&lt;<span class="keyword">int</span>&gt; intPtr1&#123; <span class="keyword">new</span> <span class="keyword">int</span>&#123;<span class="number">8</span>&#125; &#125;;</span><br><span class="line">	std::auto_ptr&lt;<span class="keyword">int</span>&gt; intPtr2&#123; <span class="keyword">new</span> <span class="keyword">int</span> &#125;;</span><br><span class="line">	intPtr2 = intPtr1;</span><br><span class="line">	std::cout &lt;&lt; *intPtr2 &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; *intPtr1 &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述程序在输出8后就会出现异常，此时<code>*intPtr1</code>是无效参数。如果第4行的拷贝后<code>intPtr1</code>仍然有效，那么<code>intPtr1</code>和<code>intPtr2</code>将指向同一整型对象8，当二者过期时，将删除对象8两次，这是不可接受的。</p>
+<h2 id="2-2-shared-ptr"><a href="#2-2-shared-ptr" class="headerlink" title="2.2 shared_ptr"></a>2.2 shared_ptr</h2><h3 id="简单的验证"><a href="#简单的验证" class="headerlink" title="简单的验证"></a>简单的验证</h3><p>实际情况下我们通常需要多个智能指针指向同一对象，<code>shared_ptr</code>采用”引用计数“的方法，记录指向某一对象的指针数，当且仅当计数值为0时才析构该对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">	shared_ptr&lt;Test&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;ABC&quot;</span>) &#125;;</span><br><span class="line">	shared_ptr&lt;Test&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;default&quot;</span>) &#125;;</span><br><span class="line">	ptr2 = ptr1;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Copy Completed!&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	shared_ptr&lt;Test&gt; ptr3&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;xyz&quot;</span>) &#125;;</span><br><span class="line">	ptr2 = ptr3;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;ptr2 has moved&quot;</span> &lt;&lt; endl;</span><br><span class="line">	ptr1 = ptr3;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;ptr1 has moved&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其运行结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Created! ABC</span><br><span class="line">Created! defualt string</span><br><span class="line">Deleted! defualt string</span><br><span class="line">Copy Completed!</span><br><span class="line">Created! xyz</span><br><span class="line">ptr2 has moved</span><br><span class="line">Deleted! ABC</span><br><span class="line">ptr1 has moved</span><br><span class="line">Deleted! xyz</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，第5行<code>ptr2</code>拷贝<code>ptr1</code>的值后，已经没有指针指向值为“default”的对象，此对象被自动析构。第5行运行结束后，有两个指针指向值为“ABC”的对象。第11行执行完毕后，已经没有指针指向值为”ABC”的对象，此对象被自动析构。<code>shared_ptr</code>使用引用计数的方法记录指向当前对象的指针数，当计数器归0时析构该对象。</p>
+<h3 id="使用不当的shared-ptr"><a href="#使用不当的shared-ptr" class="headerlink" title="使用不当的shared_ptr"></a>使用不当的shared_ptr</h3><p>在有些情况下，不恰当地使用<code>shared_ptr</code>会产生错误。由于缺乏实际工程经历，只能强行创建了一个例子。</p>
+<p>假定一个结构体类，其中一个成员变量的类型为该结构体的指针。在自由存储区new出2个该类对象，用2个智能指针（局部变量）指向它们，此时自由存储区中两个对象的计数器值均为1。再使它们的指针类型成员相互指向另一个对象，此后两个对象的计数器都为2。这种情况下撤除先前的两个局部变量智能指针，此时已经没有指针再指向自由存储区上的两个对象，但两个对象的计数器均为1，没有被析构。而这两个对象再也服务被访问或删除，造成内存泄漏。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	std::shared_ptr&lt;LinkNode&gt; next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">LinkNode</span>(<span class="keyword">int</span> value_) :<span class="built_in">value</span>(value_) &#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">LinkNode</span>() &#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//循环引用</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">1</span>) &#125;;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">2</span>) &#125;;</span><br><span class="line">		ptr1-&gt;next = ptr2;</span><br><span class="line">		ptr2-&gt;next = ptr1;</span><br><span class="line">		ptr1 = <span class="literal">nullptr</span>;</span><br><span class="line">		ptr2 = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;There&#x27;s no pointer available now!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Created! 1</span><br><span class="line">Created! 2</span><br><span class="line">There&#x27;s no pointer available now!</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，即使已经没有智能指针（<code>shared_ptr</code>类型）指向它们，值为1和值为2的两个<code>LinkNode</code>类对象也始终没有被析构，因为二者的引用计数器均为1，仍旧造成了内存泄漏。</p>
+<h2 id="2-3-weak-ptr"><a href="#2-3-weak-ptr" class="headerlink" title="2.3 weak_ptr"></a>2.3 weak_ptr</h2><p>使用<code>weak_ptr</code>不会使引用计数值改变，它只能读取所指对象的计数值。它只能观测对象，而不能改变。将前个例子结构体中的成员指针改为<code>weak_ptr</code>类型。这样的情况下，即使有<code>weak_ptr</code>类型的指向自由存储区上的对象，但没有<code>shared_ptr</code>类型的指针指向它（计数器值为0），也会调用其析构函数并释放内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	std::weak_ptr&lt;LinkNode&gt; next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">LinkNode</span>(<span class="keyword">int</span> value_) :<span class="built_in">value</span>( value_ )&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; value &lt;&lt; std::endl; </span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">LinkNode</span>()&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">1</span>) &#125;;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">2</span>) &#125;;</span><br><span class="line">		ptr1-&gt;next = ptr2;</span><br><span class="line">		ptr2-&gt;next = ptr1;</span><br><span class="line">		ptr1 = <span class="literal">nullptr</span>;</span><br><span class="line">		ptr2 = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;There&#x27;s no pointer available now!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Created! <span class="number">1</span></span><br><span class="line">Created! <span class="number">2</span></span><br><span class="line">Deleted! <span class="number">1</span></span><br><span class="line">Deleted! <span class="number">2</span></span><br><span class="line">There<span class="number">&#x27;</span>s no pointer available now!</span><br></pre></td></tr></table></figure>
+
+<p>可见，没有智能指针（<code>shared_ptr</code>类型）指向自由存储区上的这些对象时，这些对象被正常析构了。这也间接证明了<code>weak_ptr</code>类型智能指针不能改变计数器的值。</p>
+<h1 id="3-小结"><a href="#3-小结" class="headerlink" title="3.小结"></a>3.小结</h1><p>合理地借助智能能够进行自动地动态内存管理，避免内存泄漏和野指针的出现。</p>
+<ul>
+<li><code>shared_ptr</code>借助引用计数，在计数值为0时自动释放所指对象的内存。</li>
+<li><code>weak_ptr</code>是前者的弱化本，只能观测所指对象，不能进行修改计数值等操作。</li>
+<li><code>unique_ptr</code>如其字面意思所示，是唯一的指向某对象的指针，有新的智能指针指向此对象时，先前的<code>unique_ptr</code>会失效，而使用失效的<code>unique_ptr</code>会在编译时报错（同样使用<code>auto_ptr</code>则只会在运行时出错）。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/16/welcome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/16/welcome/" class="post-title-link" itemprop="url">欢迎来到鸟类朋友的家园</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-16 17:04:51 / 修改时间：20:12:12" itemprop="dateCreated datePublished" datetime="2020-09-16T17:04:51+08:00">2020-09-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="初次使用博客"><a href="#初次使用博客" class="headerlink" title="初次使用博客"></a>初次使用博客</h1><p>在董佬师的帮助下，我有了第一篇博客    </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/1970/01/01/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -283,9 +1753,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>

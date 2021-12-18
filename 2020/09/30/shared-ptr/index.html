@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="初步了解智能指针，以及浅显地验证其基本功能。 1 起因1.1 动态内存管理运算符new和delete在自由存储区上进行动态内存管理。如果在程序中使用new从自由存储区中分配了内存，那么当不在需要它时，应当使用delete将其释放。 动态内存管理不当时会出现问题，比如：忘记delete，造成内存泄漏；在有指针引用内存的情况下进行了delete，形成野指针产生非法引用。 内存泄漏的例子： 12345v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能指针验证性实验">
+<meta property="og:url" content="http://example.com/2020/09/30/shared-ptr/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="初步了解智能指针，以及浅显地验证其基本功能。 1 起因1.1 动态内存管理运算符new和delete在自由存储区上进行动态内存管理。如果在程序中使用new从自由存储区中分配了内存，那么当不在需要它时，应当使用delete将其释放。 动态内存管理不当时会出现问题，比如：忘记delete，造成内存泄漏；在有指针引用内存的情况下进行了delete，形成野指针产生非法引用。 内存泄漏的例子： 12345v">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-30T08:52:16.000Z">
+<meta property="article:modified_time" content="2020-10-08T01:14:36.678Z">
+<meta property="article:tag" content="C++11">
+<meta property="article:tag" content="智能指针">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/09/30/shared-ptr/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>智能指针验证性实验 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/30/shared-ptr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          智能指针验证性实验
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-30 16:52:16" itemprop="dateCreated datePublished" datetime="2020-09-30T16:52:16+08:00">2020-09-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-08 09:14:36" itemprop="dateModified" datetime="2020-10-08T09:14:36+08:00">2020-10-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>初步了解智能指针，以及浅显地验证其基本功能。</p>
+<h1 id="1-起因"><a href="#1-起因" class="headerlink" title="1 起因"></a>1 起因</h1><h2 id="1-1-动态内存管理"><a href="#1-1-动态内存管理" class="headerlink" title="1.1 动态内存管理"></a>1.1 动态内存管理</h2><p>运算符new和delete在自由存储区上进行动态内存管理。如果在程序中使用new从自由存储区中分配了内存，那么当不在需要它时，应当使用delete将其释放。</p>
+<p>动态内存管理不当时会出现问题，比如：忘记delete，造成内存泄漏；在有指针引用内存的情况下进行了delete，形成野指针产生非法引用。</p>
+<p>内存泄漏的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>&amp; x, <span class="keyword">int</span>&amp; y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* temp = <span class="keyword">new</span> <span class="keyword">int</span>&#123; x &#125;;</span><br><span class="line">	x = y;</span><br><span class="line">	y = *temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于没有使用delete，所以在调用完swap函数后，temp所引用的内存没有释放，但temp在作用域接收后被销毁，因而再也没有办法访问先前由new申请的这块内存，也无法将其释放，造成内存泄漏。</p>
+<h2 id="1-2-启发"><a href="#1-2-启发" class="headerlink" title="1.2 启发"></a>1.2 启发</h2><p>在之前的例子中，当swap函数终止，局部变量temp占据的内存从栈中被释放，若temp指向内存也被释放就更好了。如果temp不是一个常规指针，而是一个类的对象，在函数作用域结束后调用的析构函数中，就能实现将temp指向的内存释放。因此有了智能指针模板，它们都定义了类似指针的对象，智能指针过期时，析构函数调用delete释放内存。</p>
+<h1 id="2-智能指针"><a href="#2-智能指针" class="headerlink" title="2 智能指针"></a>2 智能指针</h1><p>智能指针可以帮助在不需要时动态内存的自动释放，用于避免上述问题的产生。智能指针用法和普通指针类似，但它能自动释放所指对象。C++11中支持3种智能指针：<code>unique_ptr</code>, <code>shared_ptr</code>和<code>weak_ptr</code>，需要<code>include&lt;memory&gt;</code>。</p>
+<p>简单的例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string str;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Test</span>(<span class="keyword">const</span> std::string str_ = <span class="string">&quot;defualt string&quot;</span>) :str&#123; str_ &#125; &#123; std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; str &lt;&lt; std::endl; &#125;</span><br><span class="line">	~<span class="built_in">Test</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; str &lt;&lt; std::endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;Test&gt; TestPtr&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;abc&quot;</span>) &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Test&gt; TestPtr&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;ABC&quot;</span>) &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Created! abc</span><br><span class="line">Deleted! abc</span><br><span class="line">Created! ABC</span><br><span class="line">Deleted! ABC</span><br></pre></td></tr></table></figure>
+
+<p>说明在作用域结束后，不仅析构了智能指针对象<code>intPtr</code>，还析构了<code>intPtr</code>对象所指向<code>Test</code>类对象。</p>
+<h2 id="2-1-auto-ptr"><a href="#2-1-auto-ptr" class="headerlink" title="2.1 auto_ptr"></a>2.1 auto_ptr</h2><p>最初版本的auto_ptr已被弃用，它在同类型的互相拷贝时会错误地将自己析构。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::auto_ptr&lt;<span class="keyword">int</span>&gt; intPtr1&#123; <span class="keyword">new</span> <span class="keyword">int</span>&#123;<span class="number">8</span>&#125; &#125;;</span><br><span class="line">	std::auto_ptr&lt;<span class="keyword">int</span>&gt; intPtr2&#123; <span class="keyword">new</span> <span class="keyword">int</span> &#125;;</span><br><span class="line">	intPtr2 = intPtr1;</span><br><span class="line">	std::cout &lt;&lt; *intPtr2 &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; *intPtr1 &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述程序在输出8后就会出现异常，此时<code>*intPtr1</code>是无效参数。如果第4行的拷贝后<code>intPtr1</code>仍然有效，那么<code>intPtr1</code>和<code>intPtr2</code>将指向同一整型对象8，当二者过期时，将删除对象8两次，这是不可接受的。</p>
+<h2 id="2-2-shared-ptr"><a href="#2-2-shared-ptr" class="headerlink" title="2.2 shared_ptr"></a>2.2 shared_ptr</h2><h3 id="简单的验证"><a href="#简单的验证" class="headerlink" title="简单的验证"></a>简单的验证</h3><p>实际情况下我们通常需要多个智能指针指向同一对象，<code>shared_ptr</code>采用”引用计数“的方法，记录指向某一对象的指针数，当且仅当计数值为0时才析构该对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">	shared_ptr&lt;Test&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;ABC&quot;</span>) &#125;;</span><br><span class="line">	shared_ptr&lt;Test&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;default&quot;</span>) &#125;;</span><br><span class="line">	ptr2 = ptr1;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Copy Completed!&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	shared_ptr&lt;Test&gt; ptr3&#123; <span class="keyword">new</span> <span class="built_in">Test</span>(<span class="string">&quot;xyz&quot;</span>) &#125;;</span><br><span class="line">	ptr2 = ptr3;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;ptr2 has moved&quot;</span> &lt;&lt; endl;</span><br><span class="line">	ptr1 = ptr3;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;ptr1 has moved&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其运行结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Created! ABC</span><br><span class="line">Created! defualt string</span><br><span class="line">Deleted! defualt string</span><br><span class="line">Copy Completed!</span><br><span class="line">Created! xyz</span><br><span class="line">ptr2 has moved</span><br><span class="line">Deleted! ABC</span><br><span class="line">ptr1 has moved</span><br><span class="line">Deleted! xyz</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，第5行<code>ptr2</code>拷贝<code>ptr1</code>的值后，已经没有指针指向值为“default”的对象，此对象被自动析构。第5行运行结束后，有两个指针指向值为“ABC”的对象。第11行执行完毕后，已经没有指针指向值为”ABC”的对象，此对象被自动析构。<code>shared_ptr</code>使用引用计数的方法记录指向当前对象的指针数，当计数器归0时析构该对象。</p>
+<h3 id="使用不当的shared-ptr"><a href="#使用不当的shared-ptr" class="headerlink" title="使用不当的shared_ptr"></a>使用不当的shared_ptr</h3><p>在有些情况下，不恰当地使用<code>shared_ptr</code>会产生错误。由于缺乏实际工程经历，只能强行创建了一个例子。</p>
+<p>假定一个结构体类，其中一个成员变量的类型为该结构体的指针。在自由存储区new出2个该类对象，用2个智能指针（局部变量）指向它们，此时自由存储区中两个对象的计数器值均为1。再使它们的指针类型成员相互指向另一个对象，此后两个对象的计数器都为2。这种情况下撤除先前的两个局部变量智能指针，此时已经没有指针再指向自由存储区上的两个对象，但两个对象的计数器均为1，没有被析构。而这两个对象再也服务被访问或删除，造成内存泄漏。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	std::shared_ptr&lt;LinkNode&gt; next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">LinkNode</span>(<span class="keyword">int</span> value_) :<span class="built_in">value</span>(value_) &#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">LinkNode</span>() &#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//循环引用</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">1</span>) &#125;;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">2</span>) &#125;;</span><br><span class="line">		ptr1-&gt;next = ptr2;</span><br><span class="line">		ptr2-&gt;next = ptr1;</span><br><span class="line">		ptr1 = <span class="literal">nullptr</span>;</span><br><span class="line">		ptr2 = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;There&#x27;s no pointer available now!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Created! 1</span><br><span class="line">Created! 2</span><br><span class="line">There&#x27;s no pointer available now!</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，即使已经没有智能指针（<code>shared_ptr</code>类型）指向它们，值为1和值为2的两个<code>LinkNode</code>类对象也始终没有被析构，因为二者的引用计数器均为1，仍旧造成了内存泄漏。</p>
+<h2 id="2-3-weak-ptr"><a href="#2-3-weak-ptr" class="headerlink" title="2.3 weak_ptr"></a>2.3 weak_ptr</h2><p>使用<code>weak_ptr</code>不会使引用计数值改变，它只能读取所指对象的计数值。它只能观测对象，而不能改变。将前个例子结构体中的成员指针改为<code>weak_ptr</code>类型。这样的情况下，即使有<code>weak_ptr</code>类型的指向自由存储区上的对象，但没有<code>shared_ptr</code>类型的指针指向它（计数器值为0），也会调用其析构函数并释放内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	std::weak_ptr&lt;LinkNode&gt; next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">LinkNode</span>(<span class="keyword">int</span> value_) :<span class="built_in">value</span>( value_ )&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created! &quot;</span> &lt;&lt; value &lt;&lt; std::endl; </span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">LinkNode</span>()&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Deleted! &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr1&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">1</span>) &#125;;</span><br><span class="line">		std::shared_ptr&lt;LinkNode&gt; ptr2&#123; <span class="keyword">new</span> <span class="built_in">LinkNode</span>(<span class="number">2</span>) &#125;;</span><br><span class="line">		ptr1-&gt;next = ptr2;</span><br><span class="line">		ptr2-&gt;next = ptr1;</span><br><span class="line">		ptr1 = <span class="literal">nullptr</span>;</span><br><span class="line">		ptr2 = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;There&#x27;s no pointer available now!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Created! <span class="number">1</span></span><br><span class="line">Created! <span class="number">2</span></span><br><span class="line">Deleted! <span class="number">1</span></span><br><span class="line">Deleted! <span class="number">2</span></span><br><span class="line">There<span class="number">&#x27;</span>s no pointer available now!</span><br></pre></td></tr></table></figure>
+
+<p>可见，没有智能指针（<code>shared_ptr</code>类型）指向自由存储区上的这些对象时，这些对象被正常析构了。这也间接证明了<code>weak_ptr</code>类型智能指针不能改变计数器的值。</p>
+<h1 id="3-小结"><a href="#3-小结" class="headerlink" title="3.小结"></a>3.小结</h1><p>合理地借助智能能够进行自动地动态内存管理，避免内存泄漏和野指针的出现。</p>
+<ul>
+<li><code>shared_ptr</code>借助引用计数，在计数值为0时自动释放所指对象的内存。</li>
+<li><code>weak_ptr</code>是前者的弱化本，只能观测所指对象，不能进行修改计数值等操作。</li>
+<li><code>unique_ptr</code>如其字面意思所示，是唯一的指向某对象的指针，有新的智能指针指向此对象时，先前的<code>unique_ptr</code>会失效，而使用失效的<code>unique_ptr</code>会在编译时报错（同样使用<code>auto_ptr</code>则只会在运行时出错）。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C-11/" rel="tag"># C++11</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" rel="tag"># 智能指针</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/16/welcome/" rel="prev" title="欢迎来到鸟类朋友的家园">
+      <i class="fa fa-chevron-left"></i> 欢迎来到鸟类朋友的家园
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/08/socket-note/" rel="next" title="socket编程作业笔记">
+      socket编程作业笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">1 起因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 动态内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%90%AF%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 启发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">2.</span> <span class="nav-text">2 智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-auto-ptr"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 auto_ptr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-shared-ptr"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 shared_ptr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">简单的验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E7%9A%84shared-ptr"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用不当的shared_ptr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-weak-ptr"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 weak_ptr</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">3.小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

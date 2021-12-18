@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="4月第1周数据库系统学习1.初步认识数据库是电子信息化的集合，是一些相互之间有关联关系的表&#x2F;数据的集合。“表”是按行按列形式组织及展现的数据。关于表的术语：表名、表标题（格式）、表内容（值）、行&#x2F;元组&#x2F;记录、列&#x2F;字段&#x2F;属性&#x2F;数据项。有关系型数据库、非关系型数据库。结构化数据库、非结构化数据库。 数据库系统包括：数据库DB、数据库管理系统DBMS、数据库应用DBAP、数据库应用DBAP、数据库管理员">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志-2021-4">
+<meta property="og:url" content="http://example.com/2021/03/30/log-2021-4/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="4月第1周数据库系统学习1.初步认识数据库是电子信息化的集合，是一些相互之间有关联关系的表&#x2F;数据的集合。“表”是按行按列形式组织及展现的数据。关于表的术语：表名、表标题（格式）、表内容（值）、行&#x2F;元组&#x2F;记录、列&#x2F;字段&#x2F;属性&#x2F;数据项。有关系型数据库、非关系型数据库。结构化数据库、非结构化数据库。 数据库系统包括：数据库DB、数据库管理系统DBMS、数据库应用DBAP、数据库应用DBAP、数据库管理员">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-30T07:14:25.000Z">
+<meta property="article:modified_time" content="2021-04-10T08:27:41.030Z">
+<meta property="article:tag" content="日记">
+<meta property="article:tag" content="学习记录">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/03/30/log-2021-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>日志-2021-4 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/log-2021-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          日志-2021-4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-30 15:14:25" itemprop="dateCreated datePublished" datetime="2021-03-30T15:14:25+08:00">2021-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-10 16:27:41" itemprop="dateModified" datetime="2021-04-10T16:27:41+08:00">2021-04-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="4月第1周"><a href="#4月第1周" class="headerlink" title="4月第1周"></a>4月第1周</h2><h3 id="数据库系统学习"><a href="#数据库系统学习" class="headerlink" title="数据库系统学习"></a>数据库系统学习</h3><h4 id="1-初步认识"><a href="#1-初步认识" class="headerlink" title="1.初步认识"></a>1.初步认识</h4><p>数据库是电子信息化的集合，是一些相互之间有<strong>关联关系</strong>的表/数据的集合。“表”是按行按列形式组织及展现的数据。关于表的术语：表名、表标题（格式）、表内容（值）、行/元组/记录、列/字段/属性/数据项。有关系型数据库、非关系型数据库。结构化数据库、非结构化数据库。</p>
+<p>数据库系统包括：数据库DB、数据库管理系统DBMS、数据库应用DBAP、数据库应用DBAP、数据库管理员、计算机基本系统。</p>
+<p>数据库管理系统DBMS，是管理数据库的软件。</p>
+<ol>
+<li>从用户的角度看，需要进行数据库<strong>定义</strong>（表的格式）、数据库<strong>操作</strong>（CRUD)、数据库<strong>控制</strong>、数据库<strong>维护</strong>。实现这些，需要数据库语言，如数据定义语言DDL、数据操作语言DML、数据控制语言DCL，通过数据库语言使用DBMS操作数据库。SQL语言还可嵌入到高级语言中，用于开发数据库应用程序DBAP。</li>
+<li>从系统的角度，DBMS是解析数据库语言并执行的系统。例如，在DBMS中，用户输入的DML经查询编译器，通过数据查询执行引擎，来操作数据库。DBMS为管理DB而运行着一系列程序用于：语言编译、<strong>查询优化</strong>与实现、<strong>数据存取与索引</strong>、通信、<strong>事务处理</strong>、各种控制。</li>
+</ol>
+<h4 id="2-标准结构和数据模型"><a href="#2-标准结构和数据模型" class="headerlink" title="2. 标准结构和数据模型"></a>2. 标准结构和数据模型</h4><p>视图View或数据Data，是某一种表现形式下表现出来的数据库中的数据；模式Schema是对数据库中数据所进行的一种<strong>结构性描述</strong>，是所观察到数据的结构信息。</p>
+<p>数据库系统管理数据抽象为三个层次，也就是三个模式：External Level、Conceptual Level、Inernal Level。两层映像是E-C映像（支持数据概念视图向外部视图的转换，便于用户观察和使用）和C-I映像（支持数据概念视图向内部视图的转换，便于计算机存储和处理）。</p>
+<p>两个独立性。逻辑数据独立性，当概念模式变化时，可以不改变外部模式（只需修改E-C MAPPING)，从而无需改变应用程序；物理数据独立性，当内部模式变化时，可不改变概念模式（只需改变C-I mapping)，从而不改变外部模式。</p>
+<p>数据模型，(a) 规定模式统一描述方式的模型，包括：<strong>数据结构</strong>、<strong>操作</strong>和<strong>约束</strong>；(b)  数据模型是对模式本身结构的抽象，模式是对数据本身结构形式的抽象。三大经典数据模型：关系模型、层次模型、网状模型，分别以表、树、图的形式组织数据。</p>
+<p>比如关系模型，所有的模式都可以抽象为表的形式，每一个具体的模式都是拥有不同列名的具体的表。该模型对这种表形式（<strong>数据结构</strong>）具有统一的<strong>操作</strong>和<strong>约束</strong>。以表组织数据为关系模型，不同的表的格式可以不同，即可以有多种模式。</p>
+<p>层次模型中，有实体型（某条记录的结构形式）和系型（连接两个实体型）。网状模型也有实体型和系型。记录和记录间靠指针联系，指针需要用户建立。</p>
+<h3 id="Linux命令学习"><a href="#Linux命令学习" class="headerlink" title="Linux命令学习"></a>Linux命令学习</h3><h4 id="1-读取文件内容"><a href="#1-读取文件内容" class="headerlink" title="1. 读取文件内容"></a>1. 读取文件内容</h4><p><strong>stdin/stdout</strong></p>
+<p>重定向与管道可以改变stdin和stdout的输入来源和输出对象。</p>
+<p>文本文件处理命令，注意：</p>
+<ul>
+<li>不指定文件名时，从stdin（键盘）获得数据</li>
+<li>指定处理对象名时，从文件中获取</li>
+<li>多数命令可指定多个文件（与shell通配符有关）</li>
+<li>处理结果在stdout（屏幕）显示</li>
+</ul>
+<p><strong>读取文件内容命令：</strong></p>
+<ul>
+<li><code>more/less</code>逐屏显示文件。“回车”显示下一行，“空格”显示下一屏，<code>/pattern</code>按正则式查找。less可以向上看。</li>
+<li><code>cat/od</code>。cat文本格式打印文件;od逐字节打印 （字符，8进制，10进制，16进制）</li>
+<li><code>head和tail</code>显示文件的前半部/后半部，默认10行，更多<code>-n</code>，<code>tail -f</code>，实时打印文件尾部被追加内容</li>
+<li><code>tee</code>同时存入文件和显示</li>
+<li><code>wc</code>字计数，列出文件一共有多少行，多少单词，多少字符。<code>-l</code>只列出行数</li>
+<li><code>sort</code>排序，有很多选项。比如**-n**，按数字大小而非字节序排序</li>
+<li><code>tr</code>形如<code>tr string1 string2</code>翻译字符，把stdin拷贝到stdout中，用string1替换 string2。</li>
+<li><code>uniq</code>筛选文件中的重复行（相邻且相同的行）</li>
+</ul>
+<h4 id="2-正则式概念和相关命令"><a href="#2-正则式概念和相关命令" class="headerlink" title="2. 正则式概念和相关命令"></a>2. 正则式概念和相关命令</h4><p>正则表达式是满足规则的表达式，其功能是描述一个字符串模式，进而有字符串匹配操作和替换操作。文件名通配符用于文件处理，而正则表达式用于文本处理。不同软件对正则表达式定义不同。</p>
+<p>有6个特殊字符（元字符）<code>. * [ \ ^ $</code>，除此之外的其他字符与自身匹配。<code>\</code>为转义字符，原点<code>·</code>匹配任意单字符。长的正则表达式由单字符正则表达式构成。可以定义集合，如[abcd]（这也是单字符正则表达式），元字符在集合中也代表自己。定义一个区间<code>[a-d]</code>，或<code>[ad-]</code>。^用在开头表示补集，如<code>[^a-z]</code>匹配任一非小写字母。</p>
+<p>单字符串正则表达式组合在一起。<code>*</code>，匹配此单字符正则表达式任意多次。锚点，<code>^</code>和<code>$</code>在特殊位置时才有意义，比如<code>^printf</code>匹配行首为printf的字符串。</p>
+<p>扩展的正则表达式更为灵活和复杂，一般使用的也是扩展的正则表达式。有ERE：扩展的正则表达式和PCRE: Perl-compatible regular expression。比如<code>(xy)*</code>，匹配任意组xy；可以有逻辑符号，如<code>(hi|hello)</code>匹配hi或hello；<code>+</code>匹配出现一次或多次等。</p>
+<p>查看grep的一些规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> man pcrepattern</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-行筛选器grep，流编辑sed，行筛选awk"><a href="#3-行筛选器grep，流编辑sed，行筛选awk" class="headerlink" title="3. 行筛选器grep，流编辑sed，行筛选awk"></a>3. 行筛选器grep，流编辑sed，行筛选awk</h4><p>在文件中查找字符串，有众多选项。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep 模式 文件名列表</span><br></pre></td></tr></table></figure>
+
+<p><code>-n</code>显示行号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -n <span class="string">&#x27;^int&#x27;</span> bits.c</span></span><br><span class="line">145:int bitXor(int x, int y) &#123;</span><br><span class="line">154:int tmin(void) &#123;</span><br><span class="line">165:int isTmax(int x) &#123;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>流编辑<code>sed</code>，可以通过正则表达式替换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed &#x27;命令&#x27; 文件列表</span><br><span class="line">sed -e &#x27;命令1&#x27; -e &#x27;命令2&#x27; -e &#x27;命令3&#x27; 文件列表</span><br><span class="line">sed -f 命令文件 文件名列表</span><br></pre></td></tr></table></figure>
+
+<p><code>awk</code>逐行扫描一个文件进行文本处理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;程序&#x27; 文件名列表</span><br><span class="line">awk -f 程序文件名 文件名列表</span><br><span class="line"><span class="meta">#</span><span class="bash"> 程序 = 条件 + 动作</span></span><br></pre></td></tr></table></figure>
+
+<p>条件有关系运算符、逻辑运算符、正则式模式匹配等。动作有算术逻辑运算、流程控制（if、for等）和print等。每一行为一个“记录”，每行被该行的空格分为多个域，<code>$1</code>、<code>$2</code>、<code>$3</code>等，<code>$0</code>表示整行，<code>NR</code>是该行行号。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ps -ef | awk <span class="string">&#x27;/pts/ &#123;printf(&quot;%s &quot;, $8);&#125;&#x27;</span></span></span><br><span class="line">bash bash ps awk</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -s | awk <span class="string">&#x27;$1 ~ &quot;[0-9]&quot; &amp;&amp; $1 &gt; 8 &#123;print $2&#125;&#x27;</span></span></span><br><span class="line">bits.c</span><br><span class="line">btest</span><br><span class="line">btest.c</span><br><span class="line">dlc</span><br><span class="line">driver.pl</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-读取文件内容（附）"><a href="#4-读取文件内容（附）" class="headerlink" title="4. 读取文件内容（附）"></a>4. 读取文件内容（附）</h4><p><strong>1.1 stdin/stdout</strong></p>
+<p>重定向与管道可以改变stdin和stdout的输入来源和输出对象。</p>
+<p>文本文件处理命令，注意：</p>
+<ul>
+<li>不指定文件名时，从stdin（键盘）获得数据</li>
+<li>指定处理对象名时，从文件中获取</li>
+<li>多数命令可指定多个文件（与shell通配符有关）</li>
+<li>处理结果在stdout（屏幕）显示</li>
+</ul>
+<p><strong>1.2 more/less</strong></p>
+<p>逐屏显示文件。“回车”显示下一行，“空格”显示下一屏，<code>/pattern</code>按正则式查找。less可以向上看。</p>
+<p><strong>1.3 cat/od</strong></p>
+<p>cat文本格式打印文件</p>
+<p>不使用编辑器创建文件，从stdin输入，crtl-d结束。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat &gt; pengye.sh</span></span><br><span class="line">ls -l</span><br><span class="line">ps -ef</span><br><span class="line"><span class="meta">$</span><span class="bash"> cat pengye.sh</span></span><br><span class="line">ls -l</span><br><span class="line">ps -ef</span><br></pre></td></tr></table></figure>
+
+<p>od逐字节打印 （字符，8进制，10进制，16进制）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcd | od -t x1</span></span><br><span class="line">0000000 61 62 63 64 0a</span><br><span class="line">0000005</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.4 head和tail</strong></p>
+<p>显示文件的前半部/后半部，默认10行，更多<code>-n</code></p>
+<p><code>tail -f</code>，实时打印文件尾部被追加内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -s | sort | head -n 5</span></span><br><span class="line"> 12 bits.c</span><br><span class="line"> 12 driver.pl</span><br><span class="line"> 16 btest.c</span><br><span class="line"> 20 btest</span><br><span class="line">  4 bits.h</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.5 tee</strong></p>
+<p>同时存入文件和显示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcd | tee temp.log</span></span><br><span class="line">abcd</span><br><span class="line"><span class="meta">$</span><span class="bash"> cat temp.log</span></span><br><span class="line">abcd</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.6 wc</strong></p>
+<p>字计数，列出文件一共有多少行，多少单词，多少字符。<code>-l</code>只列出行数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wc -l *.c</span></span><br><span class="line">  317 bits.c</span><br><span class="line">  583 btest.c</span><br><span class="line">   57 decl.c</span><br><span class="line">  151 fshow.c</span><br><span class="line">   75 ishow.c</span><br><span class="line">  118 tests.c</span><br><span class="line"> 1301 总用量</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.7 sort</strong></p>
+<p>排序，有很多选项。比如**-n**，按数字大小而非字节序排序</p>
+<p><strong>1.8 tr</strong></p>
+<p>形如<code>tr string1 string2</code>翻译字符，把stdin拷贝到stdout中，用string1替换 string2。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> abcdefg | tr <span class="string">&#x27;[b-d]&#x27;</span> <span class="string">&#x27;[B-D]&#x27;</span></span></span><br><span class="line">aBCDefg</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.9 uniq</strong></p>
+<p>筛选文件中的重复行（相邻且相同的行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> uniq -u temp <span class="comment">#保留没重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -d temp <span class="comment">#保留有重复的行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uniq -c temp <span class="comment">#计数重复的行出现了几次</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4月第2周"><a href="#4月第2周" class="headerlink" title="4月第2周"></a>4月第2周</h2><h3 id="文件内容对比"><a href="#文件内容对比" class="headerlink" title="文件内容对比"></a>文件内容对比</h3><p>逐字节比较两文件cmp</p>
+<p>md5dum/sha1sum比较hash值是否相同，用于验证完整性</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> md5sum ht3.c &gt; myf.sum</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi myf.sum <span class="comment"># 修改</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> md5sum -c myf.sum</span></span><br><span class="line">ht3.c: FAILED</span><br><span class="line">md5sum: WARNING: 1 computed checksum did NOT match</span><br></pre></td></tr></table></figure>
+
+<p>求出两文件差别diff</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> diff file1 file2 <span class="comment">#</span></span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> diff -u file1 file2 <span class="comment"># unified格式</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><h4 id="总"><a href="#总" class="headerlink" title="总"></a>总</h4><p>关系模型三要素：基本结构（关系/表）、基本操作（关系运算）、完整性约束。一个关系就是一个table，关系模型是处理表的。关系运算包括：关系代数、关系演算（元组演算和域演算）。关系代数是基于集合的运算，元组演算是基于逻辑的运算，域演算是基于示例的运算。</p>
+<h4 id="什么是关系"><a href="#什么是关系" class="headerlink" title="什么是关系"></a>什么是关系</h4><p>域：列的取值范围，时候一组值的取值范围，有相同的数据类型。集合中元素个数为域的基数cardinality。</p>
+<p>笛卡尔积：所有可能组合成的元组的集合。元组(d1, d2, …, dn)是从每一个域任取一个值形成的一种组合，笛卡尔积是所有这种可能组合的集合。笛卡尔积中的每个元素(d1, d2, …, dn)被称为一个n-tuple。</p>
+<p>关系：笛卡尔积中具有某种意义的元组的集合，是笛卡尔积的子集。关系的不同列可能来自同一个域，为了区分每列，取一个名字，属性名。属性值来自某一个域。关系中属性的数目为“度”或“目”，关系中元组的数目为关系的“基数”。关系中属性名一般为属性的类型和长度，如char(8)。</p>
+<p>关系模式和关系。关系模式是关系的结构，关系是关系模式在某一时刻的数据。关系模式稳定，关系是时变的。</p>
+<h4 id="关系的特性"><a href="#关系的特性" class="headerlink" title="关系的特性"></a>关系的特性</h4><p>列示同质的，每一列来自同一域，是同一类型的。</p>
+<p>不同的列可能来自同一域。行位置可以互换，列位置可以互换。区分不同的列、行不靠位置，靠名字、值。</p>
+<p>关系的任意两个元组不能完全相同，而table不一定遵守该规则。</p>
+<p>关系的第一范式：属性不可再分。不能存在复合属性、对应多个值的属性。</p>
+<h4 id="候选码与外码"><a href="#候选码与外码" class="headerlink" title="候选码与外码"></a>候选码与外码</h4><p>候选码Candidate Key：关系中的一个属性组，可以唯一标识一个元组。关系中可能有多个候选码，要选一个作为主键/主码，DBMS以主键为主要线索管理关系中的各个元组，主码比候选码更严格。</p>
+<p>主属性：包含在任何一个候选码中的属性。全码All-Key，所有属性构成这个关系的勾选码。</p>
+<p>外码Foreign Key：关系R中一个属性组，不是R的候选码，但它与另一个关系S的候选码相对应，则称该属性组为R的外码。两个关系通常靠外码连接起来。</p>
+<h4 id="完整性"><a href="#完整性" class="headerlink" title="完整性"></a>完整性</h4><p>实体完整性，关系的主码的属性值不能为空。主码是能唯一区分元组的属性组。空值会影响运算，要特殊处理。可以设默认值。</p>
+<p>参照完整性，对外码而言，(1)为空值；(2)非空，但必须是另一表中的做主码的某个值。这保证了两个关系之间连接的正确性，关系数据的一致性。</p>
+<p>自定义完整性，用户自定义的约束性。如值的取值范围。</p>
+<p>DBMS中，前二者由结构保证，自定义完整性在定以后，DBMS会检查相关操作的正确性。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/24/log-2021-3/" rel="prev" title="日志-2021-3">
+      <i class="fa fa-chevron-left"></i> 日志-2021-3
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E6%9C%88%E7%AC%AC1%E5%91%A8"><span class="nav-number">1.</span> <span class="nav-text">4月第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">数据库系统学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.初步认识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84%E5%92%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 标准结构和数据模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.2.</span> <span class="nav-text">Linux命令学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 读取文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E5%BC%8F%E6%A6%82%E5%BF%B5%E5%92%8C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 正则式概念和相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A1%8C%E7%AD%9B%E9%80%89%E5%99%A8grep%EF%BC%8C%E6%B5%81%E7%BC%96%E8%BE%91sed%EF%BC%8C%E8%A1%8C%E7%AD%9B%E9%80%89awk"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 行筛选器grep，流编辑sed，行筛选awk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%EF%BC%88%E9%99%84%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 读取文件内容（附）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E6%9C%88%E7%AC%AC2%E5%91%A8"><span class="nav-number">2.</span> <span class="nav-text">4月第2周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.</span> <span class="nav-text">文件内容对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">总</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.2.</span> <span class="nav-text">什么是关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.3.</span> <span class="nav-text">关系的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%99%E9%80%89%E7%A0%81%E4%B8%8E%E5%A4%96%E7%A0%81"><span class="nav-number">2.2.4.</span> <span class="nav-text">候选码与外码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">2.2.5.</span> <span class="nav-text">完整性</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

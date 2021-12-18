@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Ubuntu16.04 下 C&#x2F;C++，通过socket编程实现server与client间通信时遇到的问题。 类型转换 在主机字节序与网络字节序中转换  x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。 htonl()和hton">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket编程作业笔记">
+<meta property="og:url" content="http://example.com/2020/10/08/socket-note/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Ubuntu16.04 下 C&#x2F;C++，通过socket编程实现server与client间通信时遇到的问题。 类型转换 在主机字节序与网络字节序中转换  x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。 htonl()和hton">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-08T01:41:22.000Z">
+<meta property="article:modified_time" content="2020-10-15T08:25:53.674Z">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="socket">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/10/08/socket-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>socket编程作业笔记 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/08/socket-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          socket编程作业笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-08 09:41:22" itemprop="dateCreated datePublished" datetime="2020-10-08T09:41:22+08:00">2020-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-15 16:25:53" itemprop="dateModified" datetime="2020-10-15T16:25:53+08:00">2020-10-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Ubuntu16.04 下 C/C++，通过socket编程实现server与client间通信时遇到的问题。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
+<li>在主机字节序与网络字节序中转换</li>
+</ul>
+<p>x86CPU都是小端字节序（little-endian），地址低位存储低位值。而网络字节序与CPU类型和操作系统无关，是大端字节序（big-endian），低位地址存储高位值，从地址小向大（左向右）看符合人的直观感受。</p>
+<p><code>htonl()</code>和<code>htons()</code>等函数将主机字节序转换为网络字节序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">servaddr.sin_port = htons(SERV_PORT);<span class="comment">//自定义端口号</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串类型的IP地址和二进制类型</li>
+</ul>
+<p>通常需要将命令行中输入的点分十进制ip地址转换为二进制类型的地址，或者将二进制类型的地址转换为点分十进制ip地址并输出显示。</p>
+<p>函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">char</span>* src, <span class="keyword">void</span>* dst)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_ntop</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">void</span>* src, <span class="keyword">char</span>* dst, <span class="keyword">socklen_t</span> cnt)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>将命令行输入的地址存入字符串，使用<code>inet_pton()</code>处理。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="bzero-和memset"><a href="#bzero-和memset" class="headerlink" title="bzero()和memset()"></a>bzero()和memset()</h3><p>有时需要执行清0操作。</p>
+<ul>
+<li><code>bzero()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bzero</span><span class="params">(<span class="keyword">void</span> *s, <span class="keyword">int</span> n)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将s所指内存的前n个字节清0</p>
+<p><code>bzero()</code>只有2个参数，它不是ANSI C函数，其起源于早期的Berkeley网络编程代码，但是几乎所有支持套接字API的厂商都提供该函数。</p>
+<ul>
+<li><code>memset()</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *buffer, <span class="keyword">int</span> c, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将buffer所指内存的前count个字节设为c</p>
+<p><code>memset()</code>除清0外还能设其他值，但在第2和3个参数互换位置时，编译器不能发现。它是ANSI C函数，更常规、用途更广。</p>
+<p>如果只想清0，则用<code>bzero()</code>更方便。在设置Internet socket地址前，先将其所有字节清零。因为<code>struct sockaddr_in</code>中有8个填充字节，清0避免异常。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用INADDR-ANY作为ip地址"><a href="#使用INADDR-ANY作为ip地址" class="headerlink" title="使用INADDR_ANY作为ip地址"></a>使用INADDR_ANY作为ip地址</h3><p>在为udp服务器程序设置ip地址时，使用INADDR_ANY做ip。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br></pre></td></tr></table></figure>
+
+<p>winsock中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INADDR_ANY              (ULONG)0x00000000</span></span><br></pre></td></tr></table></figure>
+
+<p>INADDR_ANY即表示0.0.0.0，也就是“任意地址”、“所有地址”，在这里表示本机的所有IP。</p>
+<p>有些主机的网卡数量不止一块，如果某套接字只绑定某一特定的ip，那么它就只能监听此ip地址所对应的网卡端口。如果想同时监听多个物理端口，则需要写3个套接字，较为繁琐。</p>
+<p>而绑定0.0.0.0时，只需要管理1个套接字，此时无论数据从哪一网卡端口进入，都可以收到。因此使用INADDR_ANY作为ip，减少管理开销。</p>
+<h3 id="初步使用线程"><a href="#初步使用线程" class="headerlink" title="初步使用线程"></a>初步使用线程</h3><p>无论是server还是client，收信和发信都要同步进行，因而需要使用至少2个线程。</p>
+<p>以client为例，创建一个收信线程和一个发信线程。截取部分代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="function">std::thread <span class="title">t1</span><span class="params">(std::bind(&amp;ClientSession::readThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t1.<span class="built_in">detach</span>();</span><br><span class="line"><span class="function">std::thread <span class="title">t2</span><span class="params">(std::bind(&amp;ClientSession::writeThread, <span class="keyword">this</span>))</span></span>;</span><br><span class="line">t2.<span class="built_in">join</span>();</span><br></pre></td></tr></table></figure>
+
+<p><code>t2.join();</code>的目的是让当前主线程等待所有的子线程执行完，才执行主线程能后续语句</p>
+<p><code>t1.detach();</code>的目的是让子线程脱离主线程，二者独立运行。</p>
+<p>以上代码在创建线程时调用了类内的函数，因而比较繁琐。一般而言，创建线程只需</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::thread <span class="title">t</span><span class="params">(func)</span></span>;<span class="comment">//func是该线程执行的函数名</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="学画流程图"><a href="#学画流程图" class="headerlink" title="学画流程图"></a>学画流程图</h3><p>撰写实验报告时需要画流程图,用markdown画</p>
+<ul>
+<li>client主进程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait=&gt;condition: 读写子线程是否结束</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">ed2=&gt;end</span><br><span class="line">ed3=&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: 登录、选择联系人、开启读写会话子线程</span><br><span class="line">wait=&gt;condition: 读写子线程是否结束</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">ed2=&gt;end</span><br><span class="line">ed3=&gt;end</span><br><span class="line">st-&gt;init-&gt;login-&gt;wait</span><br><span class="line">wait(yes)-&gt;ed</span><br><span class="line">wait(no)-&gt;wait</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>收数据子线程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 收数据线程开始</span><br><span class="line">t=&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed=&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 收数据线程开始</span><br><span class="line">t=&gt;condition: 是否收到字符串&quot;bye&quot;</span><br><span class="line">ed=&gt;end: 收数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>读数据子线程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 读数据线程开始</span><br><span class="line">t=&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed=&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 读数据线程开始</span><br><span class="line">t=&gt;condition: 是否发送字符串&quot;exit&quot;</span><br><span class="line">ed=&gt;end: 读数据线程结束</span><br><span class="line">st-&gt;t</span><br><span class="line">t(yes)-&gt;ed</span><br><span class="line">t(no)-&gt;t</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>server进程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit=&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">init=&gt;operation: 初始化</span><br><span class="line">login=&gt;operation: （若存在，则）处理用户的登陆、指定</span><br><span class="line">联系人、开启关闭会话和信息传送等请求</span><br><span class="line">exit=&gt;condition: 是否关闭服务器进程</span><br><span class="line">ed=&gt;end: 结束</span><br><span class="line">st-&gt;init-&gt;login-&gt;exit</span><br><span class="line">exit(no)-&gt;login</span><br><span class="line">exit(yes)-&gt;ed</span><br></pre></td></tr></table></figure>
+
+<h3 id="学画时序图"><a href="#学画时序图" class="headerlink" title="学画时序图"></a>学画时序图</h3><p>撰写实验报告时需要画时序图,用markdown画</p>
+<ul>
+<li>实验所用收发数据时序图</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#x27;m PC1.</span><br><span class="line">server-&gt;PC2: I&#x27;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#x27;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#x27;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Title: 收发数据时序图</span><br><span class="line">Note left of PC1: PC1客户端进程</span><br><span class="line">PC1-&gt;server: hi! here is PC1.</span><br><span class="line">server-&gt;PC2: hi! here is PC1.</span><br><span class="line">Note right of PC2: PC2客户端进程</span><br><span class="line">PC1-&gt;server: I&#x27;m PC1.</span><br><span class="line">server-&gt;PC2: I&#x27;m PC1.</span><br><span class="line">PC2--&gt;server: hello, I&#x27;m PC2.</span><br><span class="line">server--&gt;PC1: hello, I&#x27;m PC2.</span><br><span class="line">PC1-&gt;server: exit</span><br><span class="line">note over PC1,server: 会话结束</span><br><span class="line">server-&gt;PC2: exit</span><br><span class="line">PC2--&gt;server: exit</span><br><span class="line">note over server,PC2: 会话结束</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/socket/" rel="tag"># socket</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/30/shared-ptr/" rel="prev" title="智能指针验证性实验">
+      <i class="fa fa-chevron-left"></i> 智能指针验证性实验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/12/StringAndByte1/" rel="next" title="Java中字符串与byte[]的相互转换">
+      Java中字符串与byte[]的相互转换 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzero-%E5%92%8Cmemset"><span class="nav-number">2.</span> <span class="nav-text">bzero()和memset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8INADDR-ANY%E4%BD%9C%E4%B8%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">使用INADDR_ANY作为ip地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">初步使用线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">学画流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E7%94%BB%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-number">6.</span> <span class="nav-text">学画时序图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

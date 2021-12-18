@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="说明本日志主要由三部分组成：  简记，简要记录每天工作 详记，对简记的各项条目做进一步说明，并附上小结或思考 附录，将学习时的部分笔记附在最后  中短期计划，在三条线上并发：  基础知识补习、基本工具的学习（知识&#x2F;工程） 锻炼写代码的能力 就今后研究方向做初步摸索与入门（技术&#x2F;学术）  简记第0周1&#x2F;27 Wed - git 工作区与缓存区的概念，add、commit等指令 版本的更改 远程仓库建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志-2021-2">
+<meta property="og:url" content="http://example.com/2021/01/27/log-2021-2/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="说明本日志主要由三部分组成：  简记，简要记录每天工作 详记，对简记的各项条目做进一步说明，并附上小结或思考 附录，将学习时的部分笔记附在最后  中短期计划，在三条线上并发：  基础知识补习、基本工具的学习（知识&#x2F;工程） 锻炼写代码的能力 就今后研究方向做初步摸索与入门（技术&#x2F;学术）  简记第0周1&#x2F;27 Wed - git 工作区与缓存区的概念，add、commit等指令 版本的更改 远程仓库建">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-27T12:39:45.000Z">
+<meta property="article:modified_time" content="2021-02-07T06:12:55.360Z">
+<meta property="article:tag" content="日记">
+<meta property="article:tag" content="学习记录">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/27/log-2021-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>日志-2021-2 | </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title"></h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/27/log-2021-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          日志-2021-2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-27 20:39:45" itemprop="dateCreated datePublished" datetime="2021-01-27T20:39:45+08:00">2021-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 14:12:55" itemprop="dateModified" datetime="2021-02-07T14:12:55+08:00">2021-02-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>本日志主要由三部分组成：</p>
+<ul>
+<li>简记，简要记录每天工作</li>
+<li>详记，对简记的各项条目做进一步说明，并附上小结或思考</li>
+<li>附录，将学习时的部分笔记附在最后</li>
+</ul>
+<p>中短期计划，在三条线上并发：</p>
+<ul>
+<li>基础知识补习、基本工具的学习（知识/工程）</li>
+<li>锻炼写代码的能力</li>
+<li>就今后研究方向做初步摸索与入门（技术/学术）</li>
+</ul>
+<h1 id="简记"><a href="#简记" class="headerlink" title="简记"></a>简记</h1><h2 id="第0周"><a href="#第0周" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-27-Wed"><a href="#1-27-Wed" class="headerlink" title="1/27 Wed -"></a>1/27 Wed -</h3><ul>
+<li>git<ul>
+<li>工作区与缓存区的概念，add、commit等指令</li>
+<li>版本的更改</li>
+<li>远程仓库建立</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-28-Thu"><a href="#1-28-Thu" class="headerlink" title="1/28 Thu -"></a>1/28 Thu -</h3><ul>
+<li>git<ul>
+<li>分枝相关，创建合并删除等</li>
+<li>多人合作</li>
+<li>tag，ignore等其他辅助功能</li>
+</ul>
+</li>
+<li>概念<ul>
+<li>容器的概念</li>
+<li>重新回顾整理云计算概念</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-29-Fri"><a href="#1-29-Fri" class="headerlink" title="1/29 Fri -"></a>1/29 Fri -</h3><ul>
+<li>概念<ul>
+<li>解决对容器概念的一些疑问</li>
+<li>容器技术能解决的问题</li>
+<li>对Serverless的初步了解、特点</li>
+<li>无服务器计算与传统的区别</li>
+</ul>
+</li>
+<li>OS<ul>
+<li>BIOS的功能</li>
+<li>了解OS的启动过程，POST和MBR</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-30-Sat-–"><a href="#1-30-Sat-–" class="headerlink" title="1/30 Sat –"></a>1/30 Sat –</h3><ul>
+<li>Serverless相关<ul>
+<li>如何提升服务器资源利用率</li>
+<li>无服务器如何体现，规模效应如何体现</li>
+<li>水平扩容缩容</li>
+<li>无状态服务概念</li>
+</ul>
+</li>
+<li>Linux命令<ul>
+<li>查阅系统联机手册、日历计算器等</li>
+<li>root和普通用户</li>
+<li>查看系统用户和当前状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-31-Sun"><a href="#1-31-Sun" class="headerlink" title="1/31 Sun -"></a>1/31 Sun -</h3><ul>
+<li>Serverless<ul>
+<li>为什么要无状态服务，无状态如何体现</li>
+<li>延迟体现在哪些方面</li>
+<li>测试上的问题</li>
+<li>使用腾讯云的SCF体验了最简单的FaaS</li>
+</ul>
+</li>
+<li>OS<ul>
+<li>操作系统启动过程描述</li>
+<li>生成自定义OS</li>
+<li>操作系统用户界面、shell</li>
+</ul>
+</li>
+</ul>
+<h2 id="第1周"><a href="#第1周" class="headerlink" title="第1周"></a>第1周</h2><h3 id="2-1-Mon-–"><a href="#2-1-Mon-–" class="headerlink" title="2/1 Mon –"></a>2/1 Mon –</h3><ul>
+<li>Serverless和其他架构的关系<ul>
+<li>和容器、k8s的关系</li>
+<li>与FaaS的关系</li>
+<li>与微服务的关系</li>
+<li>BaaS的体现</li>
+</ul>
+</li>
+<li>OS课<ul>
+<li>系统调用及其实现步骤</li>
+<li>进程的概念，与程序的区别</li>
+</ul>
+</li>
+<li>Linux课<ul>
+<li>了解系统状态的一些命令</li>
+<li>Linux中的文本文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-Tue"><a href="#2-2-Tue" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p>serverless相关</p>
+<ul>
+<li>函数计算的输入、输出</li>
+<li>事件驱动/触发<ul>
+<li>什么事事件驱动</li>
+<li>相关术语</li>
+<li>cloudevent规范</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Wed"><a href="#2-3-Wed" class="headerlink" title="2/3 Wed -"></a>2/3 Wed -</h3><p>函数计算冷启动</p>
+<ul>
+<li>什么是冷启动</li>
+<li>FaaS中函数冷启动的过程</li>
+<li>各个步骤中可以优化的方法</li>
+</ul>
+<p>Docker文档</p>
+<ul>
+<li>overview</li>
+</ul>
+<h3 id="2-7-Sun-–"><a href="#2-7-Sun-–" class="headerlink" title="2/7 Sun –"></a>2/7 Sun –</h3><p>临近春节，家中事情多，改为周记</p>
+<h1 id="详记"><a href="#详记" class="headerlink" title="详记"></a>详记</h1><h2 id="第0周-1"><a href="#第0周-1" class="headerlink" title="第0周"></a>第0周</h2><h3 id="1-28-Thu-1"><a href="#1-28-Thu-1" class="headerlink" title="1/28 Thu -"></a>1/28 Thu -</h3><p><strong>git</strong></p>
+<p>接着昨天学习完了git的一些常用命令。了解了分枝的使用方法和原理，主要可以用于：在新建的分枝上开发完善后再合并到主分枝。比如用master分枝存放稳定版本的代码，在dev分枝上做修改，具体修改时还可创建其他分枝。同时使用stash和branch可以在不影响其他代码的情况下修改bug。</p>
+<p>多人合作时，git可以跟踪自己和别人对代码的更改。两人同时对一个分枝作业时，若A先push，那么B需要pull，merge并处理冲突，然后才能push。</p>
+<p>使用tag可以对commit进行标记，用<code>.gitignore</code>可以忽略不需要管理的文件。</p>
+<p><strong>概念</strong></p>
+<p>弄懂以前半懂不懂的概念</p>
+<p>对云计算的定义、优势、分类做了回顾和简结。我是把云计算理解为服务，而这种服务可以是不同“程度“的，用户可以按需获得服务。由于云计算提供商可以”大批量“、”统一“安置和管理这些实体云服务器，使云计算具备了某些特征，比如</p>
+<ul>
+<li>没有地理位置的限制，移动性高，可以在各地享用服务</li>
+<li>扩展性高，可以扩容增加计算和存储的能力，实现单机无法实现的功能。</li>
+<li>……</li>
+</ul>
+<p>由此，许多基于以上特征的，依赖云的新技术不断出现。</p>
+<p>理解了容器是用来干什么的，它和VM的关系。容器的出现使应用软件不需要考虑运行环境的问题，能够以较小的开销，快速地开启或关闭应用。</p>
+<p><strong>其他思考</strong></p>
+<p>多人同时对一个对象进行作业，而互补干扰，git使用了分枝。就像是先产生了多个”平行世界“，最后收束于一个世界一样。也许“先展，后收”的思想方法可以用在其他地方。</p>
+<p>使用类似于”指针“的东西对各分枝管理，在前进或后退版本时不需要复制大量的变更信息。</p>
+<p>云计算带来的底层能力的提升，可以带动上层技术的发展。在开发应用时，也可以考虑其本身运行的环境（本地主机还是云服务器上？是容器中还是VM上？）</p>
+<h3 id="1-29-Fri-1"><a href="#1-29-Fri-1" class="headerlink" title="1/29 Fri -"></a>1/29 Fri -</h3><p><strong>OS</strong></p>
+<p>BIOS的功能：</p>
+<ul>
+<li>系统启动配置</li>
+<li>提供设备的I/O服务</li>
+<li>系统加电自检Power On Self-Test</li>
+<li>引导系统启动</li>
+</ul>
+<p>上电后：</p>
+<ol>
+<li>进行POST，初始化各硬件</li>
+<li>从硬盘/光驱/……读入OS，OS接管计算机。</li>
+<li>首先读取的是承载OS的实体的<code>首扇区</code>，存有<code>Main Boot Record</code>。MBR中有OS启动相关的内容。MBR会进行查找活动分区等，将分区引导记录加载到内存</li>
+<li>PBR继续控制后面的引导过程</li>
+</ol>
+<p><strong>概念</strong></p>
+<p>容器考虑了应用开发后部署环境的问题。将应用和它所需的库、依赖等打包成镜像。将镜像放到容器中就可以运行而不需考虑运行环境，十分便捷。这有利于应用的开发、测试、部署和维护。也能很容易地迁移服务。</p>
+<p>使用容器技术后，容器相互隔离，应用互不干扰，服务器上的资源能够得到更充分的利用。容器能快速启动和关闭，还能动态扩容缩容等。适合业务需求随时间变化量大的服务。</p>
+<p>Serverless中，用户甚至不许要打包镜像，只需要提交代码就能运行。应用开发方只用关注业务逻辑，可以忽略底层的基础设施以及其他辅助组件。比如不需要关心负载均衡、服务发现、安全监控、服务部署和维护等各方面的问题？</p>
+<p>明天学习了解Serverless的基本实现原理和一些陌生概念。</p>
+<p><strong>其他想法</strong></p>
+<p>为了更方便地进行软件应用生命周期的各个部分，从VM到容器，云服务的效率在不断提高，软件应用的开发部署也更加方便简单。我感觉容器本身就是解耦和聚合的体现。而Serverless似乎是更进一步，把更多与业务逻辑无关但必要功能直接做在了云服务中，不需要用户关心。</p>
+<h3 id="1-39-Sat-–"><a href="#1-39-Sat-–" class="headerlink" title="1/39 Sat –"></a>1/39 Sat –</h3><p><strong>Serverless相关概念</strong></p>
+<p>Serverless中，只有请求到来时，服务实例才被开启，而非一直运行着。这样做提高了服务器的有效利用率。</p>
+<p>用户提交的代码被服务提供方统一部署、管理、调度，也不用关心服务器选型、维护等问题。大量的工作由提供方统一完成，产生了规模效应。能使以上工作的成本更低、完成效果更好。</p>
+<p>Serverless中的服务实例若想水平扩容，那么需要他是无状态的。无状态指某次请求的处理服务不能使用其他次请求的信息。</p>
+<p><strong>Linux命令</strong></p>
+<p>使用联机手册man可以方便地查阅各种说明书。比如命令、c语言函数库等。</p>
+<p>计算器bc可以设置精度，并且可以支持变量、函数、条件、循环。</p>
+<p>root用户权限很大，使用时需要警惕。用户口令以随机值+生成的hash值方式存储，即使是root也不能查到普通用户的口令。</p>
+<p><strong>其他思考</strong></p>
+<p>可能正是因为Serverless要求的这种伸缩性，不得不考虑实例容器的启动和关闭问题。而启动和关闭的开销很可能使Serverless的性能出现瓶颈，这也许是要研究<code>快速冷启动</code>的原因之一。似乎可以设置一些策略来控制某一服务的众多实例的开启和关闭，从而减少在开关上的开销。</p>
+<h3 id="1-31-Sun-1"><a href="#1-31-Sun-1" class="headerlink" title="1/31 Sun -"></a>1/31 Sun -</h3><p><strong>Serverless</strong></p>
+<p>为了灵活扩容缩容，某个容器可能的开启和关闭一定程度上是不确定的。因此一次请求不能够依赖其他次的请求。</p>
+<p>允许一个实例容器连续响应多次对同一个函数的触发调用，这个容器的冷启动只有一次，冷启动时全局量的初始化只有一次，是可以”共享的“。但是一个请求才发起时，不能确定触发的响应是冷启动的实例还是复用之前已经存在的实例，所以只能不能依赖之前的状态。是无状态的。</p>
+<p>延迟有低耦合的函数相互调用的延迟，以及容器冷启动的延迟（相比传统的容器架构可能会更频繁地冷启动）。</p>
+<p>由于高度分布，所以开发者难以模拟分布式环境进行本地测试。</p>
+<p><strong>OS</strong></p>
+<p>操作系统启动，主要是<strong>初始引导</strong>、<strong>核心初始化</strong>和系统初始化。</p>
+<p>生成操作系统有一定的前提和步骤。先要根据硬件和用户需要配置功能模块和构造参数，再build成OS的映像。是二进制的。</p>
+<p>操作系统提供给了用户控制计算机的机制——用户接口，包括<strong>操作界面</strong>和<strong>系统调用</strong>。操作界面则有图形界面、命令界面和批处理命令/界面。</p>
+<p>shell也是一种OS与用户的交互界面，通过控制台执行用户命令。shell本身不执行命令，仅仅是组织和管理命令。</p>
+<p><strong>其他思考</strong></p>
+<p>Serverless有优有劣，可能更适合于请求流量密度不固定的（伸缩性好）、无状态的服务。是否采用Serverless要结合实际业务情况来决定。</p>
+<h2 id="第1周-1"><a href="#第1周-1" class="headerlink" title="第1周"></a>第1周</h2><h3 id="2-1-Mon-–-1"><a href="#2-1-Mon-–-1" class="headerlink" title="2/1 Mon –"></a>2/1 Mon –</h3><p><strong>Serverless和其他架构的关系</strong></p>
+<p>先前的很多Serverless实现，都是基于k8s的FaaS产品。通过扩展k8s，管理一些列的函数容器应用，以实现FaaS功能。讲业务逻辑和后端逻辑写好后，提交给FaaS平台，FaaS会将代码打包成镜像，在有事件触发时生成容器并响应。</p>
+<p>serverless实现了FaaS和BaaS的功能。FaaS简化了容器部署、管理、扩容等一些列问题;BaaS整合第三方组件进一步辅助应用开发。</p>
+<p>满足一定条件的微服务可以使用Serverless提供的服务运行。</p>
+<p><strong>OS课</strong></p>
+<p>系统调用是用户界面（提供给用户控制计算机的机制）的一种。通过中断进入核心态，对硬件或者进程进行操作。</p>
+<p>进程是程序在某个数据集合上的一次运行活动，是静态的、暂存的。四大特点是：异步性、并发性、独立性、动态性。</p>
+<p><strong>Linux课</strong></p>
+<p>有一些命令可以查看当前系统的状态。比如ps查看进程状态、free查看内存使用情况、vmstat查看系统负载。还有CPU占用时间和内存中的buff/cache区等一些微妙的概念。</p>
+<p>Linux提供了大量文本文件处理命令，把stdin/stdout也管理成文件，并充分利用了重定向和管道。可以将不同命令的输入输出和文件关联起来。</p>
+<p><strong>其他想法</strong></p>
+<p>微服务是从应用开发的架构，Serverless是云服务提供的架构。二者可以相互融合。Serverless本身也使用到了容器，用容器来管理函数，本身来讲也可以看做是容器技术在服务提供方面的新发展。</p>
+<h3 id="2-2-Tue-1"><a href="#2-2-Tue-1" class="headerlink" title="2/2 Tue -"></a>2/2 Tue -</h3><p><strong>serverless相关</strong></p>
+<p>函数的输入要求包含事件数据、元数据和上下文。函数的输出可以由结构化和非结构化两种形式。</p>
+<p>事件驱动编程是一种编程范式。当有触发时，向消息/事件队列中添加一个事件，会有一个循环从队列中取出队列，并执行相应的函数。</p>
+<p>CNCF的CloudEvent规范对事件数据在格式上做了一定的要求。</p>
+<h3 id="2-3-Sun"><a href="#2-3-Sun" class="headerlink" title="2/3 Sun -"></a>2/3 Sun -</h3><p><strong>本周的进度</strong></p>
+<p>结束了实习，返回家中。家里事情多，时间安排难，改为每周总结。</p>
+<p>前段时间大概了解了Serverless的各个概念，将查找资料学习的概念内容附在后面。感觉这种概念的东西看一看过一遍就行了，全写下来有些浪费时间。但木已成舟，希望今后学其他东西的时候效率能高一些吧。</p>
+<p><strong>展望</strong></p>
+<p>周围接触的人都十分优秀，要不就和长辈们吃饭，谁谁孩子在国际知名大学留学读博，或新认识的朋友竟然又是华五的，就是小时候一起玩的那几个，也都北航中山。自己是十分渺小的。</p>
+<p>硕士生还是应该与本科生有一定的区别的，硕士生确实得搞研究，学会搞研究的那一套思维，但做工程的能力必不可少。这二者挺难平衡的，但我相信这个学科和行业，后者是前者的基础，而前者是只能在学校里学到的。默认的道路就是先学校里科研，工作之后再工程，这是能最大化读硕三年的方法；但不会工程只搞科研是行不通的（1.真的不行，2.没这环境）。</p>
+<p>想让二者齐头并进则需要牢固的基础和功底。读硕肯定是要搞科研的，不搞科研就没必要读学硕；但若要一心搞科研不做工程，那我觉得应该直博。二者并发必然要各种基础（特别是对我这种），但周围的环境并不理解我的这种需要。我还有7个月能大补基础，时间不多了。</p>
+<p><strong>弱小和无知不是生存的障碍，傲慢才是。</strong></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>待上传，大概一周补一次</p>
+<ul>
+<li>git</li>
+<li>概念</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>把不懂的概念理一理，用自己的话说一遍</p>
+<h3 id="重新回顾整理云计算概念"><a href="#重新回顾整理云计算概念" class="headerlink" title="重新回顾整理云计算概念"></a>重新回顾整理云计算概念</h3><p>用自己的话重新说一遍</p>
+<ul>
+<li>云计算是什么？<ul>
+<li>通过互联网提供的计算和存储服务。不需要开考虑其背后的实际物理设备的存在。</li>
+</ul>
+</li>
+<li>云计算模型？<ul>
+<li>IaaS 此服务提供的是一套几乎完整的计算机，客户可以自由使用计算机软硬件资源，就像从远程配置和操纵一台主机。（像是一台虚拟机？）</li>
+<li>PaaS 无需关心硬件和系统软件（由服务提供商管理），客户可以直接在此服务上部署和管理应用软件。</li>
+<li>SaaS 此服务直接提供应用软件，客户只需关心如何使用该应用</li>
+</ul>
+</li>
+<li>另一个角度分类<ul>
+<li>公有云<ul>
+<li>将在本地设施中可以运行程序迁移到云中去</li>
+<li>直接在云中建立程序，和云计算设施紧密结合</li>
+</ul>
+</li>
+<li>混合云<ul>
+<li>将云与本地设施连接在一起，共同服务</li>
+<li>私有云 我的理解是，在本地维护云计算设施，为内部用户提供云计算服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>云计算的优势/好处？（相比自己维护一个物理的服务器）<ul>
+<li>使用方便（维护成本低，节约空间，移动性高）</li>
+<li>更易获得高性能（速度快，可靠性高）</li>
+<li>灵活性更高<ul>
+<li>可按需购买不同配置的服务</li>
+<li>部署类型不同的各种应用</li>
+</ul>
+</li>
+<li>可扩展性高（按需扩大或缩减业务规模）</li>
+</ul>
+</li>
+</ul>
+<h3 id="容器概念"><a href="#容器概念" class="headerlink" title="容器概念"></a>容器概念</h3><p>将应用与其运行环境（如依赖等）打包，称为“镜像”。将镜像放到“容器”中就能运行，无需再考虑它所在的环境。</p>
+<p>特点：</p>
+<ul>
+<li>方便移植（不受运行环境的变化影响）</li>
+<li>独立性好（应用间不会相互干扰)</li>
+<li>lightweight（暂时没理解原因，是与虚拟机相比？）</li>
+<li>启动和释放速度更快（与VM相比，具体原因应该和他的实现方法有关）</li>
+<li>效率高</li>
+<li>一台服务器能运行更多应用实例</li>
+<li>运维时开销更少（如更新或升级）</li>
+<li>因为以上的原因，容器适合部署微服务？</li>
+<li>……待补充</li>
+</ul>
+<p>为什么需要使用容器替代VM？</p>
+<blockquote>
+<p>在容器普及之前，使用“虚拟机”划分机器资源。每个虚拟机都会使用虚拟出来的“虚拟硬件”和“虚拟OS”。并且存在一个虚拟层，从实际的机器硬件中为各个划分出来的虚拟机划分他们所需的硬件资源。</p>
+<p>使用容器，不需要虚拟层，也没有虚拟硬件和虚拟OS的开销。只需要使用一个叫容器的程序来驱动各个应用镜像？（消耗更少的CPU和内存）</p>
+<p>可能是因为实现方法特殊，其启动和释放速度比VM快</p>
+</blockquote>
+<p>那么，为什么要将大型设备的资源划分成更小的组成部分？</p>
+<blockquote>
+<p>……待解决</p>
+</blockquote>
+<p>有利于企业的开发、测试、部署、运维？</p>
+<blockquote>
+<p>容器应用在部署上的总开销小，开发和测试周期更短，开发和运营团队间可以更方便地移动应用给对方，合作更高效。敏捷开发？</p>
+<ul>
+<li>有利于企业的开发、测试、部署、运维</li>
+</ul>
+</blockquote>
+<p>如何在不同平台上屏蔽运行环境？</p>
+<blockquote>
+<p>移动性。容器提供标准化的格式，将应用和应用所需的所有组件打包。因此在不同的环境下，应用都可以依靠这些打了包的依赖组件，以相同的方式运行。</p>
+<ul>
+<li>服务迁移，将原有的在本地服务器上的应用装入容器，迁移部署到云端。或者在不同的云间迁移</li>
+</ul>
+</blockquote>
+<p>为什么容器的伸缩性更好？</p>
+<blockquote>
+<p>扩展。容器运行的开销比VM小（轻量），同样的设施上能运行更多的容器，容器的能更快开启和停止。一个容器服务请求多，可以短时间内开启更多的该服务实例，关闭需求少的实例。</p>
+<ul>
+<li>ML，例如在数据分析中，可以灵活增缩所需的资源。</li>
+</ul>
+</blockquote>
+<h3 id="Serverless相关概念"><a href="#Serverless相关概念" class="headerlink" title="Serverless相关概念"></a>Serverless相关概念</h3><p>什么是“无服务器”？</p>
+<blockquote>
+<p>云计算服务提供商，维护后端基础结构，为应用提供各种基础功能。如数据库、消息和省份验证</p>
+<p>应用开发可以更关心业务逻辑，不需要关心任何基础设施/底层实现。</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>无状态（运行在无状态的计算容器中）</li>
+<li>事件驱动（由事件触发/驱动）</li>
+<li>无状态（被第三方托管，业务层面的状态则存储在数据库或其他介质中）</li>
+<li>扩容缩容</li>
+<li>……</li>
+</ul>
+<p><strong>核心技术：</strong></p>
+<ul>
+<li>函数的规范定义</li>
+<li>函数部署流水线</li>
+<li>workflow设置</li>
+<li>0-m-n扩缩容</li>
+<li>快速冷启动</li>
+<li>……</li>
+</ul>
+<p>开发者要做什么？</p>
+<blockquote>
+<p>只需编写代码和选择触发器（比如RPC请求）</p>
+</blockquote>
+<p>什么由Serverless计算提供方完成？而不需要用户</p>
+<blockquote>
+<p>和业务逻辑无关的其他组成部分，以及运行维护。比如负载均衡、安全监控等原来开发者需要设置的内容，以及具体的服务部署、扩容缩容等</p>
+<p>开发者不需要指定服务运行的资源载体。只需要上传代码</p>
+</blockquote>
+<p>服务计费方式有改变：</p>
+<blockquote>
+<p>按服务使用量收费，比如调用次数、运行时长。而不是按照占用服务器的资源</p>
+</blockquote>
+<p>Serverless适合具有哪些特点的应用？CNCF</p>
+<blockquote>
+<ul>
+<li>异步的并发，组件可独立部署和扩展</li>
+<li>应对突发或服务使用量不可预测（主要是为了节约成本，因为 Serverless 应用在不运行时不收费）</li>
+<li>短暂、无状态的应用，对冷启动时间不敏感</li>
+<li>需要快速开发迭代的业务（因为无需提前申请资源，因此可以加快业务上线速度）</li>
+</ul>
+</blockquote>
+<p>Serverless的使用场景？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://gw.alipayobjects.com/os/basement_prod/24ec4498-71d4-4a60-b785-fa530456c65b.pdf">https://gw.alipayobjects.com/os/basement_prod/24ec4498-71d4-4a60-b785-fa530456c65b.pdf</a></p>
+<ul>
+<li>ETL</li>
+<li>ML</li>
+<li>图像处理</li>
+<li>IoT传感器数据分析</li>
+<li>流处理</li>
+</ul>
+</blockquote>
+<h4 id="优点中的几个"><a href="#优点中的几个" class="headerlink" title="优点中的几个"></a>优点中的几个</h4><p>服务器资源利用率高的原因？按服务使用量计费的好处？</p>
+<blockquote>
+<p>购买传统的服务器资源，购买后一直占用此服务器资源。但是这些购买的服务器并不是一直处于满负荷状态，有大量资源被闲置。</p>
+<p>Serverless服务按使用量销售。买家不需要提前购置定量的服务器资源，而按使用量付费。计费粒度更小</p>
+<p>这样的话，Serverless服务只在有需求到来时开启应用响应请求，在没有请求到来时可以关闭应用。这样就能Serverless服务器上总是高负荷地运行着应用，服务器资源利用率高。</p>
+</blockquote>
+<p>Serverless中的“无服务器”体现在？</p>
+<blockquote>
+<p>用户不需要自己维护服务器、关心服务器的运行状态和资源使用情况。更多关注业务逻辑的部分。</p>
+</blockquote>
+<p>规模效应，多个角度</p>
+<blockquote>
+<p>基础设施：的利用率提高，维护运营更加容易，可靠性提升。</p>
+<p>服务使用者：开发更方便、运维更简单、服务购买成本低，获得的服务质量高。产品更新升级方便。</p>
+<p>服务质量：弹性好，扩容缩容方便，服务可靠。</p>
+</blockquote>
+<p>缩短开发和部署时间：</p>
+<blockquote>
+<p>容器主要降低了部署时间，而Serverless不仅部署快，开发速度也快。</p>
+</blockquote>
+<p>扩容缩容的例子：</p>
+<blockquote>
+<p>AWS的<code>Lamba</code>中，Serverless通过<code>事件</code>触发<code>函数</code>。当有事件到来时，启动一个容器处理该事件。如果尚未处理完毕，则会再启动一个容器来处理。</p>
+<p>至于何时关闭，应该有相应的算法，按照请求到来的流量密度，保持一定的容器实例处于开启状态，以减少频繁开启和关闭容器带来的损失。</p>
+<p>这也许和<code>冷启动</code>有关</p>
+</blockquote>
+<h4 id="缺点中的几个"><a href="#缺点中的几个" class="headerlink" title="缺点中的几个"></a>缺点中的几个</h4><p><strong>必须是无状态服务</strong></p>
+<p>无状态服务是什么？</p>
+<blockquote>
+<p>对单次请求，</p>
+<ul>
+<li>服务响应不需要依赖其他的请求，不调用其他函数，不查看其他实例占用的内存中的信息？</li>
+<li>只依靠本次请求的信息、外部其他的信息（如数据库）</li>
+</ul>
+<p>服务器不为某次请求存储信息供其他请求查看。</p>
+<p>前一次请求不影响后一次请求</p>
+</blockquote>
+<p>为什么Serverless要求无状态服务？</p>
+<blockquote>
+<p>我的理解是：为了实现灵活的扩容和缩容，各个容器实例/函数间不能相互依赖，所以要求无状态服务。</p>
+<p>有状态服务也会增加耦合度。</p>
+</blockquote>
+<p>Serverless中的无状态和容器复用</p>
+<blockquote>
+<p>某次请求启动了一个容器，处理完毕后，该容器不一定立即关闭。</p>
+<p>此后，若有另一个对相同函数的请求到来，可能会直接使用之前创建的那个容器。这就使得两次请求共同使用了同一个容器。当然也就可能会共享存储在这个容器中的信息。（这种时候就不是彻底的<code>无状态</code>）</p>
+<p>启动一个函数的容器时（冷启动），初始化的包括：<code>函数本身</code>+<code>函数之外的全局部分</code>。每当有请求触发该函数时，实际上只进入执行函数部分，而<code>函数之外的全局部分</code>实际上只执行了一次，也就是不同次的请求所共有的。</p>
+<p>在不考虑复用时，每次触发函数，都会冷启动一个容器来响应它，这时候函数才是<code>彻底无状态</code>的。</p>
+<p>在存在复用的情况下，用户并不知道本次请求是否会复用之前的容器。所以每次请求不能够依赖其他次请求的信息（状态），因而需要把每次请求都看做是<code>无状态</code>的。</p>
+</blockquote>
+<p><strong>延迟</strong></p>
+<p>需要考虑的延迟</p>
+<blockquote>
+<ul>
+<li>需要考虑函数间相互调用的延迟。Serverless是低耦合的，会有大量的不同类型组件（也可以理解成不同的函数容器？）。而Serverless是高度分布式的，不同组件间的相互调用可能会有较大的延迟。</li>
+<li>容器冷启动有延迟。Serverless会按需生成或关闭函数的容器。响应服务时，需要考虑冷启动的问题，而Serverless中的冷启动不同于普通容器的冷启动，前者可能会更频繁地冷启动。</li>
+</ul>
+</blockquote>
+<p><strong>测试更麻烦</strong></p>
+<blockquote>
+<p>Serverless比传统的IaaS或者PaaS更加具有分布式的特点。应用的部署和运维可以交给服务提供方实现，但是测试不行。而开发方自己在本地构建高分布式的测试环境又十分的困难。</p>
+</blockquote>
+<h3 id="Serverless与一些其他架构的关系"><a href="#Serverless与一些其他架构的关系" class="headerlink" title="Serverless与一些其他架构的关系"></a>Serverless与一些其他架构的关系</h3><p>发展初期,许多serverless是以kubernetes为基础的，k8s是做什么的？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a>, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.</p>
+<p>It groups containers that make up an application into logical units for easy management and discovery. </p>
+<p>k8s是一个容器编排引擎，自动化部署、可伸缩，管理容器化应用。我们可以用k8s创建一组容器，k8s会帮助我们对这些容器进行管理和发现等。</p>
+</blockquote>
+<p>函数计算,或FaaS是什么?它有什么特点</p>
+<blockquote>
+<p>在无状态容器中运行的<strong>事件驱动型</strong>计算执行模型,利用服务来管理服务器端逻辑和状态。</p>
+<p>以函数的形式构建、运行和管理应用包。</p>
+<p>编写业务逻辑后，部署到云服务商管理的容器中（只需提交代码，不需要自己打包？），由云服务器自动管理，按需执行。</p>
+<p>FaaS基础架构通过<strong>事件驱动模型</strong>进行，随时待命，但不需要有后台进程一直运行，很容易进行扩展。</p>
+<p>为了实现这些优势，带来一些限制（比如使用单次调用的时间）。需要做到函数的<strong>快速启动和运行</strong>。</p>
+</blockquote>
+<p>FaaS和Serverless的关系？</p>
+<blockquote>
+<p>可以使用FaaS实现Serverless的一部分，Serverless除了FaaS实现的自定义函数逻辑外，还能包括了通用的服务（各种组件）。</p>
+<p>使用FaaS时，开发者仍需要自己开发服务器端逻辑，只不过是运行在由云服务商管理的容器中。</p>
+<p>Serverless中，也是提交到代码到容器运行，但是可能就不需要编写服务器端逻辑了，可以由Serverless中实现的BaaS的那一部分来实现。（个人理解）</p>
+<p>FaaS商业化产品:</p>
+<ul>
+<li>AWS lambda</li>
+<li>Google Cloud Function</li>
+<li>Microsoft Azure Cloud Functions</li>
+<li>IBM Cloud Functions</li>
+<li>……</li>
+</ul>
+</blockquote>
+<p>微服务与Serverless的关系？</p>
+<blockquote>
+<p>我的理解，微服务是应用软件的体系架构，Serverless是提供云服务的架构。</p>
+<p>传统微服务和传统应用架构，只要可以容器化、合适于动态扩展和状态管理（无状态、寿命短、对冷启动不敏感、请求流量密度随时间变化不均匀，不可预知），就可以使用Serverless。</p>
+</blockquote>
+<p>BaaS在Serverless中有哪些用途？</p>
+<blockquote>
+<p>BaaS提供了和业务逻辑无关的服务。比如认证、监控、访问数据库等。也就是后端的逻辑。</p>
+<p>应用开发者可以通过整合第三方 BaaS 产品的完整组件来进一步简化应用开发。 </p>
+</blockquote>
+<p>配置、维护、扩展服务器等基础架构工作。云提供商负责管理云基础架构和应用扩展。</p>
+<p>讲代码打包到容器。</p>
+<p>部署后，有事件驱动时才运行代码（容器），可以根据需要自动扩容缩容。</p>
+<h3 id="函数计算、事件驱动等"><a href="#函数计算、事件驱动等" class="headerlink" title="函数计算、事件驱动等"></a>函数计算、事件驱动等</h3><p>函数计算的输入包括事件数据和元数据，上下文</p>
+<blockquote>
+<p>不同事件可能有不通的元数据。事件可以包括单个记录（请求/响应模型），也可以是多个记录或微批处理（流模式）。</p>
+<p>事件/记录特定元数据的示例</p>
+<ul>
+<li>HTTP：path、method、header、查询参数</li>
+<li>消息队列：topic、header</li>
+<li>记录流（record stream）：表、键、操作、修改事件、旧字段、新字段</li>
+</ul>
+<hr>
+<p>调用函数时，可能希望访问平台资源或常规属性。</p>
+<p>上下文（context）可以是一组输入属性、环境变量或全局变量。比如：函数名称、版本、ARN、内存限制、请求ID、环境变量、日志、令牌、……</p>
+</blockquote>
+<p>函数会有如何的输出</p>
+<blockquote>
+<p>函数输出可以是结构化的（如http响应对象)或非结构化的（如某些输出字符串）</p>
+<p>通过返回值或其他方式的函数退出知道该函数调用是否成功</p>
+<ul>
+<li>将返回值给调用方（例如，HTTP请求/响应）</li>
+<li>将结果传递到工作流中的下一阶段执行</li>
+<li>输出写入日志</li>
+</ul>
+</blockquote>
+<p>事件驱动是什么？</p>
+<blockquote>
+<p>事件驱动编程事一种编程范式。程序的执行流由外部事件决定。有一个事件循环，外部事件发生时，使用回调机制来触发相应的处理。</p>
+<p>有一个事件队列，当外部触发一个事件时，向队列中增加一个事件。有一个循环不断从队列取出事件，根据事件调用相应函数。事件一般都保存了自己的处理函数指针，每个事件都有独立的处理函数。</p>
+<p>个人理解，事件队列中的事件应该可以交互，所以事件驱动程序的耦合性较高。</p>
+</blockquote>
+<p>事件数据规范CloudEvent</p>
+<blockquote>
+<p>CloudEvent是以通用格式描述事件数据的规范，提供跨服务、平台和系统的互操作性。提升可移植性和开发效率。</p>
+<p>事件的格式有一定的规则要求。必须要支持JSON格式。也有大小的限制</p>
+<p>有一些必要的属性：id: String、source: URI-reference、specversion: String、type: String</p>
+<p>还有一些是可选的，比如：datacontenttype： String、dataschema：URI、subject：String、time：Timestamp</p>
+<p>使用Json序列化CloudEvent的示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;specversion&quot;</span> : <span class="string">&quot;1.0-rc1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span> : <span class="string">&quot;com.github.pull.create&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;source&quot;</span> : <span class="string">&quot;https://github.com/cloudevents/spec/pull&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;subject&quot;</span> : <span class="string">&quot;123&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span> : <span class="string">&quot;A234-1234-1234&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;time&quot;</span> : <span class="string">&quot;2018-04-05T17:31:00Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleextension1&quot;</span> : <span class="string">&quot;value&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;comexampleothervalue&quot;</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">&quot;datacontenttype&quot;</span> : <span class="string">&quot;text/xml&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span> : <span class="string">&quot;&lt;much wow=\&quot;xml\&quot;/&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p>ArchSummit2019深圳-周维跃Serverlee平台冷启动优化（腾讯的FaaS产品SCF)</p>
+<p>函数冷启动</p>
+<blockquote>
+<p>第一次部署函数实例的过程。我的理解是，生成第一个实例时有一些初始化设置和连接可以供后续实例使用。第一次启动的时间较长，而后续的较短。</p>
+</blockquote>
+<p>过程</p>
+<blockquote>
+<ul>
+<li>创建VM/container</li>
+<li>下载函数（未缓存）+部署</li>
+<li>VPC Net Proxy部署弹性网卡</li>
+</ul>
+</blockquote>
+<p>方法</p>
+<blockquote>
+<ul>
+<li>轻量级虚拟机系统</li>
+<li>代码缓存</li>
+<li>VPC网络代理</li>
+<li>自动扩缩容</li>
+<li>用户可以做一些事</li>
+</ul>
+</blockquote>
+<p>轻量级虚拟化系统</p>
+<blockquote>
+<p>调度上轻量化，降低调度复杂度</p>
+<p>​    使用更少的虚拟机配置，宿主机的可用资源离线计算</p>
+<p>网络方面提前预下发</p>
+<p>虚拟化方面，轻量级虚拟机快速启动</p>
+<ul>
+<li>提前创建虚拟机模板，基于虚拟机模板文件启动轻量级虚拟机</li>
+</ul>
+</blockquote>
+<p>代码缓存</p>
+<blockquote>
+<p>将可能使用的代码缓存下来。</p>
+</blockquote>
+<p>网络访问的模型</p>
+<blockquote>
+<p>函数会同时访问</p>
+<ul>
+<li>用户VPC中的资源，比如CVM、CDB</li>
+<li>公网、自建数据中心、有些场景下需要公网ip</li>
+</ul>
+<p>弹性网卡绑定在Pod/node上访问VPC资源</p>
+<blockquote>
+<p>ENI在同一个pod/Node内多容器共享。同pod/node内再次创建函数实例不需要重新绑定ENI（冷启动延时高，ENI消耗完后函数并发提升受限</p>
+</blockquote>
+<p>通过vpc NET proxy转发。</p>
+<blockquote>
+<p>在函数创建时，将ENI绑定到Proxy的转发节点上。</p>
+<p>cold start为ms级，仅消耗一对ENI（主备节点支持高可用，秒级故障切换）</p>
+<p>转发节点的贷款自动扩缩容</p>
+</blockquote>
+</blockquote>
+<p>自动扩缩容</p>
+<blockquote>
+<p>预留buffer，准备实施扩容。分级缩容，有冷却时间。</p>
+<p>预测扩容，比如调用链上的函数。</p>
+<p>灰度切换到另一个版本</p>
+</blockquote>
+<p>用户的角度</p>
+<blockquote>
+<p>代码精简，减小体积。区局变量，资源服用。定时触发保活</p>
+</blockquote>
+<p>他的总结</p>
+<blockquote>
+<p>从函数架构层面优化，支持更大规模的集群管理和大并发实例部署</p>
+<p>优化轻量级虚拟机系统，降低虚拟机创建耗时</p>
+<p>优化VPC网络转发模块，降低弹性网卡部署的耗时和资源消耗</p>
+<p>四是自动扩缩容，避免冷启动</p>
+<p>用户裁剪代码、复用资源、保活策略</p>
+</blockquote>
+<ul>
+<li>pod，一组容器的集合</li>
+<li>CVM，cloud virtual machine。</li>
+<li>VPC，virtual private cloud</li>
+<li>KVM，时linux内核提供的虚拟化架构，将内核直接充当hyperviosr（VM monitor）使用</li>
+<li>QEMU时vm monitor，通过动态二进制转换来模拟CPU，并提供一系列的硬件模型。</li>
+<li>QEMU-KVM,KVM负责cpu虚拟化+内存虚拟化，实现了cpu和内存的虚拟化，但kvm并不能模拟其他设备，还必须有个运行在用户空间的工具才行。KVM的开发者选择了比较成熟的开源虚拟化软件QEMU来作为这个工具，QEMU模拟IO设备（网卡，磁盘等），对其进行了修改，最后形成了QEMU-KVM。</li>
+<li>灰度系统，是用来帮助 API 服务在上线时按照受众从小到大最终至全量的发布，实现功能的灰度上线，用来保证发布的服务的质量的系统。</li>
+</ul>
+<p>程序代码部署在平台上，通过事件驱动的方法触发对函数的调用。</p>
+<p>什么是事件驱动？事件触发</p>
+<blockquote>
+<p>待补充</p>
+</blockquote>
+<p>待解决的概念:</p>
+<ul>
+<li>BaaS</li>
+<li>FaaS</li>
+<li>函数计算</li>
+<li>消息中间件</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/12/StringAndByte1/" rel="prev" title="Java中字符串与byte[]的相互转换">
+      <i class="fa fa-chevron-left"></i> Java中字符串与byte[]的相互转换
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/24/log-2021-3/" rel="next" title="日志-2021-3">
+      日志-2021-3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">简记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8"><span class="nav-number">2.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-27-Wed"><span class="nav-number">2.1.1.</span> <span class="nav-text">1&#x2F;27 Wed -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu"><span class="nav-number">2.1.2.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri"><span class="nav-number">2.1.3.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-30-Sat-%E2%80%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">1&#x2F;30 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun"><span class="nav-number">2.1.5.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8"><span class="nav-number">2.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">2&#x2F;1 Mon –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Tue"><span class="nav-number">2.2.2.</span> <span class="nav-text">2&#x2F;2 Tue -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Wed"><span class="nav-number">2.2.3.</span> <span class="nav-text">2&#x2F;3 Wed -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-Sun-%E2%80%93"><span class="nav-number">2.2.4.</span> <span class="nav-text">2&#x2F;7 Sun –</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">详记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC0%E5%91%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">第0周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-28-Thu-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">1&#x2F;28 Thu -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-29-Fri-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">1&#x2F;29 Fri -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-39-Sat-%E2%80%93"><span class="nav-number">3.1.3.</span> <span class="nav-text">1&#x2F;39 Sat –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-31-Sun-1"><span class="nav-number">3.1.4.</span> <span class="nav-text">1&#x2F;31 Sun -</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E5%91%A8-1"><span class="nav-number">3.2.</span> <span class="nav-text">第1周</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Mon-%E2%80%93-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">2&#x2F;1 Mon –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Tue-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">2&#x2F;2 Tue -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Sun"><span class="nav-number">3.2.3.</span> <span class="nav-text">2&#x2F;3 Sun -</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%9B%9E%E9%A1%BE%E6%95%B4%E7%90%86%E4%BA%91%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.1.</span> <span class="nav-text">重新回顾整理云计算概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.2.</span> <span class="nav-text">容器概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serverless%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.3.</span> <span class="nav-text">Serverless相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">优点中的几个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9%E4%B8%AD%E7%9A%84%E5%87%A0%E4%B8%AA"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">缺点中的几个</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serverless%E4%B8%8E%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E6%9E%B6%E6%9E%84%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.1.4.</span> <span class="nav-text">Serverless与一些其他架构的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AE%A1%E7%AE%97%E3%80%81%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%AD%89"><span class="nav-number">4.1.5.</span> <span class="nav-text">函数计算、事件驱动等</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
