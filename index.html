@@ -149,6 +149,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/20/fl-a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/20/fl-a/" class="post-title-link" itemprop="url">fl-a</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-20 15:15:18 / 修改时间：15:17:49" itemprop="dateCreated datePublished" datetime="2021-12-20T15:15:18+08:00">2021-12-20</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>对形式语言与自动机所学部分知识或方法的简记</p>
+<h3 id="有限自动机和右线性文法"><a href="#有限自动机和右线性文法" class="headerlink" title="有限自动机和右线性文法"></a>有限自动机和右线性文法</h3><p>右线性文法、正则式、有限自动机都是定义语言的方法。文法，从语言生成的角度定义语言；有限自动机，从语言识别的角度定义语言。</p>
+<p>正则表达式表示正则集，正则表达式的值是一个语言。正则集是右线性文法产生的语言。</p>
+<p>右线性文法，生成式形如$A\to wB$或$A\to w$，$B\in N,w\in T^{*}$。</p>
+<p><strong>一些方法简</strong></p>
+<p>泵引理：证明不是正则集；</p>
+<p>NFA$\to$DFA：不断增加状态；</p>
+<p>$\varepsilon$-NFA$\to$NFA：借助$\varepsilon$-closure；</p>
+<p>G$\to$正则式：联立方程；</p>
+<p>正则式$\to$DFA：拼接；</p>
+<p>DFA$\to$正则式：状态消去法；</p>
+<p>G$\to$DFA：</p>
+<blockquote>
+<p>$M=(Q,T,\delta,q_0,F)$，其中</p>
+<p>$$<br>\begin{align}<br>&amp; Q=N\cup{H}\quad H为一个新状态,\<br>&amp; q_0=S,\<br>&amp; F=<br>    \begin{cases}<br>    {H,S} &amp; \text{当} S\to\varepsilon \<br>    {H} &amp; \text{否则}<br>    \end{cases}<br>\end{align}<br>$$</p>
+<p>至于$\delta$，对$A,B\in N,a\in T$</p>
+<p>当$A\to aB\in P$,则有$B\in\delta(A,a)$;</p>
+<p>当$A\to a\in P$,则有$H\in\delta(A,a)$;</p>
+<p>且$\delta(H,a)=\emptyset$。</p>
+</blockquote>
+<p>DFA$\to$G：</p>
+<blockquote>
+<p>有限自动机$M=(Q,T,\delta,q_0,F)$，构造右线性文法$G=(N,T,P,S)$，其中<br>$$<br>\begin{align}<br>&amp;N=Q, \<br>&amp;S=q_0<br>\end{align}<br>$$<br>生成式P：</p>
+<p>当$\delta(A,a)=B$，则有$A\to aB\in P$；</p>
+<p>当$\delta(A,a)=B$，且$B\in F$，则有$A\to a\in P$；</p>
+<p>初始状态$q_0$能产生空句，则有$S\to\varepsilon$。</p>
+</blockquote>
+<h3 id="上下文无关文法转换"><a href="#上下文无关文法转换" class="headerlink" title="上下文无关文法转换"></a>上下文无关文法转换</h3><p><strong>删除无用符号</strong></p>
+<p>有用符号$X\in N \cup T$：出现在$S\xRightarrow[]{*}\alpha X \beta$中</p>
+<ol>
+<li>找能直接或间接推出$T^{*}$串的非终结符，有用符号（产生的）。删掉没用的N</li>
+<li>找从S直接或间接可达的符号（包括N和T），有用符号（可达的）。删没用的N或T</li>
+</ol>
+<p><strong>删除$\varepsilon $生成式</strong></p>
+<p>如果L(G)中不含$\varepsilon$，删掉$A\to\varepsilon$生成式。</p>
+<p>G为无$\varepsilon$文法：最多一个$S\to\varepsilon$且S不在任何P的右部。</p>
+<ol>
+<li>用算法1找到所有能生成$\epsilon$的非终结符</li>
+<li>把$\varepsilon$带到所有P中</li>
+</ol>
+<p>可空变元：$A\to\varepsilon$，或$B\to\alpha$，且$\alpha$中每个符号都可空。</p>
+<p><strong>消除生成单式</strong></p>
+<p>$A\to B$，A和B为非终结符。</p>
+<p>代入</p>
+<p><strong>消除直接左递归</strong></p>
+<p>$A_i\to A_i\alpha_1 | A_i\alpha_2 | … | A_i\alpha_n | \beta_1 | \beta_2 | … | \beta_p |$</p>
+<p>取代为</p>
+<p>$$<br>A_i\to \beta_1 | \beta_2 | \cdots | \beta_p | \beta_1 A^{‘}_i | \beta_2 A^{‘}_i | \cdots | \beta_p A^{‘}_i , \<br>A^{‘}_i \to \alpha_1 | \alpha_2 | \cdots | \alpha_n | \alpha_1  A^{‘}_i | \cdots | \alpha_n  A^{‘}_i<br>$$</p>
+<p><strong>Chomsky范式</strong><br>$$<br>A \to BC, A \to a, A,B,C \in N, a \in T<br>$$<br>$S \to \varepsilon \in P$，则$S$不能在其他生成式右边</p>
+<p><strong>Greibach范式</strong><br>$$<br>A \to \alpha \beta, A \in N, \alpha \in T, \beta \in N^{*}<br>$$<br>不包含$\varepsilon$生成式</p>
+<h3 id="PDA"><a href="#PDA" class="headerlink" title="PDA"></a>PDA</h3><p>生成器：CFG，识别器：PDA</p>
+<p>七元组$M=(Q,T,\Gamma,\delta,q_0,Z_0,F)$</p>
+<p>转换函数$\delta(q,a,Z)={(p,\alpha)},\alpha\in\Gamma^*$</p>
+<p>$\varepsilon$转换：$\delta(q,\varepsilon,Z)={(p,a)}$</p>
+<p>格局，瞬时工作状态，三元组$(q,w,a)$</p>
+<p>状态转换函数用格局表示<br>$$<br>(q,aw,Z\alpha) \vdash(p,w,\gamma\alpha)<br>$$<br>终止状态接受$L(M)={w|(q_0,w,Z_0) \overset{*}{\vdash}(q,\varepsilon,\alpha)$；</p>
+<p>空栈接受$L_\Phi(M)={w|(q_0,w,Z_0)\overset{*}{\vdash}(q,\varepsilon,\varepsilon)}$。</p>
+<p>两种接收方式等价。</p>
+<h3 id="CFG和PDA"><a href="#CFG和PDA" class="headerlink" title="CFG和PDA"></a>CFG和PDA</h3><p>CFG$\to$PDA，模拟了最右推导：</p>
+<ul>
+<li>如果$A\to\beta\in P$，则$\delta(p,\varepsilon,A)$含有$(q,\beta)$。栈顶的生成式符号替换为生成式右边的字符串</li>
+<li>对所有$a \in T$，$\delta(q,a,a)={(q,\varepsilon)}$</li>
+</ul>
+<p>PDA$\to$CFG，弹出栈符号，消耗字符串：</p>
+<ul>
+<li>$N={[q,A,p]|q,p\in Q,A\in\Gamma}\cup{S}$</li>
+<li>对$q\in Q$，有$S\to[q_0,Z_0,q]$</li>
+<li>对$\forall (p,B_1B_2B_3\cdots B_n)\in\delta(q,a,A)$，构造产生式$[q,A,q_m]\to a[p,B_1,q_1][q_1,B_2,q_2]\cdots[q_{m-1},B_m,q_m]$。$q$到$q_m$消耗的输入串，能够派生出来。每个变元$B_i$（非终结符）都来自栈符号。特殊的$[q,A,p]\to a$。消耗产生式产生的字符串。</li>
+<li>消除无用符号</li>
+</ul>
+<h3 id="CFG性质"><a href="#CFG性质" class="headerlink" title="CFG性质"></a>CFG性质</h3><p>泵引理</p>
+<p>封闭性，对并、积、闭包和转置封闭，对交和补不封闭。</p>
+<p>CFG判定问题：空问题、成员问题可判定，等价问题、二义性不可判定。</p>
+<p>编程语言的表达式用CFG，语法分析，解析输入单词流，得到它的语法分析树，后续语义分析。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/log-2021-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -183,7 +329,21 @@
                 <time title="修改时间：2021-04-10 16:27:41" itemprop="dateModified" datetime="2021-04-10T16:27:41+08:00">2021-04-10</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -369,7 +529,21 @@
                 <time title="修改时间：2021-03-29 11:14:41" itemprop="dateModified" datetime="2021-03-29T11:14:41+08:00">2021-03-29</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -550,7 +724,21 @@
                 <time title="修改时间：2021-02-07 14:12:55" itemprop="dateModified" datetime="2021-02-07T14:12:55+08:00">2021-02-07</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1196,7 +1384,21 @@
                 <time title="修改时间：2020-11-13 08:59:08" itemprop="dateModified" datetime="2020-11-13T08:59:08+08:00">2020-11-13</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1325,7 +1527,21 @@
                 <time title="修改时间：2020-10-15 16:25:53" itemprop="dateModified" datetime="2020-10-15T16:25:53+08:00">2020-10-15</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1482,7 +1698,21 @@
                 <time title="修改时间：2020-10-08 09:14:36" itemprop="dateModified" datetime="2020-10-08T09:14:36+08:00">2020-10-08</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1588,7 +1818,21 @@
               <time title="创建时间：2020-09-16 17:04:51 / 修改时间：20:12:12" itemprop="dateCreated datePublished" datetime="2020-09-16T17:04:51+08:00">2020-09-16</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>23</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1653,7 +1897,21 @@
                 <time title="修改时间：2021-12-18 23:47:36" itemprop="dateModified" datetime="2021-12-18T23:47:36+08:00">2021-12-18</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>367</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1758,14 +2016,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1818,6 +2076,18 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder"></span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">39k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
